@@ -18,4 +18,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Dd.Domain\Dd.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

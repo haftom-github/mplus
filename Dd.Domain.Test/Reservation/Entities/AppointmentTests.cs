@@ -276,4 +276,35 @@ public class AppointmentTests {
         Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
+    
+    // Cancel method tests
+    [Fact]
+    public void Cancel_ShouldSetStatusToCancelled_WhenCalled() {
+        var appointment = new Appointment(_patient1, _timeSlot10);
+        appointment.Cancel();
+        Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
+        
+        appointment = new Appointment(_patient1, _timeSlot10);
+        appointment.CheckIn(); // Change status to CheckedIn
+        appointment.Cancel();
+        Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
+        
+        appointment = new Appointment(_patient1, _timeSlot10);
+        appointment.PostponeToSelf(_timeSlot11); // Change status to Postponed
+        appointment.Cancel();
+        Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
+    }
+
+    [Fact]
+    public void Cancel_ShouldThrowInvalidOperationException_WhenAppointmentIsAlreadyHandled() {
+        var appointment = new Appointment(_patient1, _timeSlot10);
+        appointment.CheckIn();
+        appointment.StartExamination();
+        Assert.Throws<InvalidOperationException>(() => appointment.Cancel());
+        Assert.Equal(AppointmentStatus.InProgress, appointment.Status);
+        
+        appointment.EndExamination();
+        Assert.Throws<InvalidOperationException>(() => appointment.Cancel());
+        Assert.Equal(AppointmentStatus.Completed, appointment.Status);
+    }
 }

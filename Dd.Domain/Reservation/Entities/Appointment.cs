@@ -22,7 +22,7 @@ public class Appointment : Entity
     public Guid? InitialPhysicianId { get; private set; }
     public int? InitialSlotNumber { get; private set; }
     
-    public int PostponeCount { get; private set; } = 0;
+    public int PostponeCount { get; private set; }
     
     public DateTime? CheckedInAt { get; private set; }
     public DateTime? ExaminationStartedAt { get; private set; }
@@ -93,5 +93,19 @@ public class Appointment : Entity
         
         Status = AppointmentStatus.Postponed;
         PostponeCount++;
+    }
+
+    public void Cancel() {
+        if (Status is not (AppointmentStatus.Scheduled or AppointmentStatus.Postponed or AppointmentStatus.CheckedIn) )
+            throw new InvalidOperationException("Cannot cancel an appointment that is already handled");
+
+        Status = AppointmentStatus.Cancelled;
+    }
+    
+    public void NoShow() {
+        if (Status is not (AppointmentStatus.Scheduled or AppointmentStatus.Postponed))
+            throw new InvalidOperationException("Cannot mark a patient that has already checked in as no-show");
+        
+        Status = AppointmentStatus.NoShow;
     }
 }

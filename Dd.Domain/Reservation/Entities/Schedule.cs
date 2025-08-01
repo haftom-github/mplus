@@ -1,12 +1,7 @@
 using Dd.Domain.Common.Entities;
+using Dd.Domain.Reservation.Enums;
 
 namespace Dd.Domain.Reservation.Entities;
-
-public enum RecurrenceType
-{
-    Daily,
-    Weekly,
-}
 
 public class Schedule : Entity
 {

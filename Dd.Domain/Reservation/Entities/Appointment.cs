@@ -1,18 +1,7 @@
 using Dd.Domain.Common.Entities;
+using Dd.Domain.Reservation.Enums;
 
 namespace Dd.Domain.Reservation.Entities;
-
-public enum AppointmentStatus
-{
-    Scheduled,
-    CheckedIn,
-    InProgress,
-    Postponed,
-    Rescheduled,
-    Completed,
-    Cancelled,
-    NoShow
-}
 
 public class Appointment : Entity
 {

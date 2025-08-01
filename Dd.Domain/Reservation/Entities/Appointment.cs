@@ -24,15 +24,15 @@ public class Appointment : Entity
     
     public TimeSlot? TimeSlot { get; set; }
     public Guid TimeSlotId { get; set; }
+
+    public string? Reason { get; set; }
     
     public AppointmentType? AppointmentType { get; set; }
     public Guid AppointmentTypeId { get; set; }
     
-    public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
+    public AppointmentStatus Status { get; private set; } = AppointmentStatus.Scheduled;
     
-    public DateTime? CheckedInAt { get; set; }
-    public DateTime? ExaminationStartedAt { get; set; }
-    public DateTime? ExaminationEndedAt { get; set; }
-    
-    public string? Reason { get; set; }
+    public DateTime? CheckedInAt { get; private set; }
+    public DateTime? ExaminationStartedAt { get; private set; }
+    public DateTime? ExaminationEndedAt { get; private set; }
 }

@@ -14,25 +14,30 @@ public class BlockedTimeTests {
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
         const BlockedTimeType blockedTimeType = BlockedTimeType.Vacation;
 
-        // Act
-        var blockedTime = new BlockedTime(blockedTimeType, startTime, endTime);
-
+        var blockedTime = new BlockedTime(blockedTimeType);
+        
         // Assert
+        Assert.Null(blockedTime.StartTime);
+        Assert.Null(blockedTime.EndTime);
         Assert.Null(blockedTime.StartDate);
         Assert.Null(blockedTime.EndDate);
         Assert.False(blockedTime.BlocksAllPhysicians);
+        Assert.Equal(blockedTimeType, blockedTime.BlockedTimeType);
+        Assert.Equal(RecurrenceType.Daily, blockedTime.RecurrenceType);
+        Assert.Empty(blockedTime.RecurrenceDays);
+        Assert.Equal(1, blockedTime.RecurrenceInterval);
+
+        // Act
+        blockedTime = new BlockedTime(blockedTimeType, startTime, endTime);
+
+        // Assert
         Assert.Equal(startTime, blockedTime.StartTime);
         Assert.Equal(endTime, blockedTime.EndTime);
-        Assert.Equal(blockedTimeType, blockedTime.BlockedTimeType);
         
         blockedTime = new BlockedTime(blockedTimeType, startTime, endTime, startDate, endDate);
         
-        Assert.False(blockedTime.BlocksAllPhysicians);
-        Assert.Equal(startTime, blockedTime.StartTime);
-        Assert.Equal(endTime, blockedTime.EndTime);
         Assert.Equal(startDate, blockedTime.StartDate);
         Assert.Equal(endDate, blockedTime.EndDate);
-        Assert.Equal(blockedTimeType, blockedTime.BlockedTimeType);
     }
 
     [Fact]

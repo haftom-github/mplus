@@ -7,8 +7,8 @@ public class BlockedTime : Entity {
     private readonly List<DayOfWeek> _recurrenceDays = [];
     public bool BlocksAllPhysicians { get; private set; }
     
-    public TimeOnly StartTime { get; private set; }
-    public TimeOnly EndTime { get; private set; }
+    public TimeOnly? StartTime { get; private set; }
+    public TimeOnly? EndTime { get; private set; }
 
     public DateOnly? StartDate { get; private set; }
     public DateOnly? EndDate { get; private set; }
@@ -24,13 +24,12 @@ public class BlockedTime : Entity {
 
     public BlockedTime(
         BlockedTimeType blockedTimeType, 
-        TimeOnly startTime, TimeOnly endTime,
+        TimeOnly? startTime = null, TimeOnly? endTime = null,
         DateOnly? startDate = null, 
         DateOnly? endDate = null) {
-        
         if (startTime >= endTime)
             throw new ArgumentException("Start time must be earlier than end time.", nameof(startTime));
-        
+
         if (startDate.HasValue && endDate.HasValue)
             if (startDate > endDate)
                 throw new ArgumentException("Start date cannot be later than end date.", nameof(startDate));

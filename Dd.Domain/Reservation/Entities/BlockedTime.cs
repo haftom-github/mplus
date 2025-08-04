@@ -74,4 +74,36 @@ public class BlockedTime : Entity {
         
         RecurrenceInterval = interval;
     }
+
+    public bool IsBlocked(DateOnly date) {
+        if (StartDate > date || EndDate < date) return false;
+        if (StartTime != null && EndTime != null) return false;
+
+        return RecurrenceType switch {
+            RecurrenceType.Daily => true,
+            RecurrenceType.Weekly when RecurrenceDays.Count == 0 => false,
+            RecurrenceType.Weekly => RecurrenceDays.Contains(date.DayOfWeek),
+            _ => throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.")
+        };
+    }
+    
+    public bool IsBlocked(DateTime time) {
+        if (StartDate > DateOnly.FromDateTime(time) || EndDate < DateOnly.FromDateTime(time))
+            return false;
+
+        switch (RecurrenceType) {
+            case RecurrenceType.Daily: 
+                if (StartTime == null || EndTime == null) return true;
+                return TimeOnly.FromDateTime(time) >= StartTime && TimeOnly.FromDateTime(time) <= EndTime;
+
+            case RecurrenceType.Weekly:
+                if (RecurrenceDays.Count == 0) return false;
+                if (!RecurrenceDays.Contains(time.DayOfWeek)) return false;
+                if (StartTime == null || EndTime == null) return true;
+                return TimeOnly.FromDateTime(time) >= StartTime && TimeOnly.FromDateTime(time) <= EndTime;
+
+            default:
+                throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.");
+        }
+    }
 }

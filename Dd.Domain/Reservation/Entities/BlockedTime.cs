@@ -76,6 +76,15 @@ public class BlockedTime : Entity {
         RecurrenceInterval = interval;
     }
     
+    public void RecurDaily(int interval = 1)
+    {
+        if (interval <= 0)
+            throw new ArgumentOutOfRangeException(nameof(interval), "Recurrence interval must be a positive integer.");
+        
+        RecurrenceType = RecurrenceType.Daily;
+        RecurrenceInterval = interval;
+    }
+    
     public void UpdateRecurrenceInterval(int interval)
     {
         if (interval <= 0)

@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using Dd.Domain.Common.Entities;
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
@@ -209,5 +208,33 @@ public class BlockedTimeTests {
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.UpdateRecurrenceInterval(0));
         Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.UpdateRecurrenceInterval(-1));
+    }
+    
+    // RecurDaily tests
+    [Fact]
+    public void RecurDaily_ShouldSetRecurrenceProperties_WhenCalledWithValidInterval() {
+        // Arrange
+        var startTime = new TimeOnly(9, 0);
+        var endTime = new TimeOnly(17, 0);
+        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, startTime, endTime);
+        
+        // Act
+        blockedTime.RecurDaily(2);
+        
+        // Assert
+        Assert.Equal(RecurrenceType.Daily, blockedTime.RecurrenceType);
+        Assert.Equal(2, blockedTime.RecurrenceInterval);
+    }
+
+    [Fact]
+    public void RecurDaily_ShouldThrowArgumentOutOfRangeException_WhenIntervalIsNotPositive() {
+        // Arrange
+        var startTime = new TimeOnly(9, 0);
+        var endTime = new TimeOnly(17, 0);
+        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, startTime, endTime);
+        
+        // Act & Assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.RecurDaily(0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.RecurDaily(-1));
     }
 }

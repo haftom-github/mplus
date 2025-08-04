@@ -27,14 +27,14 @@ public class AppointmentTests {
         _patient1 = new Patient();
         
         _physician1 = new Physician();
-        _timeSlot10 = new TimeSlot(_physician1, FirstSlotNumber, ThreeTicks);
-        _timeSlot11 = new TimeSlot(_physician1, SecondSlotNumber, ThreeTicks);
-        _timeSlot12 = new TimeSlot(_physician1, ThirdSlotNumber, ThreeTicks);
+        _timeSlot10 = new TimeSlot(_physician1.Id, FirstSlotNumber, ThreeTicks);
+        _timeSlot11 = new TimeSlot(_physician1.Id, SecondSlotNumber, ThreeTicks);
+        _timeSlot12 = new TimeSlot(_physician1.Id, ThirdSlotNumber, ThreeTicks);
         
         _physician2 = new Physician();
-        _timeSlot20 = new TimeSlot(_physician2, FirstSlotNumber, ThreeTicks);
-        _timeSlot21 = new TimeSlot(_physician2, SecondSlotNumber, ThreeTicks);
-        _timeSlot22 = new TimeSlot(_physician2, ThirdSlotNumber, ThreeTicks);
+        _timeSlot20 = new TimeSlot(_physician2.Id, FirstSlotNumber, ThreeTicks);
+        _timeSlot21 = new TimeSlot(_physician2.Id, SecondSlotNumber, ThreeTicks);
+        _timeSlot22 = new TimeSlot(_physician2.Id, ThirdSlotNumber, ThreeTicks);
     }
     
     // Constructor tests

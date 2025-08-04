@@ -42,17 +42,16 @@ public class AppointmentTests {
     public void Constructor_ShouldInitializeProperties_WhenCalledWithValidParameters() {
         
         // Act
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         // Assert
         Assert.NotNull(appointment);
         Assert.Equal(_patient1.Id, appointment.PatientId);
-        Assert.Equal(_patient1, appointment.Patient);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
         Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
         Assert.Equal(AppointmentStatus.Scheduled, appointment.Status);
-        Assert.Equal(_timeSlot10, appointment.TimeSlot);
-        Assert.Null(appointment.InitialTimeSlot);
+        Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
         Assert.Null(appointment.InitialPhysicianId);
         Assert.Null(appointment.InitialSlotNumber);
         Assert.Equal(0, appointment.PostponeCount);
@@ -65,7 +64,7 @@ public class AppointmentTests {
     [Fact]
     public void CheckIn_ShouldSetStatusToCheckedIn_WhenCalled() {
         // Arrange
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
 
         // Act
         appointment.CheckIn();
@@ -77,7 +76,7 @@ public class AppointmentTests {
     [Fact]
     public void CheckIn_ShouldSetCheckedInAt_WhenCalled() {
         // Arrange
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
 
         // Act
         appointment.CheckIn();
@@ -90,7 +89,7 @@ public class AppointmentTests {
     [Fact]
     public void CheckIn_ShouldThrowInvalidOperationException_WhenStatusNotScheduled() {
         // Arrange
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn();
 
         Assert.Throws<InvalidOperationException>(() => appointment.CheckIn());
@@ -100,7 +99,7 @@ public class AppointmentTests {
     [Fact]
     public void StartExamination_ShouldSetStatusToInProgress_WhenCalled() {
         // Arrange
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn(); // Ensure the appointment is checked in
 
         // Act
@@ -113,7 +112,7 @@ public class AppointmentTests {
     [Fact]
     public void StartExamination_ShouldSetExaminationStartedAt_WhenCalled() {
         // Arrange
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn(); // Ensure the appointment is checked in
 
         // Act
@@ -127,7 +126,7 @@ public class AppointmentTests {
     [Fact]
     public void StartExamination_ShouldThrowInvalidOperationException_WhenStatusNotCheckedIn() {
         // Arrange
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
 
         // Act & Assert
         Assert.Throws<InvalidOperationException>(() => appointment.StartExamination());
@@ -137,7 +136,7 @@ public class AppointmentTests {
     // EndExamination method tests
     [Fact]
     public void EndExamination_ShouldSetStatusToCompleted_WhenCalled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn();
         appointment.StartExamination();
 
@@ -147,7 +146,7 @@ public class AppointmentTests {
 
     [Fact]
     public void EndExamination_ShouldSetExaminationEndedAt_WhenCalled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn();
         appointment.StartExamination();
 
@@ -159,7 +158,7 @@ public class AppointmentTests {
 
     [Fact]
     public void EndExamination_ShouldThrowInvalidOperationException_WhenStatusNotInProgress() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         Assert.Throws<InvalidOperationException>(() => appointment.EndExamination());
         Assert.Equal(AppointmentStatus.Scheduled, appointment.Status);
 
@@ -172,19 +171,18 @@ public class AppointmentTests {
 
     [Fact]
     public void PostponeToSelf_ShouldThrowInvalidOperationException_WhenNewTimeSlotIsNotOfTheSamePhysician() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         Assert.Throws<InvalidOperationException>(() => appointment.PostponeToSelf(_timeSlot21));
         Assert.Equal(AppointmentStatus.Scheduled, appointment.Status);
         Assert.Equal(0, appointment.PostponeCount);
-        Assert.Equal(_timeSlot10, appointment.TimeSlot);
         Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
     }
     
     [Fact]
     public void PostponeToSelf_ShouldSetStatusToPostponed_WhenCalled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.PostponeToSelf(_timeSlot11);
         
         Assert.Equal(AppointmentStatus.Postponed, appointment.Status);
@@ -192,7 +190,7 @@ public class AppointmentTests {
 
     [Fact]
     public void PostponeToSelf_ShouldIncrementPostponeCount_WhenCalled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         appointment.PostponeToSelf(_timeSlot11);
         
@@ -201,40 +199,37 @@ public class AppointmentTests {
 
     [Fact]
     public void PostponeToSelf_ShouldSetNewTimeSlot_WhenCalled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         appointment.PostponeToSelf(_timeSlot11);
         
-        Assert.Equal(_timeSlot11, appointment.TimeSlot);
         Assert.Equal(_timeSlot11.SlotNumber, appointment.SlotNumber);
         Assert.Equal(_timeSlot11.PhysicianId, appointment.PhysicianId);
     }
 
     [Fact]
     public void PostponeToSelf_ShouldSetInitialTimeSlot_WhenNotAlreadyPostponed() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         appointment.PostponeToSelf(_timeSlot11);
         
-        Assert.Equal(_timeSlot10, appointment.InitialTimeSlot);
         Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
     
     [Fact]
     public void PostponeToSelf_ShouldNotSetInitialTimeSlot_WhenAlreadyPostponed() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         appointment.PostponeToSelf(_timeSlot11);
         appointment.PostponeToSelf(_timeSlot12);
-        Assert.Equal(_timeSlot10, appointment.InitialTimeSlot);
         Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
 
     [Fact]
     public void PostponeToSelf_ShouldThrowInvalidOperationException_WhenStatusNotScheduledOrCheckedInOrPostponed() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn(); // Change status to CheckedIn
         appointment.StartExamination(); // Change status to InProgress
         
@@ -249,30 +244,27 @@ public class AppointmentTests {
 
     [Fact]
     public void PostponeToSelf_ShouldThrowInvalidOperationException_WhenPostponedToTheSameTimeSlot() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn();
         
         Assert.Throws<InvalidOperationException>(() => appointment.PostponeToSelf(_timeSlot10));
         Assert.Equal(AppointmentStatus.CheckedIn, appointment.Status);
         Assert.Equal(0, appointment.PostponeCount);
-        Assert.Equal(_timeSlot10, appointment.TimeSlot);
         Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
     }
 
     [Fact]
     public void PostponeToSelf_ShouldThrowInvalidOperationException_WhenPostponedToPreviousTimeSlot() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         
         appointment.PostponeToSelf(_timeSlot11);
 
         Assert.Throws<InvalidOperationException>(() => appointment.PostponeToSelf(_timeSlot10));
         Assert.Equal(AppointmentStatus.Postponed, appointment.Status);
         Assert.Equal(1, appointment.PostponeCount);
-        Assert.Equal(_timeSlot11, appointment.TimeSlot);
         Assert.Equal(_timeSlot11.SlotNumber, appointment.SlotNumber);
         Assert.Equal(_timeSlot11.PhysicianId, appointment.PhysicianId);
-        Assert.Equal(_timeSlot10, appointment.InitialTimeSlot);
         Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
@@ -280,16 +272,16 @@ public class AppointmentTests {
     // Cancel method tests
     [Fact]
     public void Cancel_ShouldSetStatusToCancelled_WhenCalled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.Cancel();
         Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
         
-        appointment = new Appointment(_patient1, _timeSlot10);
+        appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn(); // Change status to CheckedIn
         appointment.Cancel();
         Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
         
-        appointment = new Appointment(_patient1, _timeSlot10);
+        appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.PostponeToSelf(_timeSlot11); // Change status to Postponed
         appointment.Cancel();
         Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
@@ -297,7 +289,7 @@ public class AppointmentTests {
 
     [Fact]
     public void Cancel_ShouldThrowInvalidOperationException_WhenAppointmentIsAlreadyHandled() {
-        var appointment = new Appointment(_patient1, _timeSlot10);
+        var appointment = new Appointment(_patient1.Id, _timeSlot10);
         appointment.CheckIn();
         appointment.StartExamination();
         Assert.Throws<InvalidOperationException>(() => appointment.Cancel());

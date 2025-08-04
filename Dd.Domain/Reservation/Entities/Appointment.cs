@@ -5,10 +5,8 @@ namespace Dd.Domain.Reservation.Entities;
 
 public class Appointment : Entity
 {
-    public Patient? Patient { get; private set; }
     public Guid PatientId { get; private set; }
     
-    public TimeSlot? TimeSlot { get; private set; }
     public Guid PhysicianId { get; private set; }
     public int SlotNumber { get; private set; }
 
@@ -18,7 +16,6 @@ public class Appointment : Entity
     public Guid AppointmentTypeId { get; private set; }
     
     public AppointmentStatus Status { get; private set; } = AppointmentStatus.Scheduled;
-    public TimeSlot? InitialTimeSlot { get; private set; }
     public Guid? InitialPhysicianId { get; private set; }
     public int? InitialSlotNumber { get; private set; }
     
@@ -28,13 +25,10 @@ public class Appointment : Entity
     public DateTime? ExaminationStartedAt { get; private set; }
     public DateTime? ExaminationEndedAt { get; private set; }
 
-    public Appointment(Patient patient, TimeSlot timeSlot) {
-        ArgumentNullException.ThrowIfNull(patient, nameof(patient));
+    public Appointment(Guid patientId, TimeSlot timeSlot) {
         ArgumentNullException.ThrowIfNull(timeSlot, nameof(timeSlot));
         
-        this.Patient = patient;
-        this.PatientId = patient.Id;
-        this.TimeSlot = timeSlot;
+        this.PatientId = patientId;
         this.PhysicianId = timeSlot.PhysicianId;
         this.SlotNumber = timeSlot.SlotNumber;
     }
@@ -70,10 +64,10 @@ public class Appointment : Entity
         if (newTimeSlot == null)
             throw new ArgumentNullException(nameof(newTimeSlot), "New time slot cannot be null.");
         
-        if (newTimeSlot.PhysicianId != TimeSlot?.PhysicianId)
+        if (newTimeSlot.PhysicianId != PhysicianId)
             throw new InvalidOperationException("Cannot postpone to a time slot with a different physician.");
         
-        if (newTimeSlot.SlotNumber <= TimeSlot.SlotNumber)
+        if (newTimeSlot.SlotNumber <= SlotNumber)
             throw new InvalidOperationException("Cannot postpone to a time slot that is earlier than or equal to the current time slot.");
         
         if (Status != AppointmentStatus.Scheduled
@@ -82,12 +76,10 @@ public class Appointment : Entity
             throw new InvalidOperationException("Cannot postpone an appointment that is under examination.");
 
         if (Status != AppointmentStatus.Postponed) {
-            InitialTimeSlot = TimeSlot;
-            InitialPhysicianId = TimeSlot.PhysicianId;
-            InitialSlotNumber = TimeSlot.SlotNumber;
+            InitialPhysicianId = PhysicianId;
+            InitialSlotNumber = SlotNumber;
         }
         
-        TimeSlot = newTimeSlot;
         SlotNumber = newTimeSlot.SlotNumber;
         PhysicianId = newTimeSlot.PhysicianId;
         

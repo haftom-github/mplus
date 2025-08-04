@@ -5,7 +5,6 @@ namespace Dd.Domain.Test.Reservation.Entities;
 
 public class TimeSlotTests {
     private readonly Physician _physician = new();
-    private readonly DateOnly _tomorrow = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
     private const int FirstSlot = 0;
     private const int SecondSlot = 1;
     private const int ThreeTicks = 3;
@@ -13,34 +12,43 @@ public class TimeSlotTests {
     // constructor tests
     [Fact]
     public void TimeSlot_Constructor_ShouldInitializeProperties() {
-        var timeSlot = new TimeSlot(_physician, _tomorrow, FirstSlot, ThreeTicks);
+        var timeSlot = new TimeSlot(_physician, FirstSlot, ThreeTicks);
         
         Assert.NotNull(timeSlot);
         Assert.Equal(_physician, timeSlot.Physician);
         Assert.Equal(_physician.Id, timeSlot.PhysicianId);
-        Assert.Equal(_tomorrow, timeSlot.Date);
         Assert.Equal(FirstSlot, timeSlot.SlotNumber);
         Assert.Equal(ThreeTicks, timeSlot.Ticks);
+        Assert.Equal(TimeSpan.Zero, timeSlot.Gap);
     }
 
     [Fact]
     public void TimeSlot_Constructor_ShouldThrowArgumentNullException_WhenPhysicianIsNull() {
-        Assert.Throws<ArgumentNullException>(() => new TimeSlot(null!, _tomorrow, FirstSlot, ThreeTicks));
+        Assert.Throws<ArgumentNullException>(() => new TimeSlot(null!, FirstSlot, ThreeTicks));
     }
 
     [Fact]
     public void TimeSlot_Constructor_ShouldThrowArgumentOutOfRangeException_WhenSlotNumberIsNegative() {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, _tomorrow, FirstSlot, -1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, FirstSlot, -1));
     }
 
     [Fact]
     public void TimeSlot_Constructor_ShouldThrowArgumentOutOfRangeException_WhenTicksIsZeroOrNegative() {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, _tomorrow, FirstSlot, 0));
-        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, _tomorrow, FirstSlot, -1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, FirstSlot, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, FirstSlot, -1));
     }
 
     [Fact]
-    public void TimeSlot_Constructor_ShouldThrowArgumentOutOfRangeException_WhenDateIsInThePast() {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1)), FirstSlot, ThreeTicks));
+    public void TimeSlot_Constructor_ShouldInitializeWithGap_WhenProvided() {
+        var gap = TimeSpan.FromMinutes(15);
+        var timeSlot = new TimeSlot(_physician, FirstSlot, ThreeTicks, gap);
+        
+        Assert.Equal(gap, timeSlot.Gap);
+    }
+
+    [Fact]
+    public void TimeSlot_Constructor_ShouldThrowArgumentOutOfRangeException_WhenGapIsNegative() {
+        var gap = TimeSpan.FromMinutes(-15);
+        Assert.Throws<ArgumentOutOfRangeException>(() => new TimeSlot(_physician, FirstSlot, ThreeTicks, gap));
     }
 }

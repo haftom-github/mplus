@@ -6,8 +6,7 @@ namespace Dd.Domain.Reservation.Entities;
 public class Schedule : Entity
 {
     private readonly List<DayOfWeek> _recurrenceDays = [];
-    public Physician? Physician { get; private set; }
-    public Guid PhysicianId { get; private set; }
+    
     public TimeOnly StartTime { get; private set; }
     public TimeOnly EndTime { get; private set; }
     
@@ -19,8 +18,7 @@ public class Schedule : Entity
     public IReadOnlyList<DayOfWeek>? RecurrenceDays => _recurrenceDays?.AsReadOnly();
     public int RecurrenceInterval { get; private set; } = 1;
 
-    public Schedule(Physician physician, TimeOnly startTime, TimeOnly endTime, DateOnly startDate, DateOnly? endDate = null) {
-        ArgumentNullException.ThrowIfNull(physician, nameof(physician));
+    public Schedule(TimeOnly startTime, TimeOnly endTime, DateOnly startDate, DateOnly? endDate = null) {
         
         if (startTime >= endTime)
             throw new ArgumentException("Start time must be earlier than end time.", nameof(startTime));
@@ -28,8 +26,6 @@ public class Schedule : Entity
         if (startDate < DateOnly.FromDateTime(DateTime.UtcNow))
             throw new ArgumentOutOfRangeException(nameof(startDate), "Start date cannot be in the past.");
         
-        this.Physician = physician;
-        this.PhysicianId = physician.Id;
         this.StartTime = startTime;
         this.EndTime = endTime;
         this.StartDate = startDate;

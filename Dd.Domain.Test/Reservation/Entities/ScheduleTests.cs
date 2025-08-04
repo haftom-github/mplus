@@ -6,8 +6,6 @@ namespace Dd.Domain.Test.Reservation.Entities;
 
 public class ScheduleTests {
 
-    private readonly Physician _physician = new();
-
     // constructor tests
     [Fact]
     public void Constructor_ShouldInitializeProperties_WhenValidParametersAreProvided() {
@@ -17,11 +15,9 @@ public class ScheduleTests {
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         
         // Act
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Assert
-        Assert.Equal(_physician, schedule.Physician);
-        Assert.Equal(_physician.Id, schedule.PhysicianId);
         Assert.Equal(startTime, schedule.StartTime);
         Assert.Equal(endTime, schedule.EndTime);
         Assert.Equal(startDate, schedule.StartDate);
@@ -29,21 +25,10 @@ public class ScheduleTests {
         Assert.Null(schedule.EndDate);
         
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
-        schedule = new Schedule(_physician, startTime, endTime, startDate, endDate);
+        schedule = new Schedule(startTime, endTime, startDate, endDate);
         
         Assert.Equal(endDate, schedule.EndDate);
         
-    }
-
-    [Fact]
-    public void Constructor_ShouldThrowArgumentNullException_WhenPhysicianIsNull() {
-        // Arrange
-        TimeOnly startTime = new(9, 0);
-        TimeOnly endTime = new(17, 0);
-        var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => new Schedule(null!, startTime, endTime, startDate));
     }
 
     [Fact]
@@ -54,7 +39,7 @@ public class ScheduleTests {
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1));
         
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Schedule(_physician, startTime, endTime, startDate));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Schedule(startTime, endTime, startDate));
     }
 
     [Fact]
@@ -65,7 +50,7 @@ public class ScheduleTests {
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => new Schedule(_physician, startTime, endTime, startDate));
+        Assert.Throws<ArgumentException>(() => new Schedule(startTime, endTime, startDate));
     }
 
     // RecurDaily tests
@@ -75,7 +60,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act
         schedule.RecurDaily(2);
@@ -91,7 +76,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => schedule.RecurDaily(0));
@@ -105,7 +90,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act
         schedule.RecurWeekly([DayOfWeek.Monday, DayOfWeek.Wednesday], 2);
@@ -125,7 +110,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act & Assert
         Assert.Throws<ArgumentException>(() => schedule.RecurWeekly(null!));
@@ -138,7 +123,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => schedule.RecurWeekly([DayOfWeek.Monday], 0));
@@ -153,7 +138,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act
         schedule.RecurDaily(1); // Set initial interval
@@ -169,7 +154,7 @@ public class ScheduleTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var schedule = new Schedule(_physician, startTime, endTime, startDate);
+        var schedule = new Schedule(startTime, endTime, startDate);
         
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => schedule.UpdateRecurrenceInterval(0));

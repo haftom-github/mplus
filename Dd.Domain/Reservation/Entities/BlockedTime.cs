@@ -5,14 +5,10 @@ namespace Dd.Domain.Reservation.Entities;
 
 public class BlockedTime : Entity {
     private readonly List<DayOfWeek> _recurrenceDays = [];
-    public Physician? Physician { get; private set; }
-    public Guid? PhysicianId { get; private set; }
-
-    public List<PhysicianGroup> PhysicianGroup { get; private set; } = [];
     public bool BlocksAllPhysicians { get; private set; }
     
-    public TimeOnly StartTime { get; set; }
-    public TimeOnly EndTime { get; set; }
+    public TimeOnly StartTime { get; private set; }
+    public TimeOnly EndTime { get; private set; }
 
     public DateOnly? StartDate { get; private set; }
     public DateOnly? EndDate { get; private set; }
@@ -46,19 +42,6 @@ public class BlockedTime : Entity {
         this.BlockedTimeType = blockedTimeType;
     }
     
-    public void AssignToPhysician(Physician physician) {
-        ArgumentNullException.ThrowIfNull(physician, nameof(physician));
-        this.Physician = physician;
-        this.PhysicianId = physician.Id;
-    }
-
-    public void AssignToPhysicianGroup(PhysicianGroup physicianGroup) {
-        ArgumentNullException.ThrowIfNull(physicianGroup, nameof(physicianGroup));
-        if (this.PhysicianGroup.Contains(physicianGroup))
-            return;
-        
-        this.PhysicianGroup.Add(physicianGroup);
-    }
     public void BlocksAll() {
         this.BlocksAllPhysicians = true;
     }

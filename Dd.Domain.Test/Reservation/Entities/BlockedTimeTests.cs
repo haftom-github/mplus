@@ -1,4 +1,3 @@
-using Dd.Domain.Common.Entities;
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
 
@@ -19,11 +18,8 @@ public class BlockedTimeTests {
         var blockedTime = new BlockedTime(blockedTimeType, startTime, endTime);
 
         // Assert
-        Assert.Null(blockedTime.Physician);
-        Assert.Null(blockedTime.PhysicianId);
         Assert.Null(blockedTime.StartDate);
         Assert.Null(blockedTime.EndDate);
-        Assert.Empty(blockedTime.PhysicianGroup);
         Assert.False(blockedTime.BlocksAllPhysicians);
         Assert.Equal(startTime, blockedTime.StartTime);
         Assert.Equal(endTime, blockedTime.EndTime);
@@ -31,9 +27,6 @@ public class BlockedTimeTests {
         
         blockedTime = new BlockedTime(blockedTimeType, startTime, endTime, startDate, endDate);
         
-        Assert.Null(blockedTime.Physician);
-        Assert.Null(blockedTime.PhysicianId);
-        Assert.Empty(blockedTime.PhysicianGroup);
         Assert.False(blockedTime.BlocksAllPhysicians);
         Assert.Equal(startTime, blockedTime.StartTime);
         Assert.Equal(endTime, blockedTime.EndTime);
@@ -64,67 +57,6 @@ public class BlockedTimeTests {
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => new BlockedTime(blockedTimeType, startTime, endTime, startDate, endDate));
-    }
-    
-    // AssignToPhysician tests
-    [Fact]
-    public void AssignToPhysician_ShouldSetPhysicianAndPhysicianId_WhenValidPhysicianIsProvided() {
-        // Arrange
-        var physician = new Physician();
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, new TimeOnly(9, 0), new TimeOnly(17, 0));
-
-        // Act
-        blockedTime.AssignToPhysician(physician);
-
-        // Assert
-        Assert.Equal(physician, blockedTime.Physician);
-        Assert.Equal(physician.Id, blockedTime.PhysicianId);
-    }
-
-    [Fact]
-    public void AssignToPhysician_ShouldThrowArgumentNullException_WhenPhysicianIsNull() {
-        // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, new TimeOnly(9, 0), new TimeOnly(17, 0));
-
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => blockedTime.AssignToPhysician(null!));
-    }
-    
-    // AssignToPhysicianGroup tests
-    [Fact]
-    public void AssignToPhysicianGroup_ShouldAddPhysicianGroup_WhenValidPhysicianGroupIsProvided() {
-        // Arrange
-        var physicianGroup = new PhysicianGroup();
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, new TimeOnly(9, 0), new TimeOnly(17, 0));
-
-        // Act
-        blockedTime.AssignToPhysicianGroup(physicianGroup);
-
-        // Assert
-        Assert.Contains(physicianGroup, blockedTime.PhysicianGroup);
-    }
-
-    [Fact]
-    public void AssignToPhysicianGroup_ShouldThrowArgumentNullException_WhenPhysicianGroupIsNull() {
-        // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, new TimeOnly(9, 0), new TimeOnly(17, 0));
-
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => blockedTime.AssignToPhysicianGroup(null!));
-    }
-    
-    [Fact]
-    public void AssignToPhysicianGroup_ShouldNotAddDuplicatePhysicianGroup_WhenAlreadyAssigned() {
-        // Arrange
-        var physicianGroup = new PhysicianGroup();
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, new TimeOnly(9, 0), new TimeOnly(17, 0));
-        blockedTime.AssignToPhysicianGroup(physicianGroup);
-
-        // Act
-        blockedTime.AssignToPhysicianGroup(physicianGroup);
-
-        // Assert
-        Assert.Single(blockedTime.PhysicianGroup);
     }
     
     // BlocksAll tests

@@ -28,5 +28,6 @@
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurDaily_ShouldThrowArgumentOutOfRangeException_WhenIntervalIsNotPositive&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurDaily_ShouldSetRecurrenceProperties_WhenCalledWithValidInterval&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.AppointmentTypeTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

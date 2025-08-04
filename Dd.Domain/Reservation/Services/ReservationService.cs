@@ -1,6 +1,5 @@
 namespace Dd.Domain.Reservation.Services;
 
-public class ReservationService
-{
+public class ReservationService {
     
 }

@@ -5,5 +5,11 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.AppointmentTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.TimeSlotTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldInitializeProperties_WhenValidParametersAreProvided&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentNullException_WhenPhysicianIsNull&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentNullException_WhenStartDateIsInThePast&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentException_WhenStartTimeIsNotEarlierThanEndTime&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentException_WhenEndDateIsNullAndScheduleIsNotRecurring&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

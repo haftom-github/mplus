@@ -80,12 +80,23 @@ public class BlockedTime : Entity {
         if (StartDate > date || EndDate < date) return false;
         if (StartTime != TimeOnly.MinValue && EndTime != TimeOnly.MaxValue) return false;
 
-        return RecurrenceType switch {
-            RecurrenceType.Daily => true,
-            RecurrenceType.Weekly when RecurrenceDays.Count == 0 => false,
-            RecurrenceType.Weekly => RecurrenceDays.Contains(date.DayOfWeek),
-            _ => throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.")
-        };
+        switch (RecurrenceType) {
+            case RecurrenceType.Daily:
+                if (StartDate == null || RecurrenceInterval <= 1) return true;
+                var days = date.DayNumber - StartDate?.DayNumber ?? 1;
+                return (days % RecurrenceInterval) == 0;
+
+            case RecurrenceType.Weekly:
+                if (RecurrenceDays.Count == 0) return false;
+                if (!RecurrenceDays.Contains(date.DayOfWeek)) return false;
+                if (StartDate == null || RecurrenceInterval <= 1) return true;
+                var daysSinceStart = date.DayNumber - StartDate?.DayNumber ?? 1;
+                var weeksSinceStart = daysSinceStart / 7;
+                return (weeksSinceStart % RecurrenceInterval) == 0;
+
+            default:
+                throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.");
+        }
     }
     
     public bool IsBlocked(DateOnly date, TimeOnly startTime, TimeOnly endTime) {

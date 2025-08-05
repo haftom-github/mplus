@@ -412,7 +412,62 @@ public class BlockedTimeTests {
         // Assert
         Assert.False(isBlocked);
     }
+    
+    // IsWholeDayBlocked tests with recurrence interval > 1
 
+    [Fact]
+    public void IsWholeDayBlocked_ShouldFallBackToInterval1_WhenStartDateIsNotSet() {
+        // Arrange
+        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave);
+        blockedTime.RecurDaily(2);
+
+        // Act & Assert
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610));
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610.AddDays(1)));
+    }
+    
+    [Fact]
+    public void IsWholeDayBlocked_ShouldFallBackToInterval1_WhenStartDateIsNotSet_WeeklyRecurrence() {
+        // Arrange
+        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave);
+        blockedTime.RecurWeekly([_date610.DayOfWeek], 2);
+
+        // Act & Assert
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610));
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610.AddDays(7)));
+    }
+
+    [Fact]
+    public void IsWholeDayBlocked_WhenDailyRecurrence() {
+        
+        // Arrange
+        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, startDate: _date610);
+        blockedTime.RecurDaily(2);
+
+        // Act & Assert
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610));
+        Assert.False(blockedTime.IsWholeDayBlocked(_date610.AddDays(1)));
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610.AddDays(2)));
+        Assert.False(blockedTime.IsWholeDayBlocked(_date610.AddDays(7)));
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610.AddDays(8)));
+    }
+    
+    [Fact]
+    public void IsWholeDayBlocked_WhenWeeklyRecurrence() {
+        
+        // Arrange
+        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, startDate: _date610);
+        blockedTime.RecurWeekly([_date610.DayOfWeek], 2);
+
+        // Act & Assert
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610));
+        Assert.False(blockedTime.IsWholeDayBlocked(_date610.AddDays(7)));
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610.AddDays(14)));
+        Assert.False(blockedTime.IsWholeDayBlocked(_date610.AddDays(49)));
+        Assert.True(blockedTime.IsWholeDayBlocked(_date610.AddDays(56)));
+    }
+
+    // IsBlocked tests
     [Fact]
     public void IsBlocked_ReturnsFalse_WhenDateIsBeforeStartDate() {
         var dateToCheck = new DateOnly(2024, 6, 9);
@@ -493,6 +548,7 @@ public class BlockedTimeTests {
             blocked.IsBlocked(new DateOnly(2024, 6, 12), startTimeToCheck, endTimeToCheck));
     }
     
+    
     // IsBlocked tests with recurrence interval > 1
 
     [Fact]
@@ -563,4 +619,5 @@ public class BlockedTimeTests {
         Assert.False(blockedTime.IsBlocked(_date610.AddDays(28), startTime, endTime));
         Assert.False(blockedTime.IsBlocked(_date610.AddDays(35), startTime, endTime));
     }
+    
 }

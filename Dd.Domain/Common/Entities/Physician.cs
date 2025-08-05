@@ -10,10 +10,8 @@ public class Physician : Entity {
     
     private readonly List<Schedule> _schedules = [];
     private readonly List<BlockedTime> _blockedTimes = [];
-    private readonly List<TimeSlot> _timeSlots = [];
     public IReadOnlyList<Schedule> Schedules => _schedules.AsReadOnly();
     public IReadOnlyList<BlockedTime> BlockedTimes => _blockedTimes.AsReadOnly();
-    public IReadOnlyList<TimeSlot> TimeSlots => _timeSlots.AsReadOnly();
     
     public void AddSchedule(Schedule schedule) {
         // _schedules.Add(schedule);

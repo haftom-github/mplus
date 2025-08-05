@@ -7,8 +7,8 @@ public class BlockedTime : Entity {
     private readonly List<DayOfWeek> _recurrenceDays = [];
     public bool BlocksAllPhysicians { get; private set; }
     
-    public TimeOnly? StartTime { get; private set; }
-    public TimeOnly? EndTime { get; private set; }
+    public TimeOnly StartTime { get; private set; }
+    public TimeOnly EndTime { get; private set; }
 
     public DateOnly? StartDate { get; private set; }
     public DateOnly? EndDate { get; private set; }
@@ -27,6 +27,7 @@ public class BlockedTime : Entity {
         TimeOnly? startTime = null, TimeOnly? endTime = null,
         DateOnly? startDate = null, 
         DateOnly? endDate = null) {
+        
         if (startTime >= endTime)
             throw new ArgumentException("Start time must be earlier than end time.", nameof(startTime));
 
@@ -34,8 +35,8 @@ public class BlockedTime : Entity {
             if (startDate > endDate)
                 throw new ArgumentException("Start date cannot be later than end date.", nameof(startDate));
         
-        this.StartTime = startTime;
-        this.EndTime = endTime;
+        this.StartTime = startTime ?? TimeOnly.MinValue;
+        this.EndTime = endTime ?? TimeOnly.MaxValue;
         this.StartDate = startDate;
         this.EndDate = endDate;
         this.BlockedTimeType = blockedTimeType;
@@ -52,7 +53,7 @@ public class BlockedTime : Entity {
             throw new ArgumentOutOfRangeException(nameof(interval), "Recurrence interval must be a positive integer.");
         
         _recurrenceDays.Clear();
-        _recurrenceDays.AddRange(daysOfWeek);
+        _recurrenceDays.AddRange(daysOfWeek.Distinct());
         
         RecurrenceType = RecurrenceType.Weekly;
         RecurrenceInterval = interval;
@@ -75,9 +76,9 @@ public class BlockedTime : Entity {
         RecurrenceInterval = interval;
     }
 
-    public bool IsBlocked(DateOnly date) {
+    public bool IsWholeDayBlocked(DateOnly date) {
         if (StartDate > date || EndDate < date) return false;
-        if (StartTime != null && EndTime != null) return false;
+        if (StartTime != TimeOnly.MinValue && EndTime != TimeOnly.MaxValue) return false;
 
         return RecurrenceType switch {
             RecurrenceType.Daily => true,
@@ -87,23 +88,29 @@ public class BlockedTime : Entity {
         };
     }
     
-    public bool IsBlocked(DateTime time) {
-        if (StartDate > DateOnly.FromDateTime(time) || EndDate < DateOnly.FromDateTime(time))
-            return false;
+    public bool IsBlocked(DateOnly date, TimeOnly startTime, TimeOnly endTime) {
+        if (startTime >= endTime)
+            throw new ArgumentException("Start time must be earlier than end time.", nameof(startTime));
+        if (StartDate > date || EndDate < date) return false;
+        if (startTime >= EndTime || endTime <= StartTime) return false;
 
         switch (RecurrenceType) {
-            case RecurrenceType.Daily: 
-                if (StartTime == null || EndTime == null) return true;
-                return TimeOnly.FromDateTime(time) >= StartTime && TimeOnly.FromDateTime(time) <= EndTime;
+            case RecurrenceType.Daily:
+                if (StartDate == null || RecurrenceInterval <= 1) return true;
+                var days = date.DayNumber - StartDate?.DayNumber ?? 1;
+                return (days % RecurrenceInterval) == 0;
 
             case RecurrenceType.Weekly:
                 if (RecurrenceDays.Count == 0) return false;
-                if (!RecurrenceDays.Contains(time.DayOfWeek)) return false;
-                if (StartTime == null || EndTime == null) return true;
-                return TimeOnly.FromDateTime(time) >= StartTime && TimeOnly.FromDateTime(time) <= EndTime;
+                if (!RecurrenceDays.Contains(date.DayOfWeek)) return false;
+                if (StartDate == null || RecurrenceInterval <= 1) return true;
+                var daysSinceStart = date.DayNumber - StartDate?.DayNumber ?? 1;
+                var weeksSinceStart = daysSinceStart / 7;
+                return (weeksSinceStart % RecurrenceInterval) == 0;
 
             default:
                 throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.");
         }
+        
     }
 }

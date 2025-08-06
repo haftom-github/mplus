@@ -6,14 +6,15 @@ public class Sequence {
     public int Interval { get; private set; }
     
     public Sequence(int start, int end, int interval = 1) {
-        if (start >= end)
-            throw new ArgumentException("Start must be less than end.", nameof(start));
+        var effectiveEnd = ((end - start) / interval) * interval;
+        if (start >= effectiveEnd)
+            throw new ArgumentException($"Start must be less than effective end ({effectiveEnd}).", nameof(start));
         
         if (interval <= 0)
             throw new ArgumentOutOfRangeException(nameof(interval), "Interval must be a positive integer.");
         
         Start = start;
-        End = end;
+        End = effectiveEnd;
         Interval = interval;
     }
 }

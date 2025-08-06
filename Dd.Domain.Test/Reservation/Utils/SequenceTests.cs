@@ -9,6 +9,9 @@ public class SequenceTests {
     public void Constructor_ShouldSetEndToBeAValidSequenceMember_WhenEndIsNotAValidMember() {
         var sequence = new Sequence(0, 11, 3);
         Assert.Equal(9, sequence.End);
+        
+        var sequence2 = new Sequence(3, 10, 3);
+        Assert.Equal(9, sequence2.End);
     }
 
     [Fact]

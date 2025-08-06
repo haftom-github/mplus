@@ -6,7 +6,7 @@ public class Sequence {
     public int Interval { get; private set; }
     
     public Sequence(int start, int end, int interval = 1) {
-        var effectiveEnd = ((end - start) / interval) * interval;
+        var effectiveEnd = start + ((end - start) / interval) * interval;
         if (start >= effectiveEnd)
             throw new ArgumentException($"Start must be less than effective end ({effectiveEnd}).", nameof(start));
         

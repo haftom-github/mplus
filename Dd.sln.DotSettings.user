@@ -14,41 +14,13 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b80b12cd_002Da9c5_002D4245_002D9d82_002D96edfbc461de/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsBlocked_ShouldReturnTrue_WhenDateIsWithinBlockedTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Gcd_ReturnsExpectedResult&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e451ae2c_002Dece4_002D4881_002D93e1_002D645fec4c0339/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EndExamination_ShouldSetStatusToCompleted_WhenCalled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.AppointmentTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.TimeSlotTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldInitializeProperties_WhenValidParametersAreProvided&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentNullException_WhenPhysicianIsNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentNullException_WhenStartDateIsInThePast&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentException_WhenStartTimeIsNotEarlierThanEndTime&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests.Constructor_ShouldThrowArgumentException_WhenEndDateIsNullAndScheduleIsNotRecurring&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.ScheduleTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.Constructor_ShouldInitializeProperties_WhenValidParametersAreProvided&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.Constructor_ShouldThrowArgumentExceptionWhenEndTimeComesBeforeStartTime&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.Constructor_ShouldThrowArgumentExceptionWhenEndTimeComesAfterEndTime&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.AssignToPhysician_ShouldSetPhysicianAndPhysicianId_WhenValidPhysicianIsProvided&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.AssignToPhysician_ShouldThrowArgumentNullException_WhenPhysicianIsNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.AssignToPhysicianGroup_ShouldAddPhysicianGroup_WhenValidPhysicianGroupIsProvided&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.AssignToPhysicianGroup_ShouldNotAddDuplicatePhysicianGroup_WhenAlreadyAssigned&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.BlocksAll_ShouldSetBlocksAllPhysiciansToTrue&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.AssignToPhysicianGroup_ShouldThrowArgumentNullException_WhenPhysicianGroupIsNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurWeekly_ShouldSetRecurrenceProperties_WhenCalledWithValidDaysAndInterval&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurWeekly_ShouldThrowArgumentOutOfRangeException_WhenIntervalIsNotPositive&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurWeekly_ShouldThrowArgumentException_WhenDaysOfWeekIsNullOrEmpty&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.UpdateRecurrenceInterval_ShouldUpdateInterval_WhenCalledWithValidInterval&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.UpdateRecurrenceInterval_ShouldThrowArgumentOutOfRangeException_WhenIntervalIsNotPositive&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurDaily_ShouldThrowArgumentOutOfRangeException_WhenIntervalIsNotPositive&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests.RecurDaily_ShouldSetRecurrenceProperties_WhenCalledWithValidInterval&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.AppointmentTypeTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests.Constructor_ShouldSetEndToBeAValidSequenceMember_WhenEndIsNotAValidMember&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests.Constructor_ShouldThrowArgumentException_WhenStartIsGreaterThanEnd&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests.Constructor_ShouldNotAffectAnAlreadyValidEnd_WhenEndIsValidSequenceMember&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalseWhenEffectiveRangesDoNotOverlap&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="C:\Users\haf\Desktop\dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

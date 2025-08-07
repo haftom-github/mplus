@@ -17,17 +17,21 @@ public static class ScheduleMath {
         var (gcd, x1, y1) = ExtendedGcd(b % a, a);
         return (gcd, y1 - (b / a) * x1, x1);
     }
-    
+
     /// <summary>
     /// checks if two sequences meet.
     /// </summary>
-    /// <param name="a0"> first sequence start</param>
-    /// <param name="d1"> first sequence interval</param>
-    /// <param name="b0"> second sequence start</param>
-    /// <param name="d2"> second sequence interval</param>
-    /// <returns> true if the sequences have a possibility of overlapping </returns>
-    public static bool Overlaps(int a0, int d1, int b0, int d2) {
-        return (a0 - b0) % Gcd(d1, d2) == 0;
+    /// <param name="s1">first sequence</param>
+    /// <param name="s2">the second sequence</param>
+    /// <returns>true if the sequences have a possibility of overlapping </returns>
+    public static bool Overlaps(Sequence s1, Sequence s2) {
+        if (s1 is not FiniteSequence && s2 is not FiniteSequence)
+            return (s1.Start - s2.Start) % Gcd(s1.Interval, s2.Interval) == 0;
+        
+        var finiteS1 = s1 as FiniteSequence ?? new FiniteSequence(s1.Start, ((FiniteSequence)s2).End, s1.Interval);
+        var finiteS2 = s2 as FiniteSequence ?? new FiniteSequence(s2.Start, finiteS1.End, s2.Interval);
+        
+        return OverlapsFinite(finiteS1, finiteS2);
     }
     
 
@@ -37,7 +41,7 @@ public static class ScheduleMath {
     /// <param name="s1">first sequence</param>
     /// <param name="s2">second sequence</param>
     /// <returns>true if the sequences overlap in the finite range</returns>
-    public static bool Overlaps(Sequence s1, Sequence s2) {
+    private static bool OverlapsFinite(FiniteSequence s1, FiniteSequence s2) {
         if (s1.End < s2.Start || s2.End < s1.Start)
             return false;
         

@@ -23,13 +23,15 @@ public static class ScheduleMath {
     /// </summary>
     /// <param name="s1">first sequence</param>
     /// <param name="s2">the second sequence</param>
-    /// <returns>true if the sequences have a possibility of overlapping </returns>
+    /// <returns>true if the sequences have a possibility of overlapping</returns>
     public static bool Overlaps(Sequence s1, Sequence s2) {
         if (s1 is not FiniteSequence && s2 is not FiniteSequence)
             return (s1.Start - s2.Start) % Gcd(s1.Interval, s2.Interval) == 0;
-        
+        var end = ((FiniteSequence)s2).End;
         var finiteS1 = s1 as FiniteSequence ?? new FiniteSequence(s1.Start, ((FiniteSequence)s2).End, s1.Interval);
         var finiteS2 = s2 as FiniteSequence ?? new FiniteSequence(s2.Start, finiteS1.End, s2.Interval);
+        if (finiteS1.End < finiteS2.Start || finiteS2.End < finiteS1.Start)
+            return false;
         
         return OverlapsFinite(finiteS1, finiteS2);
     }
@@ -42,9 +44,6 @@ public static class ScheduleMath {
     /// <param name="s2">second sequence</param>
     /// <returns>true if the sequences overlap in the finite range</returns>
     private static bool OverlapsFinite(FiniteSequence s1, FiniteSequence s2) {
-        if (s1.End < s2.Start || s2.End < s1.Start)
-            return false;
-        
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
         
         if ((s2.Start - s1.Start) % gcd != 0) return false; 
@@ -53,16 +52,42 @@ public static class ScheduleMath {
         x0 *= k;
         y0 *= k;
 
-        var s = s2.Start / gcd;
-        var r = s1.Start / gcd;
+        var xStep = -s2.Interval / gcd;
+        var yStep = s1.Interval / gcd;
         
-        var aInterval = (Math.Min(s1.End, s2.End) - s1.Start) / s1.Interval;
-        var bInterval = (s2.Start - Math.Min(s2.End, s1.End)) / s2.Interval;
-        var ta = s > 0 ? (aInterval - x0) / s : (aInterval - x0 + s - 1) / s;
-        var tb = r < 0 ? (y0 - bInterval) / r : (y0 - bInterval + r - 1) / r;
-        if (s * r > 0) 
-            return s > 0 ? tb <= ta : tb >= ta;
+        var minEnd = Math.Min(s1.End, s2.End);
+        
+        var aOccurence = (minEnd - s1.Start) / s1.Interval;
+        var bOccurence = (s2.Start - minEnd) / s2.Interval;
+        var ta = xStep > 0 ? (aOccurence - x0) / xStep : (aOccurence - x0 + xStep - 1) / xStep;
+        var tb = yStep < 0 ? (y0 - bOccurence) / yStep : (y0 - bOccurence + yStep - 1) / yStep;
+        if (xStep * yStep > 0) 
+            return xStep > 0 ? tb <= ta : tb >= ta;
 
         return true;
     }
+
+    // private static int? FirstOverlapFinite(FiniteSequence s1, FiniteSequence s2) {
+    //     var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
+    //     
+    //     if ((s2.Start - s1.Start) % gcd != 0) return null; 
+    //     
+    //     var k = (s2.Start - s1.Start) / gcd;
+    //     x0 *= k;
+    //     y0 *= k;
+    //
+    //     var xStep = -s2.Interval / gcd;
+    //     var yStep = s1.Interval / gcd;
+    //     
+    //     var minEnd = Math.Min(s1.End, s2.End);
+    //     
+    //     var aOccurence = (minEnd - s1.Start) / s1.Interval;
+    //     var bOccurence = (s2.Start - minEnd) / s2.Interval;
+    //     var ta = xStep > 0 ? (aOccurence - x0) / xStep : (aOccurence - x0 + xStep - 1) / xStep;
+    //     var tb = yStep < 0 ? (y0 - bOccurence) / yStep : (y0 - bOccurence + yStep - 1) / yStep;
+    //     if (xStep * yStep > 0) 
+    //         return xStep > 0 ? tb <= ta ? s1.S(x0 + xStep * tb): null : tb >= ta ? s1.S(x0 + xStep * tb) : null;
+    //
+    //     return true;
+    // }
 }

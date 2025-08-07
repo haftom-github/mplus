@@ -21,6 +21,11 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e451ae2c_002Dece4_002D4881_002D93e1_002D645fec4c0339/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EndExamination_ShouldSetStatusToCompleted_WhenCalled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e451ae2c_002Dece4_002D4881_002D93e1_002D645fec4c0339/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EndExamination_ShouldSetStatusToCompleted_WhenCalled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\haf\Desktop\dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e86d50d8_002De241_002D4cee_002D8205_002Db77995d39e3c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Overlaps_FirstSequenceNotFinite_ShouldThrowExceptionWhenTheFiniteEndIsLessThanTheInfiniteStart" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FirstSequenceNotFinite_ShouldThrowExceptionWhenTheFiniteEndIsLessThanTheInfiniteStart&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

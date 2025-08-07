@@ -66,6 +66,25 @@ public class ScheduleMathTests {
         Assert.False(result);
     }
     
-    // [Fact]
-    // public 
+    // tests for non-finite sequences
+    [Theory]
+    [InlineData(15, 3, 20, 1)] 
+    [InlineData(10, 5, 30, 2)] 
+    [InlineData(0, 10, 100, 5)]
+    [InlineData(5, 0, 50, 10)]
+    public void Overlaps_FirstSequenceNotFinite_ShouldFallbackToFiniteSequenceVersionBasedOnSecondOne(int s1Start, int s2Start, int s2End, int step) {
+        var s1 = new Sequence(s1Start, step);
+        var s2 = new FiniteSequence(s2Start, s2End, step);
+        var s1Fallback = new FiniteSequence(s1Start, s2.End, step);
+
+        Assert.Equal(ScheduleMath.Overlaps(s1, s2), ScheduleMath.Overlaps(s1Fallback, s2));
+    }
+    
+    [Fact]
+    public void Overlaps_FirstSequenceNotFinite_ShouldThrowExceptionWhenTheFiniteEndIsLessThanTheInfiniteStart() {
+        var s1 = new Sequence(10, 5);
+        var s2 = new FiniteSequence(5, 15, 3);
+        
+        Assert.Throws<ArgumentException>(() => ScheduleMath.Overlaps(s1, s2));
+    }
 }

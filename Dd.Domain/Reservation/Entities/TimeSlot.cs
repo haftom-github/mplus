@@ -20,8 +20,7 @@ public class TimeSlot
         this.Ticks = ticks;
     }
     
-    public TimeSlot(Guid physicianId, int slotNumber, int ticks, TimeSpan gap) : this(physicianId, slotNumber, ticks)
-    {
+    public TimeSlot(Guid physicianId, int slotNumber, int ticks, TimeSpan gap) : this(physicianId, slotNumber, ticks) {
         if(gap < TimeSpan.Zero)
             throw new ArgumentOutOfRangeException(nameof(gap), "Gap cannot be negative.");
         

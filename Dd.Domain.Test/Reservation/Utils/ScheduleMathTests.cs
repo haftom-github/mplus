@@ -71,6 +71,11 @@ public class ScheduleMathTests {
         s2 = new FiniteSequence(31, 37, 6);
         result = ScheduleMath.Overlaps(s1, s2);
         Assert.False(result);
+        
+        // var s1Inf = new Sequence(30, 5);
+        // var s2Inf = new Sequence(31, 6);
+        // result = ScheduleMath.Overlaps(s1Inf, s2Inf);
+        // Assert.False(result);
     }
     
     // tests for non-finite sequences
@@ -126,27 +131,27 @@ public class ScheduleMathTests {
         var s1 = new FiniteSequence(0, 20, 5);
         var s2 = new FiniteSequence(10, 30, 5);
         
-        var firstOverlap = ScheduleMath.FirstOverlapFinite(s1, s2);
+        var firstOverlap = ScheduleMath.FirstOverlap(s1, s2);
         Assert.Equal(10, firstOverlap);
         
         s1 = new FiniteSequence(0, 20, 5);
         s2 = new FiniteSequence(21, 30, 5);
-        firstOverlap = ScheduleMath.FirstOverlapFinite(s1, s2);
+        firstOverlap = ScheduleMath.FirstOverlap(s1, s2);
         Assert.Null(firstOverlap);
         
         s1 = new FiniteSequence(0, 20, 5);
         s2 = new FiniteSequence(5, 25, 5);
-        firstOverlap = ScheduleMath.FirstOverlapFinite(s1, s2);
+        firstOverlap = ScheduleMath.FirstOverlap(s1, s2);
         Assert.Equal(5, firstOverlap);
         
         s1 = new FiniteSequence(0, 20, 5);
         s2 = new FiniteSequence(0, 20, 5);
-        firstOverlap = ScheduleMath.FirstOverlapFinite(s1, s2);
+        firstOverlap = ScheduleMath.FirstOverlap(s1, s2);
         Assert.Equal(0, firstOverlap);
         
         s1 = new FiniteSequence(0, 25, 5);
         s2 = new FiniteSequence(1, 26, 6);
-        firstOverlap = ScheduleMath.FirstOverlapFinite(s1, s2);
+        firstOverlap = ScheduleMath.FirstOverlap(s1, s2);
         Assert.Equal(25, firstOverlap);
     }
 
@@ -188,5 +193,65 @@ public class ScheduleMathTests {
 
             Assert.Equal(expected, actual);
         }
+    }
+    
+    // Brute force helper to verify correctness
+    private static int? BruteForceFirstOverlap(Sequence s1, Sequence s2, int searchLimit = 100000)
+    {
+        int? earliest = null;
+        for (var i = 0; i < searchLimit; i++)
+        {
+            var val1 = s1.Start + i * s1.Interval;
+            if (val1 < s1.Start || val1 < s2.Start) continue; // ensure "future"
+            for (var j = 0; j < searchLimit; j++)
+            {
+                var val2 = s2.Start + j * s2.Interval;
+                if (val1 != val2) continue;
+                earliest = val1;
+                break;
+            }
+            if (earliest.HasValue) break;
+        }
+        return earliest;
+    }
+
+    [Fact]
+    public void OverlapInFuture_PositiveIntervals()
+    {
+        var s1 = new Sequence(5, 3);  // 5, 8, 11, 14...
+        var s2 = new Sequence(2, 4);  // 2, 6, 10, 14...
+        Assert.Equal(14, ScheduleMath.FirstOverlap(s1, s2));
+    }
+
+    [Fact]
+    public void OverlapAtStart()
+    {
+        var s1 = new Sequence(10, 5);
+        var s2 = new Sequence(10, 7);
+        Assert.Equal(10, ScheduleMath.FirstOverlap(s1, s2));
+    }
+
+    [Fact]
+    public void NoOverlap()
+    {
+        var s1 = new Sequence(0, 4);
+        var s2 = new Sequence(3, 6);
+        Assert.Null(ScheduleMath.FirstOverlap(s1, s2));
+    }
+
+    [Theory]
+    [InlineData(5, 3, 2, 4)]
+    [InlineData(0, 4, 3, 6)]
+    [InlineData(100, 12, 110, 18)]
+    [InlineData(15, 5, 40, 10)]
+    public void MatchesBruteForce(int start1, int int1, int start2, int int2)
+    {
+        var s1 = new Sequence(start1, int1);
+        var s2 = new Sequence(start2, int2);
+
+        var expected = BruteForceFirstOverlap(s1, s2);
+        var actual = ScheduleMath.FirstOverlap(s1, s2);
+
+        Assert.Equal(expected, actual);
     }
 }

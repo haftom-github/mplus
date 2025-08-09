@@ -21,6 +21,13 @@
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.ScheduleMathTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8e215372_002D4c2c_002D433d_002Da6b0_002D02b92364f121/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SequenceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b80b12cd_002Da9c5_002D4245_002D9d82_002D96edfbc461de/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsBlocked_ShouldReturnTrue_WhenDateIsWithinBlockedTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;&#xD;

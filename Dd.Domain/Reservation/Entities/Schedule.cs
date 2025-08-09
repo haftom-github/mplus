@@ -12,7 +12,16 @@ public class Schedule : Entity {
     
     public DateOnly StartDate { get; private set; }
     public DateOnly? EndDate { get; private set; }
-
+    
+    public RecurrenceType RecurrenceType { get; private set; } = RecurrenceType.Daily;
+    
+    // if recurring type is weekly
+    public IReadOnlyList<DayOfWeek> RecurrenceDays => _recurrenceDays.AsReadOnly();
+    public int RecurrenceInterval { get; private set; } = 1;
+    // end of properties
+    
+    
+    // start of rules
     private DateOnly NormalizedStartDate => StartDate.AddDays(DayOfWeek.Sunday - StartDate.DayOfWeek);
     private DateOnly? NormalizedEndDate => EndDate?.AddDays(DayOfWeek.Sunday - EndDate.Value.DayOfWeek);
 
@@ -26,12 +35,7 @@ public class Schedule : Entity {
             .Select(i => EndDate.Value.AddDays(-i).DayOfWeek)
             .Where(d => _recurrenceDays.Contains(d))
             .ToList();
-    public RecurrenceType RecurrenceType { get; private set; } = RecurrenceType.Daily;
     
-    // if recurring type is weekly
-    public IReadOnlyList<DayOfWeek> RecurrenceDays => _recurrenceDays.AsReadOnly();
-    public int RecurrenceInterval { get; private set; } = 1;
-
     public Schedule(TimeOnly startTime, TimeOnly endTime, DateOnly startDate, DateOnly? endDate = null) {
         
         if (startTime >= endTime)

@@ -1,46 +1,46 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ABooleanAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fbfff78ecaa39c818519fc918bb2d4bbdca6ad93d7170f5cf325f67ccd0b97d43_003FBooleanAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AEqualityAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fad8b2779652854276d03ec153d51377686c7193799d1688e119272770d0cf_003FEqualityAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0aa47ba3_002D470f_002D441c_002Da542_002Dafe1d8876fba/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsBlocked_ShouldFallBackToInterval1_WhenStartDateIsNotSet_WeeklyRecurrence" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.CeilDiv&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.FloorDiv&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.FirstOverlap_ShouldReturnFirstOverlapOfTwoFiniteSequences&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0aa47ba3_002D470f_002D441c_002Da542_002Dafe1d8876fba/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsBlocked_ShouldFallBackToInterval1_WhenStartDateIsNotSet_WeeklyRecurrence" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.CeilDiv&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.FloorDiv&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.FirstOverlap_ShouldReturnFirstOverlapOfTwoFiniteSequences&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=151bf9c1_002D5902_002D4962_002D9a9e_002Dfd66dd79f293/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FirstOverlap_ShouldReturnFirstOverlapOfTwoFiniteSequences" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.FirstOverlap_ShouldReturnFirstOverlapOfTwoFiniteSequences&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.OverlapsOfRange&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.CeilDiv&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=151bf9c1_002D5902_002D4962_002D9a9e_002Dfd66dd79f293/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FirstOverlap_ShouldReturnFirstOverlapOfTwoFiniteSequences" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.FirstOverlap_ShouldReturnFirstOverlapOfTwoFiniteSequences&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.OverlapsOfRange&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.CeilDiv&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18e59f69_002D5390_002D4245_002D90dc_002D14e3944af594/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ScheduleMathTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.ScheduleMathTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18e59f69_002D5390_002D4245_002D90dc_002D14e3944af594/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ScheduleMathTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.ScheduleMathTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8e215372_002D4c2c_002D433d_002Da6b0_002D02b92364f121/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SequenceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8e215372_002D4c2c_002D433d_002Da6b0_002D02b92364f121/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SequenceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b80b12cd_002Da9c5_002D4245_002D9d82_002D96edfbc461de/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsBlocked_ShouldReturnTrue_WhenDateIsWithinBlockedTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Gcd_ReturnsExpectedResult&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b80b12cd_002Da9c5_002D4245_002D9d82_002D96edfbc461de/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsBlocked_ShouldReturnTrue_WhenDateIsWithinBlockedTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Entities.BlockedTimeTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Overlaps_FiniteSequences_ShouldReturnFalse_WhenSequencesNeverOverlap_NotConsideringWhereTheSequenceEnds&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests.Gcd_ReturnsExpectedResult&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.ScheduleMathTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Utils.SequenceTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e451ae2c_002Dece4_002D4881_002D93e1_002D645fec4c0339/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EndExamination_ShouldSetStatusToCompleted_WhenCalled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\haf\Desktop\dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e451ae2c_002Dece4_002D4881_002D93e1_002D645fec4c0339/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EndExamination_ShouldSetStatusToCompleted_WhenCalled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="C:\Users\haf\Desktop\dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e86d50d8_002De241_002D4cee_002D8205_002Db77995d39e3c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Overlaps_FirstSequenceNotFinite_ShouldThrowExceptionWhenTheFiniteEndIsLessThanTheInfiniteStart" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\haf\Desktop\Dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e86d50d8_002De241_002D4cee_002D8205_002Db77995d39e3c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Overlaps_FirstSequenceNotFinite_ShouldThrowExceptionWhenTheFiniteEndIsLessThanTheInfiniteStart" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="C:\Users\haf\Desktop\Dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

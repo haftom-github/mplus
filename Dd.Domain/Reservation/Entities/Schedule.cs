@@ -22,9 +22,9 @@ public class Schedule : Entity {
     
     
     // start of rules
-    private DateOnly NormalizedStartDate => StartDate.AddDays(DayOfWeek.Sunday - StartDate.DayOfWeek);
-    private DateOnly? NormalizedEndDate => EndDate?.AddDays(DayOfWeek.Sunday - EndDate.Value.DayOfWeek);
+    private DateOnly NormalizedStartDate => Normalize(StartDate, DayOfWeek.Sunday) ?? StartDate;
 
+    private DateOnly? NormalizedEndDate => Normalize(EndDate, DayOfWeek.Sunday);
     private List<DayOfWeek> FirstWeekDifference =>
         Enumerable.Range(0, StartDate.DayNumber - NormalizedStartDate.DayNumber)
             .Select(i => StartDate.AddDays(i).DayOfWeek)
@@ -127,5 +127,21 @@ public class Schedule : Entity {
             default:
                 throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.");
         }
+    }
+
+    private DateOnly? Normalize(DateOnly? date, DayOfWeek startOfWeek) {
+        if (date == null) return null;
+        var normalized = date.Value.AddDays(0);
+        while (normalized.DayOfWeek != startOfWeek 
+               && !_recurrenceDays.Contains(normalized.DayOfWeek))
+            normalized = date.Value.AddDays(1);
+
+        if (normalized.DayOfWeek == startOfWeek) 
+            return normalized;
+
+        while (normalized.DayOfWeek != startOfWeek)
+            normalized = date.Value.AddDays(-1);
+
+        return normalized;
     }
 }

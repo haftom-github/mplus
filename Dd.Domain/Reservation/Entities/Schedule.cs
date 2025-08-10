@@ -5,7 +5,7 @@ using Dd.Domain.Reservation.Utils;
 namespace Dd.Domain.Reservation.Entities;
 
 public class Schedule : Entity {
-    private readonly List<DayOfWeek> _recurrenceDays = [];
+    private readonly HashSet<DayOfWeek> _recurrenceDays = [];
     
     public TimeOnly StartTime { get; private set; }
     public TimeOnly EndTime { get; private set; }
@@ -16,7 +16,7 @@ public class Schedule : Entity {
     public RecurrenceType RecurrenceType { get; private set; } = RecurrenceType.Daily;
     
     // if recurring type is weekly
-    public IReadOnlyList<DayOfWeek> RecurrenceDays => _recurrenceDays.AsReadOnly();
+    public IReadOnlySet<DayOfWeek> RecurrenceDays => _recurrenceDays;
     public int RecurrenceInterval { get; private set; } = 1;
     // end of properties
     
@@ -25,16 +25,28 @@ public class Schedule : Entity {
     private DateOnly NormalizedStartDate => Normalize(StartDate, DayOfWeek.Sunday) ?? StartDate;
 
     private DateOnly? NormalizedEndDate => Normalize(EndDate, DayOfWeek.Sunday);
-    private List<DayOfWeek> FirstWeekDifference =>
-        Enumerable.Range(0, StartDate.DayNumber - NormalizedStartDate.DayNumber)
-            .Select(i => StartDate.AddDays(i).DayOfWeek)
-            .Where(d => _recurrenceDays.Contains(d))
-            .ToList();
-    private List<DayOfWeek> LastWeekDifference => EndDate == null || NormalizedEndDate == null ? [] :
-        Enumerable.Range(0, EndDate.Value.DayNumber - NormalizedEndDate.Value.DayNumber)
-            .Select(i => EndDate.Value.AddDays(-i).DayOfWeek)
-            .Where(d => _recurrenceDays.Contains(d))
-            .ToList();
+    private ISet<DayOfWeek> FirstWeekDifference() {
+        var firstWeekDifference = new HashSet<DayOfWeek>();
+        var date = NormalizedStartDate.AddDays(0);
+        while (date < StartDate) {
+            if(_recurrenceDays.Contains(date.DayOfWeek))
+                firstWeekDifference.Add(date.DayOfWeek);
+            date = date.AddDays(1);
+        }
+        return firstWeekDifference;
+    }
+
+    private ISet<DayOfWeek> LastWeekDifference() {
+        if (EndDate == null) return new HashSet<DayOfWeek>();
+        HashSet<DayOfWeek> lastWeekDaysOnSchedule = [];
+        var date = NormalizedStartDate.AddDays(0);
+        while (date <= EndDate) {
+            if(_recurrenceDays.Contains(date.DayOfWeek))
+                lastWeekDaysOnSchedule.Add(date.DayOfWeek);
+            date = date.AddDays(1);
+        }
+        return _recurrenceDays.Except(lastWeekDaysOnSchedule).ToHashSet();
+    }
     
     public Schedule(TimeOnly startTime, TimeOnly endTime, DateOnly startDate, DateOnly? endDate = null) {
         
@@ -60,8 +72,9 @@ public class Schedule : Entity {
         if (interval <= 0) 
             throw new ArgumentOutOfRangeException(nameof(interval), "Recurrence interval must be a positive integer.");
 
+        var set = new HashSet<DayOfWeek>(daysOfWeek);
         _recurrenceDays.Clear();
-        _recurrenceDays.AddRange(daysOfWeek);
+        _recurrenceDays.UnionWith(set);
         
         RecurrenceType = RecurrenceType.Weekly;
         RecurrenceInterval = interval;
@@ -118,27 +131,30 @@ public class Schedule : Entity {
                     ? new Sequence(NormalizedStartDate.DayNumber, RecurrenceInterval * 7)
                     : new FiniteSequence(NormalizedStartDate.DayNumber, EndDate.Value.DayNumber, RecurrenceInterval * 7);
                 
-                s2 = other.EndDate == null 
+                s2 = other.EndDate == null || other.NormalizedEndDate == null
                     ? new Sequence(other.NormalizedStartDate.DayNumber, other.RecurrenceInterval * 7)
-                    : new FiniteSequence(other.NormalizedStartDate.DayNumber, other.EndDate.Value.DayNumber, other.RecurrenceInterval * 7);
+                    : new FiniteSequence(other.NormalizedStartDate.DayNumber, other.NormalizedEndDate.Value.DayNumber, other.RecurrenceInterval * 7);
                 
-                return ScheduleMath.Overlaps(s1, s2);
+                var overlaps = ScheduleMath.FirstOverlap(s1, s2);
+                if (overlaps == null) return false;
+                if (overlaps?.count is null or > 2) return true;
+                if (NormalizedStartDate.DayNumber != other.NormalizedStartDate.DayNumber)
+                    return true;
+                if (overlaps?.f != NormalizedStartDate.DayNumber)
+                    return true;
+                if (EndDate != null) {
+                    
+                }
+                
                 
             default:
                 throw new NotImplementedException($"Recurrence type {RecurrenceType} is not implemented.");
         }
     }
 
-    private DateOnly? Normalize(DateOnly? date, DayOfWeek startOfWeek) {
+    private static DateOnly? Normalize(DateOnly? date, DayOfWeek startOfWeek) {
         if (date == null) return null;
         var normalized = date.Value.AddDays(0);
-        while (normalized.DayOfWeek != startOfWeek 
-               && !_recurrenceDays.Contains(normalized.DayOfWeek))
-            normalized = date.Value.AddDays(1);
-
-        if (normalized.DayOfWeek == startOfWeek) 
-            return normalized;
-
         while (normalized.DayOfWeek != startOfWeek)
             normalized = date.Value.AddDays(-1);
 

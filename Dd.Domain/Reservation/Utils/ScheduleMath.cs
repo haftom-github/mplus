@@ -50,7 +50,7 @@ public static class ScheduleMath {
     /// first point of overlap
     /// or <c>null</c> if the sequences do not overlap.
     /// </returns>
-    public static int? FirstOverlap(Sequence s1, Sequence s2) {
+    public static (int f, int? l, int? count)? FirstOverlap(Sequence s1, Sequence s2) {
         if (s1 is not FiniteSequence && s2 is not FiniteSequence)
             return FirstOverlapInfinite(s1, s2);
 
@@ -59,7 +59,7 @@ public static class ScheduleMath {
         return FirstOverlapFinite(finiteS1, finiteS2);
     }
     
-    private static int? FirstOverlapFinite(FiniteSequence s1, FiniteSequence s2) {
+    private static (int f, int l, int count)? FirstOverlapFinite(FiniteSequence s1, FiniteSequence s2) {
         if (s1.End < s2.Start || s2.End < s1.Start)
             return null;
 
@@ -82,23 +82,29 @@ public static class ScheduleMath {
         var tb = yStep < 0 ? Floor(y0 - bOccurence, yStep) : Ceil(y0 - bOccurence, yStep);
         var ra = xStep > 0 ? Ceil(-x0, xStep) : Floor(-x0, xStep);
         var rb = yStep < 0 ? Ceil(y0, yStep) : Floor(y0, yStep);
-        int? t;
+        (int f, int l)? solution;
         if ((xStep ^ yStep) >= 0) {
-            t = xStep > 0
-                ? OverlapOfRange(ra, ta, tb, rb)?.l
-                : OverlapOfRange(ta, ra, rb, tb)?.u;
-            if (t == null) return null;
-            return s1.S(x0 + t.Value * xStep);
+            solution = xStep > 0
+                ? OverlapOfRange(ra, ta, tb, rb)
+                : OverlapOfRange(ta, ra, rb, tb);
+            if (solution == null) return null;
+            if (xStep < 0) solution = (solution.Value.l, solution.Value.f);
+            return (s1.S(x0 + solution.Value.f * xStep), 
+                s1.S(x0 + solution.Value.l * xStep), 
+                solution.Value.l - solution.Value.f + 1);
         }
 
-        t = xStep > 0
-            ? OverlapOfRange(ra, ta, rb, tb)?.l
-            : OverlapOfRange(ta, ra, tb, rb)?.u;
-        if (t == null) return null;
-        return s1.S(x0 + t.Value * xStep);
+        solution = xStep > 0
+            ? OverlapOfRange(ra, ta, rb, tb)
+            : OverlapOfRange(ta, ra, tb, rb);
+        if (solution == null) return null;
+        if (xStep < 0) solution = (solution.Value.l, solution.Value.f);
+        return (s1.S(x0 + solution.Value.f * xStep),
+                s1.S(x0 + solution.Value.l * xStep),
+                solution.Value.l - solution.Value.f + 1);
     }
 
-    private static int? FirstOverlapInfinite(Sequence s1, Sequence s2) {
+    private static (int f, int? l, int? count)? FirstOverlapInfinite(Sequence s1, Sequence s2) {
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
         
         if ((s2.Start - s1.Start) % gcd != 0) return null; 
@@ -115,14 +121,14 @@ public static class ScheduleMath {
         int? t;
         if ((xStep ^ yStep) >= 0) {
             t = xStep > 0 ? ra : rb;
-            return s1.S(x0 + t.Value * xStep);
+            return (s1.S(x0 + t.Value * xStep), null, null);
         }
 
         t = xStep > 0
             ? Math.Max(ra, rb)
             : Math.Min(ra, rb);
         
-        return s1.S(x0 + t.Value * xStep);
+        return (s1.S(x0 + t.Value * xStep), null, null);
     }
 
     public static (int l, int u)? OverlapOfRange(int al, int au, int bl, int bu) {

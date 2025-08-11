@@ -1,4 +1,5 @@
 using Dd.Domain.Common.Entities;
+using Dd.Domain.Interfaces;
 using Dd.Domain.Reservation.Enums;
 using Dd.Domain.Reservation.Overlap;
 
@@ -51,6 +52,8 @@ public class Schedule : Entity {
         
         RecurrenceType = RecurrenceType.Weekly;
         RecurrenceInterval = interval;
+        StartDate = FirstDayOnSchedule();
+        EndDate = LastDayOnSchedule();
     }
     
     public void RecurDaily(int interval = 1) {
@@ -71,5 +74,28 @@ public class Schedule : Entity {
     public bool Overlaps(Schedule other) {
         var overlapDetector = OverlapDetectorFactory.Create(RecurrenceType);
         return overlapDetector.IsOverlapping(this, other);
+    }
+
+    private DateOnly FirstDayOnSchedule() {
+        var date = StartDate.AddDays(0);
+        while (!_recurrenceDays.Contains(date.DayOfWeek)) {
+            date = date.AddDays(1);
+        }
+        return date;
+    }
+
+    private DateOnly? LastDayOnSchedule() {
+        if (EndDate == null) return null;
+        var interval = RecurrenceInterval * 7;
+        var date = StartDate
+            .AddDays((EndDate.Value.DayNumber - StartDate.DayNumber) / interval * interval);
+
+        while (date.DayOfWeek != IDateTime.FirstDayOfWeek)
+            date = date.AddDays(1);
+
+        while (!_recurrenceDays.Contains(date.DayOfWeek))
+            date = date.AddDays(-1);
+        
+        return date;
     }
 }

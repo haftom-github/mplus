@@ -94,7 +94,7 @@ public static class ScheduleMath {
             if (xStep < 0) solution = (solution.Value.l, solution.Value.f);
             return (s1.S(x0 + solution.Value.f * xStep), 
                 s1.S(x0 + solution.Value.l * xStep), 
-                solution.Value.l - solution.Value.f + 1);
+                Math.Abs(solution.Value.l - solution.Value.f) + 1);
         }
 
         solution = xStep > 0
@@ -104,7 +104,7 @@ public static class ScheduleMath {
         if (xStep < 0) solution = (solution.Value.l, solution.Value.f);
         return (s1.S(x0 + solution.Value.f * xStep),
                 s1.S(x0 + solution.Value.l * xStep),
-                solution.Value.l - solution.Value.f + 1);
+                Math.Abs(solution.Value.l - solution.Value.f) + 1);
     }
 
     private static (int? f, int? l, int? count) FirstOverlapInfinite(Sequence s1, Sequence s2) {

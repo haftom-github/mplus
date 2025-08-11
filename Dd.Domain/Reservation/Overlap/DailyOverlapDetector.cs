@@ -3,7 +3,7 @@ using Dd.Domain.Reservation.Utils;
 
 namespace Dd.Domain.Reservation.Overlap;
 
-public class DailyScheduleOverlapDetector : BaseOverlapDetector {
+public class DailyOverlapDetector : BaseOverlapDetector {
     public override bool IsOverlapping(Schedule s1, Schedule s2) {
         ArgumentNullException.ThrowIfNull(s1);
         ArgumentNullException.ThrowIfNull(s2);

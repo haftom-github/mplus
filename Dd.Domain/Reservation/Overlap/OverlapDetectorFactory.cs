@@ -3,11 +3,13 @@ using Dd.Domain.Reservation.Enums;
 namespace Dd.Domain.Reservation.Overlap;
 
 public static class OverlapDetectorFactory {
-    public static IOverlapDetector Create(RecurrenceType recurrenceType) {
-        return recurrenceType switch {
-            RecurrenceType.Daily => new DailyScheduleOverlapDetector(),
-            RecurrenceType.Weekly => new WeeklyScheduleOverlapDetector(),
-            _ => throw new ArgumentOutOfRangeException(nameof(recurrenceType), recurrenceType, null),
+    public static IOverlapDetector Create(RecurrenceType rt1, RecurrenceType rt2) {
+        return rt1 switch {
+            RecurrenceType.Daily when rt2 == RecurrenceType.Weekly => new WeeklyVsDailyOverlapDetector(),
+            RecurrenceType.Daily => new DailyOverlapDetector(),
+            RecurrenceType.Weekly when rt2 == RecurrenceType.Daily => new  WeeklyVsDailyOverlapDetector(),
+            RecurrenceType.Weekly => new WeeklyOverlapDetector(),
+            _ => throw new ArgumentOutOfRangeException(nameof(rt1), rt1, null),
         };
     }
 }

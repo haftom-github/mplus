@@ -69,7 +69,7 @@ public class Schedule : Entity {
     }
 
     public bool Overlaps(Schedule other) {
-        var overlapDetector = OverlapDetectorFactory.Create(RecurrenceType);
+        var overlapDetector = OverlapDetectorFactory.Create(RecurrenceType, other.RecurrenceType);
         return overlapDetector.IsOverlapping(this, other);
     }
 }

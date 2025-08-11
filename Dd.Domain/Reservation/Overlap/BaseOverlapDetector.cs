@@ -13,6 +13,7 @@ public abstract class BaseOverlapDetector : IOverlapDetector {
     }
 
     public abstract bool IsOverlapping(Schedule schedule1, Schedule schedule2);
+    public abstract (int? f, int? l, int? count) Detect(Schedule s1, Schedule s2);
 }
 
 public static class ScheduleExtensions {

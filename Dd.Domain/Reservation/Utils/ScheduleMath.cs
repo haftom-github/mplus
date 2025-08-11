@@ -1,6 +1,7 @@
 namespace Dd.Domain.Reservation.Utils;
 
 public static class ScheduleMath {
+    public static (int? f, int? l, int? count) NoOverlap = (null, null, 0);
     private static int Gcd(int a, int b) {
         while (a != 0) {
             var temp = a;
@@ -61,14 +62,13 @@ public static class ScheduleMath {
     }
     
     private static (int? f, int? l, int? count) FirstOverlapFinite(FiniteSequence s1, FiniteSequence s2) {
-        (int? f, int? l, int? count) noOverlap = (null, null, 0);
         if (s1.End < s2.Start || s2.End < s1.Start)
-            return noOverlap;
+            return NoOverlap;
 
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
         
         if ((s2.Start - s1.Start) % gcd != 0)
-            return noOverlap;
+            return NoOverlap;
         
         var k = (s2.Start - s1.Start) / gcd;
         x0 *= k;
@@ -90,7 +90,7 @@ public static class ScheduleMath {
             solution = xStep > 0
                 ? OverlapOfRange(ra, ta, tb, rb)
                 : OverlapOfRange(ta, ra, rb, tb);
-            if (solution == null) return noOverlap;
+            if (solution == null) return NoOverlap;
             if (xStep < 0) solution = (solution.Value.l, solution.Value.f);
             return (s1.S(x0 + solution.Value.f * xStep), 
                 s1.S(x0 + solution.Value.l * xStep), 
@@ -100,7 +100,7 @@ public static class ScheduleMath {
         solution = xStep > 0
             ? OverlapOfRange(ra, ta, rb, tb)
             : OverlapOfRange(ta, ra, tb, rb);
-        if (solution == null) return noOverlap;
+        if (solution == null) return NoOverlap;
         if (xStep < 0) solution = (solution.Value.l, solution.Value.f);
         return (s1.S(x0 + solution.Value.f * xStep),
                 s1.S(x0 + solution.Value.l * xStep),
@@ -110,7 +110,7 @@ public static class ScheduleMath {
     private static (int? f, int? l, int? count) FirstOverlapInfinite(Sequence s1, Sequence s2) {
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
         
-        if ((s2.Start - s1.Start) % gcd != 0) return (null, null, 0); 
+        if ((s2.Start - s1.Start) % gcd != 0) return NoOverlap; 
         
         var k = (s2.Start - s1.Start) / gcd;
         x0 *= k;

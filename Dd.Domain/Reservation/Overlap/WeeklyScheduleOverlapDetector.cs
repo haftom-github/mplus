@@ -29,13 +29,14 @@ public class WeeklyScheduleOverlapDetector : BaseOverlapDetector {
             ? new Sequence(s2FirstWeek.DayNumber, s2.RecurrenceInterval * 7)
             : new FiniteSequence(s2FirstWeek.DayNumber, s2.EndDate.Value.DayNumber, s2.RecurrenceInterval * 7);
         
-        var overlaps = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
-        if (overlaps == null) return false;
-        if (overlaps?.count is null or > 2) return true;
-        if (s1FirstWeek.DayNumber != s2FirstWeek.DayNumber)
-            return true;
-        if (overlaps?.f != s1FirstWeek.DayNumber)
-            return true;
-        if (s1.EndDate != null) { }
+        // var overlaps = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
+        // if (overlaps == null) return false;
+        // if (overlaps?.count is null or > 2) return true;
+        // if (s1FirstWeek.DayNumber != s2FirstWeek.DayNumber)
+        //     return true;
+        // if (overlaps?.f != s1FirstWeek.DayNumber)
+        //     return true;
+        // if (s1.EndDate != null) { }
+        return false;
     }
 }

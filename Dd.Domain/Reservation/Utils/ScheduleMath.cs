@@ -41,14 +41,15 @@ public static class ScheduleMath {
     }
 
     /// <summary>
-    /// first overlap of two sequences in their effective ranges.
+    /// computes first last and the number of overlapping occurrences.
     /// if one of the sequences is finite, the second sequence will be collapsed to the finite
     /// </summary>
     /// <param name="s1">first sequence</param>
     /// <param name="s2">second sequence</param>
     /// <returns>
-    /// first point of overlap
-    /// or <c>null</c> if the sequences do not overlap.
+    /// returns a <c>tupple</c> of the <c>f</c>: first <c>l</c>: last and <c>count</c>: no of occurrences.
+    /// count <c>0</c> implies no overlap
+    /// count <c>null</c> implies infinite overlaps with <c>l</c>: being null
     /// </returns>
     public static (int? f, int? l, int? count) FirstOverlap(Sequence s1, Sequence s2) {
         if (s1 is not FiniteSequence && s2 is not FiniteSequence)

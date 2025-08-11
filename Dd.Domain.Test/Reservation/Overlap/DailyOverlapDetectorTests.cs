@@ -4,11 +4,8 @@ using Dd.Domain.Reservation.Overlap;
 namespace Dd.Domain.Test.Reservation.Overlap;
 
 public class DailyOverlapDetectorTests {
-    private DailyOverlapDetector _overlapDetector = new DailyOverlapDetector();
-    private DateOnly _yesterday = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1));
-    private DateOnly _today = DateOnly.FromDateTime(DateTime.UtcNow);
-    private DateOnly _tomorrow = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-    private DateOnly _afterTomorrow = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
+    private readonly DailyOverlapDetector _overlapDetector = new DailyOverlapDetector();
+    private readonly DateOnly _today = DateOnly.FromDateTime(DateTime.UtcNow);
     
     //no overlap cases
     [Fact]

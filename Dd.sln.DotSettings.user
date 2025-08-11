@@ -9,6 +9,7 @@
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.DailyOverlapDetectorTests.Detect_ShouldReturnNoOverlap_WhenNonOverlappingDateRangeDetected&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.DailyOverlapDetectorTests.Detect_ShouldCalculateAccurately&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.DailyOverlapDetectorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyOverlapDetectorTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

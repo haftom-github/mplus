@@ -17,13 +17,9 @@ public class DailyOverlapDetector : BaseOverlapDetector {
         if (s1.RecurrenceInterval == 1 || s2.RecurrenceInterval == 1)
             return true;
         
-        var s1Sequence = s1.EndDate == null 
-            ? new Sequence(s1.StartDate.DayNumber, s1.RecurrenceInterval)
-            : new FiniteSequence(s1.StartDate.DayNumber, s1.EndDate.Value.DayNumber, s1.RecurrenceInterval);
+        var s1Sequence = SequenceFactory.Create(s1.StartDate.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval);
         
-        var s2Sequence = s2.EndDate == null 
-            ? new Sequence(s2.StartDate.DayNumber, s2.RecurrenceInterval)
-            : new FiniteSequence(s2.StartDate.DayNumber, s2.EndDate.Value.DayNumber, s2.RecurrenceInterval);
+        var s2Sequence = SequenceFactory.Create(s2.StartDate.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval);
         
         return ScheduleMath.Overlaps(s1Sequence, s2Sequence);
     }

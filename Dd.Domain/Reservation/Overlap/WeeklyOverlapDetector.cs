@@ -29,13 +29,8 @@ public class WeeklyOverlapDetector : BaseOverlapDetector {
             var s2Start = s2.StartDate.AddDays(0);
             while (s2Start.DayOfWeek != day) s2Start = s2Start.AddDays(1);
 
-            var s1Sequence = s1.EndDate == null
-                ? new Sequence(s1Start.DayNumber, s1.RecurrenceInterval * 7)
-                : new FiniteSequence(s1Start.DayNumber, s1.EndDate.Value.DayNumber, s1.RecurrenceInterval * 7);
-            
-            var s2Sequence = s2.EndDate == null
-                ? new Sequence(s2Start.DayNumber, s2.RecurrenceInterval * 7)
-                : new FiniteSequence(s2Start.DayNumber, s2.EndDate.Value.DayNumber, s2.RecurrenceInterval * 7);
+            var s1Sequence = SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
+            var s2Sequence = SequenceFactory.Create(s2Start.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval * 7);
 
             if (ScheduleMath.Overlaps(s1Sequence, s2Sequence)) return true;
         }

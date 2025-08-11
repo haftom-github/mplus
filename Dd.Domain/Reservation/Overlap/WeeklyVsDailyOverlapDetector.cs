@@ -20,17 +20,15 @@ public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
         if (s1.StartDate > s2.EndDate || s2.StartDate > s1.EndDate)
             return false;
 
-        var s2Sequence = s2.EndDate == null
-            ? new Sequence(s2.StartDate.DayNumber, s2.RecurrenceInterval * 7)
-            : new FiniteSequence(s2.StartDate.DayNumber, s2.EndDate.Value.DayNumber, s2.RecurrenceInterval * 7);
+        var s2Sequence =
+            SequenceFactory.Create(s2.StartDate.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval * 7);
         
         foreach (var day in s1.RecurrenceDays) {
             var s1Start = s1.StartDate.AddDays(0);
             while (s1Start.DayOfWeek != day) s1Start = s1Start.AddDays(1);
 
-            var s1Sequence = s1.EndDate == null
-                ? new Sequence(s1Start.DayNumber, s1.RecurrenceInterval * 7)
-                : new FiniteSequence(s1Start.DayNumber, s1.EndDate.Value.DayNumber, s1.RecurrenceInterval * 7);
+            var s1Sequence =
+                SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
             
             if (ScheduleMath.Overlaps(s1Sequence, s2Sequence)) return true;
         }

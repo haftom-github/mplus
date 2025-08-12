@@ -1,9 +1,9 @@
 namespace Dd.Domain.Reservation.Utils;
 
 public class InfiniteSequence : ISequence {
-    public int Start { get; private set; }
-    public int? End { get; } = null;
-    public int Interval { get; private set; }
+    public int Start { get; }
+    public int? End => null;
+    public int Interval { get; }
     public bool IsFinite => false;
     public int? Length => null;
 

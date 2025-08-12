@@ -1,9 +1,9 @@
 namespace Dd.Domain.Reservation.Utils;
 
 public class FiniteSequence : ISequence {
-    public int Start { get; private set; }
-    public int? End { private set; get; }
-    public int Interval { get; private set; }
+    public int Start { get; }
+    public int? End { get; }
+    public int Interval { get; }
     public bool IsFinite => true;
     public int? Length => Interval == 0 ? 1 : (End - Start) / Interval + 1;
 

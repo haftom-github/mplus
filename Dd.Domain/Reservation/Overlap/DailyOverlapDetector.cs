@@ -5,11 +5,10 @@ namespace Dd.Domain.Reservation.Overlap;
 
 public class DailyOverlapDetector : BaseOverlapDetector {
     public override bool IsOverlapping(Schedule s1, Schedule s2) {
-        var (f, l, count) = Detect(s1, s2);
-        return count != 0;
+        return Detect(s1, s2) != null;
     }
 
-    public override (int? f, int? l, int? count) Detect(Schedule s1, Schedule s2) {
+    public override ISequence? Detect(Schedule s1, Schedule s2) {
         ArgumentNullException.ThrowIfNull(s1);
         ArgumentNullException.ThrowIfNull(s2);
         
@@ -17,7 +16,7 @@ public class DailyOverlapDetector : BaseOverlapDetector {
             || s2.StartTime >= s1.EndTime 
             || s1.StartDate > s2.EndDate || 
             s2.StartDate > s1.EndDate)
-            return ScheduleMath.NoOverlap;
+            return null;
 
         var s1Sequence = SequenceFactory.Create(s1.StartDate.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval);
         

@@ -6,11 +6,10 @@ namespace Dd.Domain.Reservation.Overlap;
 
 public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
     public override bool IsOverlapping(Schedule s1, Schedule s2) {
-        var overlap = Detect(s1, s2);
-        return overlap.count != 0;
+        return Detect(s1, s2) != null;
     }
 
-    public override (int? f, int? l, int? count) Detect(Schedule s1, Schedule s2) {
+    public override ISequence? Detect(Schedule s1, Schedule s2) {
         ArgumentNullException.ThrowIfNull(s1);
         ArgumentNullException.ThrowIfNull(s2);
         if (s1.RecurrenceType != RecurrenceType.Weekly)
@@ -23,7 +22,7 @@ public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
             || s2.StartTime >= s1.EndTime 
             || s1.StartDate > s2.EndDate 
             || s2.StartDate > s1.EndDate)
-            return ScheduleMath.NoOverlap;
+            return null;
 
         var s2Sequence =
             SequenceFactory.Create(s2.StartDate.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval * 7);
@@ -36,9 +35,9 @@ public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
                 SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
             
             var overlap = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
-            if (overlap.count != 0) return overlap;
+            if (overlap != null) return overlap;
         }
 
-        return ScheduleMath.NoOverlap;
+        return null;
     }
 }

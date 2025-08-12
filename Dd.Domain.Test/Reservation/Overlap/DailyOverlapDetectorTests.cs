@@ -1,5 +1,6 @@
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Overlap;
+using Dd.Domain.Reservation.Utils;
 
 namespace Dd.Domain.Test.Reservation.Overlap;
 
@@ -22,9 +23,7 @@ public class DailyOverlapDetectorTests {
         var schedule2 = new Schedule(new  TimeOnly(1, 0), new TimeOnly(2, 0), _today);
         
         var result = _overlapDetector.Detect(schedule1, schedule2);
-        Assert.Equal(0, result.count);
-        Assert.Null(result.f);
-        Assert.Null(result.l);
+        Assert.Null(result);
     }
     
     [Fact]
@@ -39,18 +38,14 @@ public class DailyOverlapDetectorTests {
         var schedule2 = new Schedule(startTime2, endTime2, _today.AddDays(11));
         
         var result = _overlapDetector.Detect(schedule1, schedule2);
-        Assert.Equal(0, result.count);
-        Assert.Null(result.f);
-        Assert.Null(result.l);
+        Assert.Null(result);
         
         schedule1 = new Schedule(startTime1, endTime1, _today, _today.AddDays(11));
         schedule1.UpdateRecurrenceInterval(3);
         schedule2 = new Schedule(startTime2, endTime2, _today.AddDays(10), _today.AddDays(20));
         
         result = _overlapDetector.Detect(schedule1, schedule2);
-        Assert.Equal(0, result.count);
-        Assert.Null(result.f);
-        Assert.Null(result.l);
+        Assert.Null(result);
     }
 
     [Fact]
@@ -65,9 +60,11 @@ public class DailyOverlapDetectorTests {
         schedule2.UpdateRecurrenceInterval(5);
         
         var result = _overlapDetector.Detect(schedule1, schedule2);
-        Assert.Equal(3, result.count);
-        Assert.Equal(_today.DayNumber, result.f);
-        Assert.Equal(_today.AddDays(30).DayNumber, result.l);
+        Assert.NotNull(result);
+        Assert.True(result.IsFinite);
+        Assert.Equal(3, result.Length);
+        Assert.Equal(_today.DayNumber, result.Start);
+        Assert.Equal(_today.AddDays(30).DayNumber, result.End);
     }
     
     [Fact]
@@ -80,10 +77,9 @@ public class DailyOverlapDetectorTests {
         s2.UpdateRecurrenceInterval(8);
 
         var result = _overlapDetector.Detect(s1, s2);
-
-        Assert.True(result.count > 0);
-        Assert.NotNull(result.f);
-        Assert.NotNull(result.l);
+        
+        Assert.NotNull(result);
+        Assert.True(result.Length > 0);
     }
     
     [Fact]
@@ -97,7 +93,8 @@ public class DailyOverlapDetectorTests {
 
         var result = _overlapDetector.Detect(s1, s2);
 
-        Assert.True(result.f > _today.DayNumber); // should be after start
+        Assert.NotNull(result);
+        Assert.True(result.Start > _today.DayNumber);
     }
     
     [Fact]
@@ -114,7 +111,8 @@ public class DailyOverlapDetectorTests {
 
         var result = _overlapDetector.Detect(s1, s2);
 
-        Assert.Equal(end.DayNumber, result.l);
+        Assert.NotNull(result);
+        Assert.Equal(end.DayNumber, result.End);
     }
     
     [Fact]
@@ -128,8 +126,8 @@ public class DailyOverlapDetectorTests {
 
         var result = _overlapDetector.Detect(s1, s2);
 
-        Assert.Equal(11, result.count); // finite
-        Assert.NotNull(result.l);
+        Assert.NotNull(result);
+        Assert.Equal(11, result.Length); // finite
     }
     
     [Fact]
@@ -143,6 +141,7 @@ public class DailyOverlapDetectorTests {
 
         var result = _overlapDetector.Detect(s1, s2);
 
-        Assert.True(result.f > _today.DayNumber + 200); // first hit far in future
+        Assert.NotNull(result);
+        Assert.True(result.Start > _today.DayNumber + 200); // first hit far in future
     }
 }

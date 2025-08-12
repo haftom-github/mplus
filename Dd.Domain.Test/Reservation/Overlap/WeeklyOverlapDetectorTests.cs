@@ -34,8 +34,6 @@ public class WeeklyOverlapDetectorTests {
         schedule2.RecurWeekly([DayOfWeek.Monday]);
         
         var result = _overlapDetector.Detect(schedule1, schedule2);
-        Assert.Equal(0, result.count);
-        Assert.Null(result.f);
-        Assert.Null(result.l);
+        Assert.Null(result);
     }
 }

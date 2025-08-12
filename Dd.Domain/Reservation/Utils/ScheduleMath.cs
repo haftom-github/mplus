@@ -31,7 +31,7 @@ public static class ScheduleMath {
             return OverlapsUnbounded(s1, s2);
 
         var finiteS1 = new FiniteSequence(s1.Start, s1.End ?? s2.End!.Value, s1.Interval);
-        var finiteS2 = new FiniteSequence(s2.Start, finiteS1.End!.Value, s2.Interval);
+        var finiteS2 = new FiniteSequence(s2.Start, s2.End ?? finiteS1.End!.Value, s2.Interval);
         return FirstOverlapFinite(finiteS1, finiteS2) != null;
     }
     
@@ -56,7 +56,7 @@ public static class ScheduleMath {
             return FirstOverlapInfinite(s1, s2);
 
         var finiteS1 = new FiniteSequence(s1.Start, s1.End ?? s2.End!.Value, s1.Interval);
-        var finiteS2 = new FiniteSequence(s2.Start, finiteS1.End!.Value, s2.Interval);
+        var finiteS2 = new FiniteSequence(s2.Start, s2.End ?? finiteS1.End!.Value, s2.Interval);
         return FirstOverlapFinite(finiteS1, finiteS2);
     }
     

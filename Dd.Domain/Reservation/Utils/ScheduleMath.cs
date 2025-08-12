@@ -27,8 +27,8 @@ public static class ScheduleMath {
     /// <param name="s1">first sequence</param>
     /// <param name="s2">the second sequence</param>
     /// <returns><c>true</c> if the sequences have a possibility of overlapping</returns>
-    public static bool Overlaps(Sequence s1, Sequence s2) {
-        if (s1 is not FiniteSequence && s2 is not FiniteSequence)
+    public static bool Overlaps(ISequence s1, ISequence s2) {
+        if (!s1.IsFinite && !s2.IsFinite)
             return OverlapsUnbounded(s1, s2);
 
         var finiteS1 = s1 as FiniteSequence ?? new FiniteSequence(s1.Start, ((FiniteSequence)s2).End, s1.Interval);
@@ -36,7 +36,7 @@ public static class ScheduleMath {
         return FirstOverlapFinite(finiteS1, finiteS2).count != 0;
     }
     
-    private static bool OverlapsUnbounded(Sequence s1, Sequence s2) {
+    private static bool OverlapsUnbounded(ISequence s1, ISequence s2) {
         var gcd = Gcd(s1.Interval, -s2.Interval);
         return (s2.Start - s1.Start) % gcd != 0;
     }
@@ -52,8 +52,8 @@ public static class ScheduleMath {
     /// count <c>0</c> implies no overlap
     /// count <c>null</c> implies infinite overlaps with <c>l</c>: being null
     /// </returns>
-    public static (int? f, int? l, int? count) FirstOverlap(Sequence s1, Sequence s2) {
-        if (s1 is not FiniteSequence && s2 is not FiniteSequence)
+    public static (int? f, int? l, int? count) FirstOverlap(ISequence s1, ISequence s2) {
+        if (!s1.IsFinite && !s2.IsFinite)
             return FirstOverlapInfinite(s1, s2);
 
         var finiteS1 = s1 as FiniteSequence ?? new FiniteSequence(s1.Start, ((FiniteSequence)s2).End, s1.Interval);
@@ -107,7 +107,7 @@ public static class ScheduleMath {
                 Math.Abs(solution.Value.l - solution.Value.f) + 1);
     }
 
-    private static (int? f, int? l, int? count) FirstOverlapInfinite(Sequence s1, Sequence s2) {
+    private static (int? f, int? l, int? count) FirstOverlapInfinite(ISequence s1, ISequence s2) {
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
         
         if ((s2.Start - s1.Start) % gcd != 0) return NoOverlap; 

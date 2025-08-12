@@ -21,9 +21,7 @@ public class SequenceTests {
     }
 
     [Fact]
-    public void Constructor_ShouldThrowArgumentException_WhenStartIsGreaterThanOrEqualToEnd() {
-        Assert.Throws<ArgumentException>(() => new FiniteSequence(10, 5, 2));
-        Assert.Throws<ArgumentException>(() => new FiniteSequence(10, 10, 2));
-        Assert.Throws<ArgumentException>(() => new FiniteSequence(10, 15, 6));
+    public void Constructor_ShouldThrowArgumentException_WhenStartIsGreaterThanEnd() {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new FiniteSequence(10, 5, 2));
     }
 }

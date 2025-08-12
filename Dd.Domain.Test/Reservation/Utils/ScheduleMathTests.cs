@@ -60,14 +60,6 @@ public class ScheduleMathTests {
         Assert.Equal(ScheduleMath.Overlaps(s1, s2), ScheduleMath.Overlaps(s1Fallback, s2));
     }
     
-    [Fact]
-    public void Overlaps_FirstSequenceNotFinite_ShouldThrowExceptionWhenTheFiniteEndIsLessThanTheInfiniteStart() {
-        var s1 = new InfiniteSequence(10, 5);
-        var s2 = new FiniteSequence(5, 15, 3);
-        
-        Assert.Throws<ArgumentException>(() => ScheduleMath.Overlaps(s1, s2));
-    }
-    
     // tests for OverlapOfRange
 
     [Theory]

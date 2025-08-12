@@ -30,9 +30,7 @@ public static class ScheduleMath {
         if (!s1.IsFinite && !s2.IsFinite)
             return OverlapsUnbounded(s1, s2);
 
-        var finiteS1 = new FiniteSequence(s1.Start, s1.End ?? s2.End!.Value, s1.Interval);
-        var finiteS2 = new FiniteSequence(s2.Start, s2.End ?? finiteS1.End!.Value, s2.Interval);
-        return FirstOverlapFinite(finiteS1, finiteS2) != null;
+        return FirstOverlap(s1, s2) != null;
     }
     
     private static bool OverlapsUnbounded(ISequence s1, ISequence s2) {
@@ -55,9 +53,14 @@ public static class ScheduleMath {
         if (!s1.IsFinite && !s2.IsFinite)
             return FirstOverlapInfinite(s1, s2);
 
-        var finiteS1 = new FiniteSequence(s1.Start, s1.End ?? s2.End!.Value, s1.Interval);
-        var finiteS2 = new FiniteSequence(s2.Start, s2.End ?? finiteS1.End!.Value, s2.Interval);
-        return FirstOverlapFinite(finiteS1, finiteS2);
+        try {
+            var finiteS1 = new FiniteSequence(s1.Start, s1.End ?? s2.End!.Value, s1.Interval);
+            var finiteS2 = new FiniteSequence(s2.Start, s2.End ?? finiteS1.End!.Value, s2.Interval);
+            return FirstOverlapFinite(finiteS1, finiteS2);
+        }
+        catch (ArgumentOutOfRangeException e) {
+            return null;
+        }
     }
     
     private static FiniteSequence? FirstOverlapFinite(FiniteSequence s1, FiniteSequence s2) {
@@ -65,7 +68,14 @@ public static class ScheduleMath {
             return null;
 
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
-        
+
+        if (gcd == 0)
+            return s1.Start == s2.Start
+                ? s1.Length == 1
+                    ? FiniteSequence.SingleElement(s1.Start)
+                    : FiniteSequence.SingleElement(s2.Start)
+                : null;
+
         if ((s2.Start - s1.Start) % gcd != 0)
             return null;
         

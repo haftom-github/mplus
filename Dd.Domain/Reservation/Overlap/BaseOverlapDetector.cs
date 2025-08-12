@@ -8,7 +8,7 @@ public abstract class BaseOverlapDetector : IOverlapDetector {
     protected internal static DateOnly ToFirstDayOfWeek(DateOnly date) {
         var normalized = date.AddDays(0);
         while (normalized.DayOfWeek != IDateTime.FirstDayOfWeek)
-            normalized = date.AddDays(-1);
+            normalized = normalized.AddDays(-1);
 
         return normalized;
     }

@@ -7,4 +7,5 @@ public interface ISequence {
     public bool IsFinite { get; }
     public int? Length { get; }
     public int S(int n);
+    public ISequence? StartFromNext();
 }

@@ -39,6 +39,10 @@ public class FiniteSequence : ISequence {
         return Start + n * Interval;
     }
 
+    public ISequence? StartFromNext() {
+        return Length == 1 ? null : new FiniteSequence(S(1), End!.Value, Interval);
+    }
+
     public static FiniteSequence SingleElement(int start) {
         return new FiniteSequence(start);
     }

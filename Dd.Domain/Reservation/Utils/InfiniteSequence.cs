@@ -16,4 +16,7 @@ public class InfiniteSequence : ISequence {
     }
 
     public int S(int n) => Start + n * Interval;
+    public ISequence? StartFromNext() {
+        return new  InfiniteSequence(S(1), Interval);
+    }
 }

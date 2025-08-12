@@ -6,6 +6,9 @@ namespace Dd.Domain.Test.Reservation.Overlap;
 public class WeeklyOverlapDetectorTests {
     private readonly WeeklyOverlapDetector _overlapDetector = new WeeklyOverlapDetector();
     private readonly DateOnly _today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+    private readonly TimeOnly _commonStartTime = new(0, 0);
+    private readonly TimeOnly _commonEndTime = new(1, 0);
     
     //no overlap cases
     [Fact]
@@ -35,5 +38,57 @@ public class WeeklyOverlapDetectorTests {
         
         var result = _overlapDetector.Detect(schedule1, schedule2);
         Assert.Null(result);
+    }
+    
+    // boundary conditions
+
+    [Fact]
+    public void Detect_ShouldReturnNull_TimeDoesNotOverlap() {
+        List<DayOfWeek> commonDays = [DayOfWeek.Monday, DayOfWeek.Friday];
+
+        var s1 = new Schedule(_commonStartTime, _commonEndTime, _today, _today.AddDays(10));
+        s1.RecurWeekly(commonDays);
+        
+        var s2 = new Schedule(_commonEndTime, _commonEndTime.AddMinutes(20), _today, _today.AddDays(10));
+        s2.RecurWeekly(commonDays);
+
+        var result = _overlapDetector.Detect(s1, s2);
+        Assert.Null(result);
+    }
+    
+    [Fact]
+    public void Detect_ShouldReturnNull_WhenNoDaysInCommon() {
+        List<DayOfWeek> days1 = [DayOfWeek.Monday, DayOfWeek.Friday];
+        List<DayOfWeek> days2 = [DayOfWeek.Wednesday, DayOfWeek.Thursday];
+
+        var s1 = new Schedule(_commonStartTime, _commonEndTime, _today, _today.AddDays(10));
+        s1.RecurWeekly(days1);
+        
+        var s2 = new Schedule(_commonStartTime, _commonEndTime, _today, _today.AddDays(10));
+        s2.RecurWeekly(days2);
+
+        var result = _overlapDetector.Detect(s1, s2);
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void Detect_ShouldBehave_WhenBoundaryConditions() {
+        var startDate1 = _today.AddDays(0);
+        var endDate1 = _today.AddDays(100);
+        
+        var startDate2 = _today.AddDays(2);
+        var endDate2 = _today.AddDays(100);
+
+        List<DayOfWeek> days1 = [startDate1.DayOfWeek, startDate1.AddDays(1).DayOfWeek];
+        List<DayOfWeek> days2 = [startDate1.AddDays(1).DayOfWeek, startDate1.AddDays(2).DayOfWeek];
+
+        var s1 = new Schedule(_commonStartTime, _commonEndTime, startDate1, endDate1);
+        s1.RecurWeekly(days1, 10);
+        
+        var s2 = new Schedule(_commonStartTime, _commonEndTime, startDate2, endDate2);
+        s2.RecurWeekly(days2, 10);
+
+        var result = _overlapDetector.Detect(s1, s2);
+        Assert.NotNull(result);
     }
 }

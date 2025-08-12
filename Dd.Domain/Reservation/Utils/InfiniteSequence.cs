@@ -8,8 +8,8 @@ public class InfiniteSequence : ISequence {
     public int? Length => null;
 
     public InfiniteSequence(int start, int interval = 1) {
-        // if (interval <= 0)
-        //     throw new ArgumentOutOfRangeException(nameof(interval), "Interval must be a positive integer.");
+        if (interval <= 0)
+            throw new ArgumentOutOfRangeException(nameof(interval), "Interval must be a positive integer.");
         
         Start = start;
         Interval = interval;

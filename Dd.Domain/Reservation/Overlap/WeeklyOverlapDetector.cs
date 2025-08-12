@@ -1,3 +1,4 @@
+using Dd.Domain.Interfaces;
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
 using Dd.Domain.Reservation.Utils;
@@ -27,19 +28,24 @@ public class WeeklyOverlapDetector : BaseOverlapDetector {
         if (commonDaysOfWeek.Count == 0)
             return null;
 
-        foreach (var day in commonDaysOfWeek) {
-            var s1Start = s1.StartDate.AddDays(0);
-            while (s1Start.DayOfWeek != day) s1Start = s1Start.AddDays(1);
-            var s2Start = s2.StartDate.AddDays(0);
-            while (s2Start.DayOfWeek != day) s2Start = s2Start.AddDays(1);
+        var s1Start = s1.StartDate.ToFirstDayOfWeek();
+        var s2Start = s2.StartDate.ToFirstDayOfWeek();
 
+        while (s1Start.AddDays(1).DayOfWeek != IDateTime.FirstDayOfWeek) {
+            while (s1Start.AddDays(1).DayOfWeek != IDateTime.FirstDayOfWeek 
+                   && !commonDaysOfWeek.Contains(s1Start.DayOfWeek))
+                (s1Start, s2Start) = (s1Start.AddDays(1), s2Start.AddDays(1));
+            
             var s1Sequence = SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
             var s2Sequence = SequenceFactory.Create(s2Start.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval * 7);
-
             var overlap = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
-            if (overlap != null) return overlap;
-        }
+            if (overlap == null) return null;
+            if (overlap.Start >= s1.StartDate.DayNumber
+                && overlap.Start >= s2.StartDate.DayNumber)
+                return overlap;
 
+            (s1Start, s2Start) = (s1Start.AddDays(1), s2Start.AddDays(1));
+        }
         return null;
     }
 }

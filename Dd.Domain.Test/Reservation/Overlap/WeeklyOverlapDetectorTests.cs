@@ -73,13 +73,13 @@ public class WeeklyOverlapDetectorTests {
 
     [Fact]
     public void Detect_ShouldBehave_WhenBoundaryConditions() {
-        var startDate1 = _today.AddDays(0);
+        var startDate1 = _today.AddDays(4);
         var endDate1 = _today.AddDays(100);
         
-        var startDate2 = _today.AddDays(2);
+        var startDate2 = _today.AddDays(0);
         var endDate2 = _today.AddDays(100);
 
-        List<DayOfWeek> days1 = [startDate1.DayOfWeek, startDate1.AddDays(1).DayOfWeek];
+        List<DayOfWeek> days1 = [startDate1.DayOfWeek, startDate1.AddDays(1).DayOfWeek,];
         List<DayOfWeek> days2 = [startDate1.AddDays(1).DayOfWeek, startDate1.AddDays(2).DayOfWeek];
 
         var s1 = new Schedule(_commonStartTime, _commonEndTime, startDate1, endDate1);

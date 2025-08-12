@@ -5,7 +5,7 @@ public class FiniteSequence : ISequence {
     public int? End { private set; get; }
     public int Interval { get; private set; }
     public bool IsFinite => true;
-    public int? Length => Interval == 0 ? 1 : (End - Start) / Interval;
+    public int? Length => Interval == 0 ? 1 : (End - Start) / Interval + 1;
 
     public FiniteSequence(int start, int end, int interval = 1) {
         if (interval <= 0)

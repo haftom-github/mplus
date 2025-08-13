@@ -19,8 +19,8 @@ public class Schedule : Entity {
     public IReadOnlySet<DayOfWeek> RecurrenceDays => _recurrenceDays;
     public int RecurrenceInterval { get; private set; } = 1;
     // end of properties
-    
-    
+
+    public bool CrossesBoundary => EndTime < StartTime;
     public Schedule(TimeOnly startTime, TimeOnly endTime, DateOnly startDate, DateOnly? endDate = null) {
         
         if (startTime == endTime)

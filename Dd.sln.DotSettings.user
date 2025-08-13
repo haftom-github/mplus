@@ -7,15 +7,19 @@
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyOverlapDetectorTests.Detect_ShouldBehave_WhenBoundaryConditions&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=060b7796_002Dac83_002D4d22_002D910b_002D4f744431c14d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Detect_ShouldBehave_WhenBoundaryConditions" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyOverlapDetectorTests.Detect_ShouldBehave_WhenBoundaryConditions&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=06e32658_002D2c47_002D476b_002D840c_002D5e45d75ddfbb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Detect_ShouldBehave_WhenBoundaryConditions #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyOverlapDetectorTests.Detect_ShouldBehave_WhenBoundaryConditions&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d202b6c5_002Da97b_002D4c34_002D95bf_002D7355c787f7c4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Detect_ShouldThrowArgumentException_WhenTheCombinationIsNotWeeklyAndDaily" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyVsDailyOverlapDetectorTests.Detect_ShouldThrowArgumentException_WhenTheCombinationIsNotWeeklyAndDaily&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyVsDailyOverlapDetectorTests.Detect_ShouldReturnNoOverlap_WhenNonOverlappingTimeRangeDetected&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyVsDailyOverlapDetectorTests.Detect_ShouldReturnNull_TimeDoesNotOverlap&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyVsDailyOverlapDetectorTests.Detect_OverlapShouldBeTheWeeklySequenceItSelf_WhenTheDailyScheduleHasOneDayInterval&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	

@@ -4,19 +4,19 @@ using Dd.Domain.Reservation.Enums;
 namespace Dd.Domain.Reservation.Entities;
 
 public class BlockedTime : Entity {
-    private readonly List<DayOfWeek> _recurrenceDays = [];
+    private readonly HashSet<DayOfWeek> _recurrenceDays = [];
     public bool BlocksAllPhysicians { get; private set; }
     
-    public TimeOnly StartTime { get; private set; }
-    public TimeOnly EndTime { get; private set; }
+    public TimeOnly StartTime { get; }
+    public TimeOnly EndTime { get; }
 
-    public DateOnly? StartDate { get; private set; }
-    public DateOnly? EndDate { get; private set; }
+    public DateOnly StartDate { get; }
+    public DateOnly? EndDate { get; }
     
     public RecurrenceType RecurrenceType { get; private set; } = RecurrenceType.Daily;
     
     // if recurring type is weekly
-    public IReadOnlyList<DayOfWeek> RecurrenceDays => _recurrenceDays.AsReadOnly();
+    public IReadOnlySet<DayOfWeek> RecurrenceDays => _recurrenceDays;
     public int RecurrenceInterval { get; private set; } = 1;
     
     public string? Reason { get; set; }
@@ -24,19 +24,20 @@ public class BlockedTime : Entity {
 
     public BlockedTime(
         BlockedTimeType blockedTimeType, 
-        TimeOnly? startTime = null, TimeOnly? endTime = null,
-        DateOnly? startDate = null, 
-        DateOnly? endDate = null) {
+        DateOnly startDate, TimeOnly? startTime, 
+        TimeOnly? endTime, DateOnly? endDate = null) {
         
-        if (startTime >= endTime)
-            throw new ArgumentException("Start time must be earlier than end time.", nameof(startTime));
+        startTime ??= TimeOnly.MinValue;
+        endTime ??= TimeOnly.MaxValue;
+        
+        if (startTime == endTime)
+            throw new ArgumentException("end time can not be equal to start time", nameof(endTime));
 
-        if (startDate.HasValue && endDate.HasValue)
-            if (startDate > endDate)
-                throw new ArgumentException("Start date cannot be later than end date.", nameof(startDate));
+        if (startDate > endDate)
+            throw new ArgumentException("Start date cannot be later than end date.", nameof(startDate));
         
-        this.StartTime = startTime ?? TimeOnly.MinValue;
-        this.EndTime = endTime ?? TimeOnly.MaxValue;
+        this.StartTime = startTime!.Value;
+        this.EndTime = endTime!.Value;
         this.StartDate = startDate;
         this.EndDate = endDate;
         this.BlockedTimeType = blockedTimeType;
@@ -53,7 +54,7 @@ public class BlockedTime : Entity {
             throw new ArgumentOutOfRangeException(nameof(interval), "Recurrence interval must be a positive integer.");
         
         _recurrenceDays.Clear();
-        _recurrenceDays.AddRange(daysOfWeek.Distinct());
+        _recurrenceDays.UnionWith(daysOfWeek.ToHashSet());
         
         RecurrenceType = RecurrenceType.Weekly;
         RecurrenceInterval = interval;
@@ -82,15 +83,15 @@ public class BlockedTime : Entity {
 
         switch (RecurrenceType) {
             case RecurrenceType.Daily:
-                if (StartDate == null || RecurrenceInterval <= 1) return true;
-                var days = date.DayNumber - StartDate?.DayNumber ?? 1;
+                if (RecurrenceInterval <= 1) return true;
+                var days = date.DayNumber - StartDate.DayNumber;
                 return (days % RecurrenceInterval) == 0;
 
             case RecurrenceType.Weekly:
                 if (RecurrenceDays.Count == 0) return false;
                 if (!RecurrenceDays.Contains(date.DayOfWeek)) return false;
-                if (StartDate == null || RecurrenceInterval <= 1) return true;
-                var daysSinceStart = date.DayNumber - StartDate?.DayNumber ?? 1;
+                if (RecurrenceInterval <= 1) return true;
+                var daysSinceStart = date.DayNumber - StartDate.DayNumber;
                 var weeksSinceStart = daysSinceStart / 7;
                 return (weeksSinceStart % RecurrenceInterval) == 0;
 
@@ -107,15 +108,15 @@ public class BlockedTime : Entity {
 
         switch (RecurrenceType) {
             case RecurrenceType.Daily:
-                if (StartDate == null || RecurrenceInterval <= 1) return true;
-                var days = date.DayNumber - StartDate?.DayNumber ?? 1;
+                if (RecurrenceInterval <= 1) return true;
+                var days = date.DayNumber - StartDate.DayNumber;
                 return (days % RecurrenceInterval) == 0;
 
             case RecurrenceType.Weekly:
                 if (RecurrenceDays.Count == 0) return false;
                 if (!RecurrenceDays.Contains(date.DayOfWeek)) return false;
-                if (StartDate == null || RecurrenceInterval <= 1) return true;
-                var daysSinceStart = date.DayNumber - StartDate?.DayNumber ?? 1;
+                if (RecurrenceInterval <= 1) return true;
+                var daysSinceStart = date.DayNumber - StartDate.DayNumber;
                 var weeksSinceStart = daysSinceStart / 7;
                 return (weeksSinceStart % RecurrenceInterval) == 0;
 

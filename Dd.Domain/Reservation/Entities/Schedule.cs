@@ -23,8 +23,8 @@ public class Schedule : Entity {
     
     public Schedule(TimeOnly startTime, TimeOnly endTime, DateOnly startDate, DateOnly? endDate = null) {
         
-        if (startTime >= endTime)
-            throw new ArgumentException("Start time must be earlier than end time.", nameof(startTime));
+        if (startTime == endTime)
+            throw new ArgumentException("end time can not be equal to start time", nameof(endTime));
         
         if (endDate < startDate)
             throw new ArgumentException("End date cannot be earlier than start date.", nameof(endDate));
@@ -45,9 +45,8 @@ public class Schedule : Entity {
         if (interval <= 0) 
             throw new ArgumentOutOfRangeException(nameof(interval), "Recurrence interval must be a positive integer.");
 
-        var set = new HashSet<DayOfWeek>(daysOfWeek);
         _recurrenceDays.Clear();
-        _recurrenceDays.UnionWith(set);
+        _recurrenceDays.UnionWith(daysOfWeek.ToHashSet());
         
         RecurrenceType = RecurrenceType.Weekly;
         RecurrenceInterval = interval;

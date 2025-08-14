@@ -19,7 +19,7 @@ public class BlockedTimeTests {
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
         const BlockedTimeType blockedTimeType = BlockedTimeType.Vacation;
 
-        var blockedTime = new BlockedTime(blockedTimeType, _date610, null, null);
+        var blockedTime = new BlockedSchedule(blockedTimeType, _date610, null, null);
         
         // Assert
         Assert.Equal(TimeOnly.MinValue, blockedTime.StartTime);
@@ -32,13 +32,13 @@ public class BlockedTimeTests {
         Assert.Equal(1, blockedTime.RecurrenceInterval);
 
         // Act
-        blockedTime = new BlockedTime(blockedTimeType, _date610, startTime, endTime);
+        blockedTime = new BlockedSchedule(blockedTimeType, _date610, startTime, endTime);
 
         // Assert
         Assert.Equal(startTime, blockedTime.StartTime);
         Assert.Equal(endTime, blockedTime.EndTime);
         
-        blockedTime = new BlockedTime(blockedTimeType, startDate, startTime, endTime, endDate);
+        blockedTime = new BlockedSchedule(blockedTimeType, startDate, startTime, endTime, endDate);
         
         Assert.Equal(startDate, blockedTime.StartDate);
         Assert.Equal(endDate, blockedTime.EndDate);
@@ -54,14 +54,14 @@ public class BlockedTimeTests {
         const BlockedTimeType blockedTimeType = BlockedTimeType.Vacation;
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => new BlockedTime(blockedTimeType, startDate, startTime, endTime, endDate));
+        Assert.Throws<ArgumentException>(() => new BlockedSchedule(blockedTimeType, startDate, startTime, endTime, endDate));
     }
     
     // BlocksAll tests
     [Fact]
     public void BlocksAll_ShouldSetBlocksAllPhysiciansToTrue() {
         // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, _date610, new TimeOnly(9, 0), new TimeOnly(17, 0));
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, _date610, new TimeOnly(9, 0), new TimeOnly(17, 0));
         // Act
         blockedTime.BlocksAll();
         // Assert
@@ -76,7 +76,7 @@ public class BlockedTimeTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime);
         List<DayOfWeek> daysOfWeek = [DayOfWeek.Monday, DayOfWeek.Monday, DayOfWeek.Wednesday];
 
         // Act
@@ -93,7 +93,7 @@ public class BlockedTimeTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime);
         List<DayOfWeek> daysOfWeek = [DayOfWeek.Monday, DayOfWeek.Wednesday];
 
         // Act
@@ -111,7 +111,7 @@ public class BlockedTimeTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime);
         
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.RecurWeekly([DayOfWeek.Monday], 0));
@@ -124,7 +124,7 @@ public class BlockedTimeTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime);
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => blockedTime.RecurWeekly(null!));
@@ -136,7 +136,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
         
         // Act
         blockedTime.UpdateRecurrenceInterval(3);
@@ -151,7 +151,7 @@ public class BlockedTimeTests {
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, startDate, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, startDate, startTime, endTime);
         
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.UpdateRecurrenceInterval(0));
@@ -164,7 +164,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
         
         // Act
         blockedTime.RecurDaily(2);
@@ -179,7 +179,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
         
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => blockedTime.RecurDaily(0));
@@ -193,7 +193,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, null, null, endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, null, null, endDate);
 
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow));
@@ -204,7 +204,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTimeWithTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime, endDate);
+        var blockedTimeWithTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime, endDate);
         
         // Act
         isBlocked = blockedTimeWithTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow));
@@ -218,7 +218,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, null, null, endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, null, null, endDate);
 
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow.AddDays(3)));
@@ -229,7 +229,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTimeWithTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime, endDate);
+        var blockedTimeWithTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime, endDate);
         
         // Act
         isBlocked = blockedTimeWithTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow.AddDays(3)));
@@ -245,7 +245,7 @@ public class BlockedTimeTests {
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
         var startTime = new TimeOnly(9, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, startTime, endTime, endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, startTime, endTime, endDate);
         
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1)));
@@ -260,7 +260,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate, null, null, endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate, null, null, endDate);
 
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(startDate);
@@ -274,7 +274,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
         
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(endDate);
@@ -288,7 +288,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(3));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
 
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2)));
@@ -300,7 +300,7 @@ public class BlockedTimeTests {
     [Fact]
     public void IsWholeDayBlocked_ShouldReturnTrue_WhenStartAndEndDatesNotSpecified() {
         // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, _date610, null, null);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, _date610, null, null);
 
         // Act
         var isBlocked = blockedTime.IsWholeDayBlocked(DateOnly.FromDateTime(DateTime.UtcNow));
@@ -315,7 +315,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(4));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
         blockedTime.RecurWeekly([startDate.DayOfWeek, endDate.DayOfWeek]);
 
         // Act
@@ -330,7 +330,7 @@ public class BlockedTimeTests {
         // Arrange
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(4));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
         blockedTime.RecurWeekly([startDate.DayOfWeek, endDate.DayOfWeek]);
 
         // Act
@@ -346,7 +346,7 @@ public class BlockedTimeTests {
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(4));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
         blockedTime.RecurWeekly([date.DayOfWeek]);
 
         // Act
@@ -362,7 +362,7 @@ public class BlockedTimeTests {
         var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
         var date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(3));
         var endDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(4));
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, startDate: startDate, null, null, endDate: endDate);
         blockedTime.RecurWeekly([startDate.DayOfWeek, endDate.DayOfWeek]);
 
         // Act
@@ -375,7 +375,7 @@ public class BlockedTimeTests {
     [Fact]
     public void IsWholeDayBlocked_ShouldReturnTrue_WhenStartDateAndEndDateAreNotSpecifiedAndDayOfWeekMatches() {
         // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, _date610, null, null);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, _date610, null, null);
         blockedTime.RecurWeekly([DateOnly.FromDateTime(DateTime.UtcNow).DayOfWeek]);
 
         // Act
@@ -388,7 +388,7 @@ public class BlockedTimeTests {
     [Fact]
     public void IsWholeDayBlocked_ShouldReturnFalse_WhenStartDateAndEndDateAreNotSpecifiedButDayOfWeekDoesNotMatch() {
         // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.Vacation, _date610, null, null);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.Vacation, _date610, null, null);
         var day1 = DateOnly.FromDateTime(DateTime.UtcNow);
         var day2 = day1.AddDays(1);
         var day3 = day1.AddDays(2);
@@ -407,7 +407,7 @@ public class BlockedTimeTests {
     public void IsWholeDayBlocked_WhenDailyRecurrence() {
         
         // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, null, null);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, null, null);
         blockedTime.RecurDaily(2);
 
         // Act & Assert
@@ -422,7 +422,7 @@ public class BlockedTimeTests {
     public void IsWholeDayBlocked_WhenWeeklyRecurrence() {
         
         // Arrange
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, startDate: _date610, null, null);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, startDate: _date610, null, null);
         blockedTime.RecurWeekly([_date610.DayOfWeek], 2);
 
         // Act & Assert
@@ -439,7 +439,7 @@ public class BlockedTimeTests {
         var dateToCheck = new DateOnly(2024, 6, 9);
         var startTimeToCheck = new TimeOnly(8, 0);
         var endTimeToCheck = new TimeOnly(9, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, null, null, _date620);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, null, null, _date620);
         Assert.False(blocked.IsBlocked(dateToCheck, startTimeToCheck, endTimeToCheck));
     }
 
@@ -447,7 +447,7 @@ public class BlockedTimeTests {
     public void IsBlocked_ReturnsFalse_WhenDateIsAfterEndDate() {
         var startTimeToCheck = new TimeOnly(8, 0);
         var endTimeToCheck = new TimeOnly(9, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, null, null, _date620);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, null, null, _date620);
         Assert.False(blocked.IsBlocked(_date621, startTimeToCheck, endTimeToCheck));
     }
 
@@ -457,7 +457,7 @@ public class BlockedTimeTests {
         var endTime = new TimeOnly(12, 0);
         var startTimeToCheck = new TimeOnly(8, 0);
         var endTimeToCheck = new TimeOnly(9, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date615, startTime, endTime, _date615);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date615, startTime, endTime, _date615);
         Assert.False(blocked.IsBlocked(_date615, startTimeToCheck, endTimeToCheck));
     }
 
@@ -467,7 +467,7 @@ public class BlockedTimeTests {
         var endTime = new TimeOnly(12, 0);
         var startTimeToCheck = new TimeOnly(11, 0);
         var endTimeToCheck = new TimeOnly(13, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date615, startTime, endTime, _date615);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date615, startTime, endTime, _date615);
         Assert.True(blocked.IsBlocked(_date615, startTimeToCheck, endTimeToCheck));
     }
 
@@ -477,7 +477,7 @@ public class BlockedTimeTests {
         var endTime = new TimeOnly(17, 0);
         var startTimeToCheck = new TimeOnly(9, 0);
         var endTimeToCheck = new TimeOnly(10, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
         Assert.True(blocked.IsBlocked(_date615, startTimeToCheck, endTimeToCheck));
     }
 
@@ -487,7 +487,7 @@ public class BlockedTimeTests {
         var endTime = new TimeOnly(17, 0);
         var startTimeToCheck = new TimeOnly(9, 0);
         var endTimeToCheck = new TimeOnly(10, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
         blocked.RecurWeekly([DayOfWeek.Monday]);
         Assert.False(blocked.IsBlocked(new DateOnly(2024, 6, 12), startTimeToCheck, endTimeToCheck)); // Wednesday
     }
@@ -498,7 +498,7 @@ public class BlockedTimeTests {
         var endTime = new TimeOnly(17, 0);
         var startTimeToCheck = new TimeOnly(9, 0);
         var endTimeToCheck = new TimeOnly(10, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
         blocked.RecurWeekly([DayOfWeek.Wednesday]);
         Assert.True(blocked.IsBlocked(new DateOnly(2024, 6, 12), startTimeToCheck, endTimeToCheck)); // Wednesday
     }
@@ -509,7 +509,7 @@ public class BlockedTimeTests {
         var endTime = new TimeOnly(17, 0);
         var startTimeToCheck = new TimeOnly(12, 0);
         var endTimeToCheck = new TimeOnly(10, 0);
-        var blocked = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
+        var blocked = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime, _date620);
         Assert.Throws<ArgumentException>(() =>
             blocked.IsBlocked(new DateOnly(2024, 6, 12), startTimeToCheck, endTimeToCheck));
     }
@@ -522,7 +522,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(8, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
         blockedTime.RecurDaily(2);
 
         // Act
@@ -540,7 +540,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(8, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
         blockedTime.RecurDaily(3);
 
         // Act & Assert
@@ -556,7 +556,7 @@ public class BlockedTimeTests {
         // Arrange
         var startTime = new TimeOnly(8, 0);
         var endTime = new TimeOnly(17, 0);
-        var blockedTime = new BlockedTime(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
+        var blockedTime = new BlockedSchedule(BlockedTimeType.AnnualLeave, _date610, startTime, endTime);
         blockedTime.RecurWeekly([_date610.DayOfWeek], 3); // Set weekly recurrence with interval of 2 weeks
 
         // Act & Assert

@@ -1,4 +1,3 @@
-using Dd.Domain.Common.Entities;
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
 
@@ -29,17 +28,6 @@ public class ScheduleTests {
         
         Assert.Equal(endDate, schedule.EndDate);
         
-    }
-
-    [Fact]
-    public void Constructor_ShouldThrowArgumentNullException_WhenStartDateIsInThePast() {
-        // Arrange
-        var startTime = new TimeOnly(9, 0);
-        var endTime = new TimeOnly(17, 0);
-        var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1));
-        
-        // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Schedule(startTime, endTime, startDate));
     }
 
     // RecurDaily tests

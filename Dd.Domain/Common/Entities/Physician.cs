@@ -9,15 +9,15 @@ public class Physician : Entity {
     public string? Email { get; set; }
     
     private readonly List<Schedule> _schedules = [];
-    private readonly List<BlockedTime> _blockedTimes = [];
+    private readonly List<BlockedSchedule> _blockedTimes = [];
     public IReadOnlyList<Schedule> Schedules => _schedules.AsReadOnly();
-    public IReadOnlyList<BlockedTime> BlockedTimes => _blockedTimes.AsReadOnly();
+    public IReadOnlyList<BlockedSchedule> BlockedTimes => _blockedTimes.AsReadOnly();
     
     public void AddSchedule(Schedule schedule) {
         // _schedules.Add(schedule);
     }
     
-    public void AddBlockedTime(BlockedTime blockedTime) {
+    public void AddBlockedTime(BlockedSchedule blockedTime) {
         // _blockedTimes.Add(blockedTime);
     }
     
@@ -25,7 +25,7 @@ public class Physician : Entity {
         // _schedules.Remove(schedule);
     }
     
-    public void RemoveBlockedTime(BlockedTime blockedTime) {
+    public void RemoveBlockedTime(BlockedSchedule blockedTime) {
         // _blockedTimes.Remove(blockedTime);
     }
 }

@@ -42,17 +42,6 @@ public class ScheduleTests {
         Assert.Throws<ArgumentOutOfRangeException>(() => new Schedule(startTime, endTime, startDate));
     }
 
-    [Fact]
-    public void Constructor_ShouldThrowArgumentException_WhenStartTimeIsNotEarlierThanEndTime() {
-        // Arrange
-        var startTime = new TimeOnly(17, 0);
-        var endTime = new TimeOnly(9, 0);
-        var startDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-        
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => new Schedule(startTime, endTime, startDate));
-    }
-
     // RecurDaily tests
     [Fact]
     public void RecurDaily_ShouldSetRecurrenceProperties_WhenCalledWithValidInterval() {

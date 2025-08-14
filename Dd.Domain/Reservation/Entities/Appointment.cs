@@ -72,7 +72,7 @@ public class Appointment : Entity
         if (newTimeSlot.PhysicianId != PhysicianId)
             throw new InvalidOperationException("Cannot postpone to a time slot with a different physician.");
         
-        if (newTimeSlot.Date <= Slot.Date && newTimeSlot.StartTime <= Slot.StartTime)
+        if (newTimeSlot.Date <= Slot?.Date && newTimeSlot.StartTime <= Slot.StartTime)
             throw new InvalidOperationException("Cannot postpone to a time slot that is earlier than or equal to the current time slot.");
         
         if (Status != AppointmentStatus.Scheduled

@@ -35,5 +35,8 @@ public class FiniteSequence : ISequence {
         return Length == 1 ? null : new FiniteSequence(S(1), End!.Value, Interval);
     }
 
+    public bool IsMember(int x) =>
+        x >= Start && x <= End && (x - Start) % Interval == 0;
+
     public static FiniteSequence SingleElement(int start) => new(start, start);
 }

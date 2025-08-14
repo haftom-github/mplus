@@ -19,4 +19,6 @@ public class InfiniteSequence : ISequence {
     public ISequence? StartFromNext() {
         return new  InfiniteSequence(S(1), Interval);
     }
+
+    public bool IsMember(int x) => x >= Start && (x - Start) % Interval == 0;
 }

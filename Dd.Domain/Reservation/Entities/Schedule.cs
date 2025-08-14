@@ -68,4 +68,11 @@ public class Schedule : Entity {
         var overlapDetector = OverlapDetectorFactory.Create(RecurrenceType, other.RecurrenceType);
         return overlapDetector.IsOverlapping(this, other);
     }
+
+    /// <summary>
+    /// gets the time range available in the schedule in a specific date
+    /// </summary>
+    public (TimeOnly start, TimeOnly end) GetAvailableTime(DateOnly date) {
+        throw new NotImplementedException();
+    }
 }

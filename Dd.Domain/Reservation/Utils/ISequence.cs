@@ -8,4 +8,5 @@ public interface ISequence {
     public int? Length { get; }
     public int S(int n);
     public ISequence? StartFromNext();
+    public bool IsMember(int x);
 }

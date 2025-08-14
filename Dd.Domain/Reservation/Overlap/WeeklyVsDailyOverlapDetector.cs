@@ -17,12 +17,8 @@ public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
         
         if (s1.RecurrenceType != RecurrenceType.Weekly || s2.RecurrenceType != RecurrenceType.Daily)
             throw new ArgumentException("one of the schedules must be weekly and the other daily");
-        
-        if (s1.StartTime >= s2.EndTime 
-            || s2.StartTime >= s1.EndTime 
-            || s1.StartDate > s2.EndDate 
-            || s2.StartDate > s1.EndDate)
-            return null;
+
+        if (OverlapImpossible(s1, s2)) return null;
 
         var s2Sequence =
             SequenceFactory.Create(s2.StartDate.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval);

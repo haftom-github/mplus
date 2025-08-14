@@ -11,12 +11,6 @@ public class DailyOverlapDetector : BaseOverlapDetector {
     public override ISequence? Detect(Schedule s1, Schedule s2) {
         ArgumentNullException.ThrowIfNull(s1);
         ArgumentNullException.ThrowIfNull(s2);
-        
-        // if (s1.StartTime >= s2.EndTime 
-        //     || s2.StartTime >= s1.EndTime 
-        //     || s1.StartDate > s2.EndDate || 
-        //     s2.StartDate > s1.EndDate)
-        //     return null;
 
         if (OverlapImpossible(s1, s2)) return null;
 

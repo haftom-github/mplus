@@ -29,9 +29,6 @@ public class Schedule : Entity {
         if (endDate < startDate)
             throw new ArgumentException("End date cannot be earlier than start date.", nameof(endDate));
         
-        if (startDate < DateOnly.FromDateTime(DateTime.UtcNow))
-            throw new ArgumentOutOfRangeException(nameof(startDate), "Start date cannot be in the past.");
-        
         this.StartTime = startTime;
         this.EndTime = endTime;
         this.StartDate = startDate;

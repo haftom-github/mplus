@@ -5,7 +5,7 @@ public class FiniteSequence : ISequence {
     public int? End { get; }
     public int Interval { get; }
     public bool IsFinite => true;
-    public int? Length => Interval == 0 ? 1 : (End - Start) / Interval + 1;
+    public int? Length => (End - Start) / Interval + 1;
 
     public FiniteSequence(int start, int end, int interval = 1) {
         if (interval <= 0)
@@ -18,17 +18,9 @@ public class FiniteSequence : ISequence {
         if (start > effectiveEnd)
             throw new ArgumentOutOfRangeException(nameof(start),$"Start must be less than effective end ({effectiveEnd}).");
 
-        if (start == effectiveEnd) interval = 0;
-        
         Start = start;
         End = effectiveEnd;
         Interval = interval;
-    }
-
-    private FiniteSequence(int start) {
-        Start = start;
-        End = Start;
-        Interval = 0;
     }
     
     public int S(int n) {
@@ -43,7 +35,5 @@ public class FiniteSequence : ISequence {
         return Length == 1 ? null : new FiniteSequence(S(1), End!.Value, Interval);
     }
 
-    public static FiniteSequence SingleElement(int start) {
-        return new FiniteSequence(start);
-    }
+    public static FiniteSequence SingleElement(int start) => new(start, start);
 }

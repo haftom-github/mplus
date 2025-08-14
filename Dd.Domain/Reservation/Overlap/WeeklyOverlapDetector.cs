@@ -6,14 +6,7 @@ using Dd.Domain.Reservation.Utils;
 namespace Dd.Domain.Reservation.Overlap;
 
 public class WeeklyOverlapDetector : BaseOverlapDetector {
-    public override bool IsOverlapping(Schedule s1, Schedule s2) {
-        return Detect(s1, s2) != null;
-    }
-
-    public override ISequence? Detect(Schedule s1, Schedule s2) {
-        ArgumentNullException.ThrowIfNull(s1);
-        ArgumentNullException.ThrowIfNull(s2);
-
+    protected override ISequence? SplitDetect(Schedule s1, Schedule s2) {
         if (s1.RecurrenceType != RecurrenceType.Weekly
             || s2.RecurrenceType != RecurrenceType.Weekly)
             throw new ArgumentException("can only detect overlaps between two weekly recurrent schedules");
@@ -26,20 +19,6 @@ public class WeeklyOverlapDetector : BaseOverlapDetector {
         
         var s1Start = s1.StartDate.ToFirstDayOfWeek();
         var s2Start = s2.StartDate.ToFirstDayOfWeek();
-        // var s1StartNextWeek = s1Start.AddDays(7);
-        //
-        // while (s1Start < s1.StartDate ||
-        //        s2Start < s2.StartDate ||
-        //        !commonDaysOfWeek.Contains(s1Start.DayOfWeek)
-        //        && s1Start < s1StartNextWeek) {
-        //     s1Start = s1Start.AddDays(1);
-        //     s2Start = s2Start.AddDays(1);
-        // }
-        //
-        // if (s1Start.DayNumber == s1StartNextWeek.DayNumber) {
-        //     s1Start = s1Start.AddDays(-7);
-        //     s2Start = s2Start.AddDays(-7);
-        // }
         
         while (s1Start.AddDays(1).DayOfWeek != IDateTime.FirstDayOfWeek 
                && !commonDaysOfWeek.Contains(s1Start.DayOfWeek))

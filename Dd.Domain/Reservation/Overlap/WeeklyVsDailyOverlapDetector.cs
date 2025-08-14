@@ -5,13 +5,7 @@ using Dd.Domain.Reservation.Utils;
 namespace Dd.Domain.Reservation.Overlap;
 
 public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
-    public override bool IsOverlapping(Schedule s1, Schedule s2) {
-        return Detect(s1, s2) != null;
-    }
-
-    public override ISequence? Detect(Schedule s1, Schedule s2) {
-        ArgumentNullException.ThrowIfNull(s1);
-        ArgumentNullException.ThrowIfNull(s2);
+    protected override ISequence? SplitDetect(Schedule s1, Schedule s2) {
         if (s1.RecurrenceType != RecurrenceType.Weekly)
             (s1, s2) = (s2, s1);
         

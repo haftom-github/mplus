@@ -4,14 +4,7 @@ using Dd.Domain.Reservation.Utils;
 namespace Dd.Domain.Reservation.Overlap;
 
 public class DailyOverlapDetector : BaseOverlapDetector {
-    public override bool IsOverlapping(Schedule s1, Schedule s2) {
-        return Detect(s1, s2) != null;
-    }
-
-    public override ISequence? Detect(Schedule s1, Schedule s2) {
-        ArgumentNullException.ThrowIfNull(s1);
-        ArgumentNullException.ThrowIfNull(s2);
-
+    protected override ISequence? SplitDetect(Schedule s1, Schedule s2) {
         if (OverlapImpossible(s1, s2)) return null;
 
         var s1Sequence = SequenceFactory.Create(s1.StartDate.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval);

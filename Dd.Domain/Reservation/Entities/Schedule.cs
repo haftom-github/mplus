@@ -7,11 +7,11 @@ namespace Dd.Domain.Reservation.Entities;
 public class Schedule : Entity {
     private readonly HashSet<DayOfWeek> _recurrenceDays = [];
     
-    public TimeOnly StartTime { get; private set; }
-    public TimeOnly EndTime { get; private set; }
+    public TimeOnly StartTime { get; }
+    public TimeOnly EndTime { get; }
     
-    public DateOnly StartDate { get; private set; }
-    public DateOnly? EndDate { get; private set; }
+    public DateOnly StartDate { get; }
+    public DateOnly? EndDate { get; }
     
     public RecurrenceType RecurrenceType { get; private set; } = RecurrenceType.Daily;
     

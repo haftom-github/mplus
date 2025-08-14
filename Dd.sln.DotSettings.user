@@ -17,6 +17,10 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.DailyOverlapDetectorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.WeeklyOverlapDetectorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.ScheduleExtensionsTests.Split_ShouldReturnTheScheduleAndNull_WhenScheduleDoesNotCrossDayBoundary&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.ScheduleExtensionsTests.Split&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.ScheduleExtensionsTests.Split_ShouldUpdateStartTimeToGetE_WhenScheduleCrossesDayBoundary&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Overlap.ScheduleExtensionsTests.Split_ShouldOnlyChangeEndTimeToGetS_WhenScheduleCrossesDayBoundary&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c26f6d8d_002D7f06_002D492e_002Da4fd_002D39a5ae12b8d6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Constructor_ShouldThrowArgumentExceptionWhenEndTimeComesBeforeStartTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;

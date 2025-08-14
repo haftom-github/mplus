@@ -144,4 +144,38 @@ public class DailyOverlapDetectorTests {
         Assert.NotNull(result);
         Assert.True(result.Start > _today.DayNumber + 200); // first hit far in future
     }
+    
+    // Mid night crossing schedules
+
+    [Fact]
+    public void Detect_ShouldDetectOverlapsThatHappenAfterMidNight() {
+        var startTime1 = new TimeOnly(22, 0);
+        var endTime1 = new TimeOnly(5, 0);
+        var startTime2 = new TimeOnly(3, 0);
+        var endTime2 = new TimeOnly(4, 0);
+        var s1 = new Schedule(startTime1, endTime1, _today, _today.AddDays(1));
+        s1.UpdateRecurrenceInterval(2);
+        
+        var s2 = new Schedule(startTime2, endTime2, _today.AddDays(1), _today.AddDays(1));
+        s2.UpdateRecurrenceInterval(2);
+        
+        var result = _overlapDetector.Detect(s1, s2);
+        Assert.NotNull(result);
+    }
+
+    [Fact]
+    public void Detect_ShouldDetect_BothSchedulesCrossMidNight() {
+        var startTime1 = new TimeOnly(22, 0);
+        var endTime1 = new TimeOnly(5, 0);
+        var startTime2 = new TimeOnly(4, 0);
+        var endTime2 = new TimeOnly(1, 0);
+        var s1 = new Schedule(startTime1, endTime1, _today, _today.AddDays(2));
+        s1.UpdateRecurrenceInterval(2);
+        
+        var s2 = new Schedule(startTime2, endTime2, _today.AddDays(1), _today.AddDays(3));
+        s2.UpdateRecurrenceInterval(2);
+        
+        var result = _overlapDetector.Detect(s1, s2);
+        Assert.NotNull(result);
+    }
 }

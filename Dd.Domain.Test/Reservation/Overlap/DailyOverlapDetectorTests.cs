@@ -177,5 +177,6 @@ public class DailyOverlapDetectorTests {
         
         var result = _overlapDetector.Detect(s1, s2);
         Assert.NotNull(result);
+        Assert.Equal(2, result.Length);
     }
 }

@@ -8,7 +8,9 @@ public class Appointment : Entity
     public Guid PatientId { get; private set; }
     
     public Guid PhysicianId { get; private set; }
-    public int SlotNumber { get; private set; }
+    
+    public TimeSlot? Slot { get; private set; }
+    public Guid SlotId { get; private set; }
 
     public string? Reason { get; set; }
     
@@ -16,8 +18,8 @@ public class Appointment : Entity
     public Guid AppointmentTypeId { get; private set; }
     
     public AppointmentStatus Status { get; private set; } = AppointmentStatus.Scheduled;
-    public Guid? InitialPhysicianId { get; private set; }
-    public int? InitialSlotNumber { get; private set; }
+    public Guid InitialPhysicianId { get; private set; }
+    public Guid InitialSlotId { get; private set; }
     
     public int PostponeCount { get; private set; }
     
@@ -30,7 +32,10 @@ public class Appointment : Entity
         
         this.PatientId = patientId;
         this.PhysicianId = timeSlot.PhysicianId;
-        this.SlotNumber = timeSlot.SlotNumber;
+        this.SlotId = timeSlot.Id;
+        this.Slot = timeSlot;
+        this.InitialPhysicianId = PhysicianId;
+        this.InitialSlotId = SlotId;
     }
     public void CheckIn()
     {
@@ -67,22 +72,17 @@ public class Appointment : Entity
         if (newTimeSlot.PhysicianId != PhysicianId)
             throw new InvalidOperationException("Cannot postpone to a time slot with a different physician.");
         
-        if (newTimeSlot.SlotNumber <= SlotNumber)
+        if (newTimeSlot.Date <= Slot.Date && newTimeSlot.StartTime <= Slot.StartTime)
             throw new InvalidOperationException("Cannot postpone to a time slot that is earlier than or equal to the current time slot.");
         
         if (Status != AppointmentStatus.Scheduled
             && Status != AppointmentStatus.CheckedIn
             && Status != AppointmentStatus.Postponed)
             throw new InvalidOperationException("Cannot postpone an appointment that is under examination.");
-
-        if (Status != AppointmentStatus.Postponed) {
-            InitialPhysicianId = PhysicianId;
-            InitialSlotNumber = SlotNumber;
-        }
         
-        SlotNumber = newTimeSlot.SlotNumber;
+        SlotId = newTimeSlot.Id;
         PhysicianId = newTimeSlot.PhysicianId;
-        
+        Slot = newTimeSlot;
         Status = AppointmentStatus.Postponed;
         PostponeCount++;
     }

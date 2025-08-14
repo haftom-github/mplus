@@ -2,28 +2,22 @@ namespace Dd.Domain.Reservation.Entities;
 
 public class TimeSlot
 {
+    public Guid Id { get; set; }
     public Guid PhysicianId { get; private set; }
-    
-    public TimeSpan Gap { get; private set; } = TimeSpan.Zero;
-    public int SlotNumber { get; private set; }
-    public int Ticks { get; private set; }
+    public DateOnly Date { get; }
+    public TimeOnly StartTime { get; }
+    public TimeSpan Span { get; private set; }
 
-    public TimeSlot(Guid physicianId, int slotNumber, int ticks) {
-        if(slotNumber < 0)
-            throw new ArgumentOutOfRangeException(nameof(slotNumber), "Slot number must be a non negative integer.");
-        
-        if(ticks <= 0)
-            throw new ArgumentOutOfRangeException(nameof(ticks), "Ticks must be a positive integer");
+    public TimeSlot(Guid physicianId, DateOnly date, TimeOnly startTime, TimeSpan span) {
+        if( span <= TimeSpan.Zero)
+            throw new ArgumentOutOfRangeException(nameof(span), "time span can not be zero");
         
         this.PhysicianId = physicianId;
-        this.SlotNumber = slotNumber;
-        this.Ticks = ticks;
+        this.Date = date;
+        this.StartTime = startTime;
+        this.Span = span;
     }
-    
-    public TimeSlot(Guid physicianId, int slotNumber, int ticks, TimeSpan gap) : this(physicianId, slotNumber, ticks) {
-        if(gap < TimeSpan.Zero)
-            throw new ArgumentOutOfRangeException(nameof(gap), "Gap cannot be negative.");
-        
-        this.Gap = gap;
-    }
+
+    public TimeSlot(Guid physicianId, DateTime dateTime, TimeSpan span) : this(physicianId,
+        DateOnly.FromDateTime(dateTime), TimeOnly.FromDateTime(dateTime), span) {}
 }

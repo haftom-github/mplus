@@ -7,34 +7,25 @@ namespace Dd.Domain.Test.Reservation.Entities;
 public class AppointmentTests {
 
     private readonly Patient _patient1;
-    private readonly Physician _physician1;
-    private readonly Physician _physician2;
-    
+
     private readonly TimeSlot _timeSlot10;
     private readonly TimeSlot _timeSlot11;
     private readonly TimeSlot _timeSlot12;
     
-    private readonly TimeSlot _timeSlot20;
     private readonly TimeSlot _timeSlot21;
-    private readonly TimeSlot _timeSlot22;
     
-    private readonly DateOnly _tomorrow = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
-    private const int FirstSlotNumber = 0;
-    private const int SecondSlotNumber = 1;
-    private const int ThirdSlotNumber = 2;
-    private const int ThreeTicks = 3;
+    private readonly DateTime _startDateTime = DateTime.UtcNow;
+    private readonly TimeSpan _span = new(1, 0, 0);
     public AppointmentTests() {
         _patient1 = new Patient();
         
-        _physician1 = new Physician();
-        _timeSlot10 = new TimeSlot(_physician1.Id, FirstSlotNumber, ThreeTicks);
-        _timeSlot11 = new TimeSlot(_physician1.Id, SecondSlotNumber, ThreeTicks);
-        _timeSlot12 = new TimeSlot(_physician1.Id, ThirdSlotNumber, ThreeTicks);
+        var physician1 = new Physician();
+        _timeSlot10 = new TimeSlot(physician1.Id, _startDateTime, _span);
+        _timeSlot11 = new TimeSlot(physician1.Id, _startDateTime.AddDays(1), _span);
+        _timeSlot12 = new TimeSlot(physician1.Id, _startDateTime.AddDays(2), _span);
         
-        _physician2 = new Physician();
-        _timeSlot20 = new TimeSlot(_physician2.Id, FirstSlotNumber, ThreeTicks);
-        _timeSlot21 = new TimeSlot(_physician2.Id, SecondSlotNumber, ThreeTicks);
-        _timeSlot22 = new TimeSlot(_physician2.Id, ThirdSlotNumber, ThreeTicks);
+        var physician2 = new Physician();
+        _timeSlot21 = new TimeSlot(physician2.Id, _startDateTime.AddDays(1), _span);
     }
     
     // Constructor tests
@@ -48,12 +39,10 @@ public class AppointmentTests {
         Assert.NotNull(appointment);
         Assert.Equal(_patient1.Id, appointment.PatientId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.SlotId);
         Assert.Equal(AppointmentStatus.Scheduled, appointment.Status);
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.SlotId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
-        Assert.Null(appointment.InitialPhysicianId);
-        Assert.Null(appointment.InitialSlotNumber);
         Assert.Equal(0, appointment.PostponeCount);
         Assert.Null(appointment.CheckedInAt);
         Assert.Null(appointment.ExaminationStartedAt);
@@ -176,7 +165,7 @@ public class AppointmentTests {
         Assert.Throws<InvalidOperationException>(() => appointment.PostponeToSelf(_timeSlot21));
         Assert.Equal(AppointmentStatus.Scheduled, appointment.Status);
         Assert.Equal(0, appointment.PostponeCount);
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.SlotId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
     }
     
@@ -203,7 +192,7 @@ public class AppointmentTests {
         
         appointment.PostponeToSelf(_timeSlot11);
         
-        Assert.Equal(_timeSlot11.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot11.Id, appointment.SlotId);
         Assert.Equal(_timeSlot11.PhysicianId, appointment.PhysicianId);
     }
 
@@ -213,7 +202,7 @@ public class AppointmentTests {
         
         appointment.PostponeToSelf(_timeSlot11);
         
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.InitialSlotId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
     
@@ -223,7 +212,7 @@ public class AppointmentTests {
         
         appointment.PostponeToSelf(_timeSlot11);
         appointment.PostponeToSelf(_timeSlot12);
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.InitialSlotId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
 
@@ -250,7 +239,7 @@ public class AppointmentTests {
         Assert.Throws<InvalidOperationException>(() => appointment.PostponeToSelf(_timeSlot10));
         Assert.Equal(AppointmentStatus.CheckedIn, appointment.Status);
         Assert.Equal(0, appointment.PostponeCount);
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.SlotId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.PhysicianId);
     }
 
@@ -263,9 +252,9 @@ public class AppointmentTests {
         Assert.Throws<InvalidOperationException>(() => appointment.PostponeToSelf(_timeSlot10));
         Assert.Equal(AppointmentStatus.Postponed, appointment.Status);
         Assert.Equal(1, appointment.PostponeCount);
-        Assert.Equal(_timeSlot11.SlotNumber, appointment.SlotNumber);
+        Assert.Equal(_timeSlot11.Id, appointment.SlotId);
         Assert.Equal(_timeSlot11.PhysicianId, appointment.PhysicianId);
-        Assert.Equal(_timeSlot10.SlotNumber, appointment.InitialSlotNumber);
+        Assert.Equal(_timeSlot10.Id, appointment.InitialSlotId);
         Assert.Equal(_timeSlot10.PhysicianId, appointment.InitialPhysicianId);
     }
     

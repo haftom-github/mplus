@@ -222,4 +222,13 @@ public class ScheduleMathTests {
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void FirstOverlap_ShouldWorkAsExpected_When_Single_item_sequences() {
+        var s1 = new InfiniteSequence(0, 5);
+        var s2 = new FiniteSequence(5, 10, 6);
+        
+        var overlap = ScheduleMath.FirstOverlap(s1, s2);
+        Assert.NotNull(overlap);
+    }
 }

@@ -69,13 +69,6 @@ public static class ScheduleMath {
 
         var (gcd, x0, y0) = ExtendedGcd(s1.Interval, -s2.Interval);
 
-        if (s1.Length == 1 || s2.Length == 1)
-            return s1.Start == s2.Start
-                ? s1.Length == 1
-                    ? FiniteSequence.SingleElement(s1.Start)
-                    : FiniteSequence.SingleElement(s2.Start)
-                : null;
-
         if ((s2.Start - s1.Start) % gcd != 0)
             return null;
         

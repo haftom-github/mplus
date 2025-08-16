@@ -3,7 +3,9 @@ namespace Dd.Domain.Reservation.ValueObjects;
 public sealed class Period(TimeOnly start, TimeOnly end) : IEquatable<Period> {
     public TimeOnly Start { get; } = start;
     public TimeOnly End { get; } = end;
-    public TimeSpan Span { get; } = start - end;
+    public TimeSpan Span { get; } = end - start;
+    public TimeSpan SignedSpan { get; } = new TimeSpan(end.Ticks - start.Ticks);
+    public bool IsPositive { get; } = start < end;
     
     public Period(TimeOnly start, TimeSpan span) : this(start, start.Add(span)){}
 

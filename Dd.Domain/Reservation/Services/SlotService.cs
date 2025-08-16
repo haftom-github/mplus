@@ -33,6 +33,7 @@ public static class SlotService {
     private static List<Period> Generate(List<Period> working, List<Period> blocking) {
         for (var i = 0; i < working.Count; i++) {
             foreach (var period in blocking) {
+                if (!working[i].IsPositive) break;
                 var (org, biProd) = Block(working[i], period);
                 working[i] = org;
                 if(biProd != null) working.Insert(i+1, biProd);
@@ -43,7 +44,7 @@ public static class SlotService {
     }
 
     private static List<Period> FilterAndSort(List<Period> periods) {
-        var filtered = periods.Where(p => p.Span > TimeSpan.Zero).ToList();
+        var filtered = periods.Where(p => p.IsPositive).ToList();
         filtered.Sort((a, b) => a.Start.CompareTo(b.Start));
         return filtered;
     }
@@ -52,8 +53,8 @@ public static class SlotService {
         var org = new Period(working.Start, Min(blocking.Start, working.End));
         var biProd = new Period(Max(blocking.End, working.Start), working.End);
 
-        if (biProd == working) (org, biProd) = (biProd, org);
-        if (biProd.Span <= TimeSpan.Zero) biProd = null;
+        if (!org.IsPositive) (org, biProd) = (biProd, org);
+        if (!biProd.IsPositive) biProd = null;
         return (org, biProd);
     }
 
@@ -62,13 +63,19 @@ public static class SlotService {
     }
 
     private static Period? PeriodAt(Schedule schedule, DateOnly date) {
-        var (fHalf, _) = schedule.Split();
+        var (fHalf, sHalf) = schedule.Split();
         var sequences = ToSequenceList(fHalf);
         foreach (var sequence in sequences) {
             if (sequence.IsMember(date.DayNumber))
                 return new Period(fHalf.StartTime, fHalf.EndTime);
         }
 
+        if (sHalf == null) return null;
+        sequences = ToSequenceList(sHalf);
+        foreach (var sequence in sequences) {
+            if (sequence.IsMember(date.DayNumber))
+                return new Period(sHalf.StartTime, sHalf.EndTime);
+        }
         return null;
     }
 
@@ -85,7 +92,7 @@ public static class SlotService {
                 var start = schedule.StartDate.ToFirstDayOfWeek();
                 foreach (var day in schedule.RecurrenceDays) {
                     while (start.DayOfWeek != day) start = start.AddDays(1);
-                    var sequence = SequenceFactory.Create(start.DayNumber, schedule.EndDate?.DayNumber, schedule.RecurrenceInterval);
+                    var sequence = SequenceFactory.Create(start.DayNumber, schedule.EndDate?.DayNumber, schedule.RecurrenceInterval*7);
                     if (sequence.Start < schedule.StartDate.DayNumber) sequence = sequence.StartFromNext();
                     if (sequence != null)
                         sequences.Add(sequence);

@@ -1,7 +1,9 @@
 namespace Dd.Domain.Reservation.Enums;
 
-public enum BlockedTimeType
-{
+public enum BlockedScheduleType {
+    WeeklyBreak,
+    LunchBreak,
+    CoffeeBreak,
     Vacation,
     Conference,
     Training,

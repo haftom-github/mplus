@@ -3,16 +3,18 @@ using Dd.Domain.Reservation.Enums;
 namespace Dd.Domain.Reservation.Entities;
 
 public class BlockedSchedule(
-    BlockedTimeType blockedTimeType,
+    BlockedScheduleType blockedScheduleType,
     DateOnly startDate,
     TimeOnly? startTime,
     TimeOnly? endTime,
     DateOnly? endDate = null)
     : Schedule(startTime ?? TimeOnly.MinValue, endTime ?? TimeOnly.MaxValue, startDate, endDate) {
     
+    
+    
     public bool BlocksAllPhysicians { get; private set; }
     public string? Reason { get; set; }
-    public BlockedTimeType BlockedTimeType { get; } = blockedTimeType;
+    public BlockedScheduleType BlockedScheduleType { get; } = blockedScheduleType;
 
     public void BlocksAll() {
         this.BlocksAllPhysicians = true;

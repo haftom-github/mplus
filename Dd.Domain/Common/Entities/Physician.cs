@@ -1,4 +1,4 @@
-using Dd.Domain.Reservation.Entities;
+using Dd.Domain.Schedules.Entities;
 
 namespace Dd.Domain.Common.Entities;
 

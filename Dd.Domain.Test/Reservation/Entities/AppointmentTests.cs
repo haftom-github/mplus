@@ -1,6 +1,7 @@
 using Dd.Domain.Common.Entities;
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
+using Dd.Domain.Schedules.Entities;
 
 namespace Dd.Domain.Test.Reservation.Entities;
 

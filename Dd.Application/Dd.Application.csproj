@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Reservation\" />
+      <Folder Include="Schedules\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Dd.Domain\Dd.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

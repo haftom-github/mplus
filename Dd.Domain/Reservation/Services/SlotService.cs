@@ -8,7 +8,7 @@ namespace Dd.Domain.Reservation.Services;
 
 public static class SlotService {
     public static List<TimeSlot> Generate(
-        Guid physicianId, DateOnly date, List<WorkSchedule> workSchedules, List<BlockedSchedule> blockedSchedules) {
+        TimeSpan slotSpan, Guid physicianId, DateOnly date, List<WorkSchedule> workSchedules, List<BlockedSchedule> blockedSchedules) {
         
         List<Period> workingPeriods = [];
         List<Period> blockedPeriods = [];
@@ -23,14 +23,14 @@ public static class SlotService {
             if (period != null) blockedPeriods.Add(period);
         }
 
-        var availablePeriods = Generate(workingPeriods, blockedPeriods);
+        var availablePeriods = Generate(slotSpan, workingPeriods, blockedPeriods);
         var slots = availablePeriods
             .Select(p => ToTimeSlot(physicianId, date, p)).ToList();
 
         return slots;
     }
 
-    private static List<Period> Generate(List<Period> working, List<Period> blocking) {
+    private static List<Period> Generate(TimeSpan minSpan, List<Period> working, List<Period> blocking) {
         for (var i = 0; i < working.Count; i++) {
             foreach (var period in blocking) {
                 if (!working[i].IsPositive) break;
@@ -40,11 +40,23 @@ public static class SlotService {
             }
         }
 
-        return FilterAndSort(working);
+        return FilterAndSort(minSpan, working);
     }
 
-    private static List<Period> FilterAndSort(List<Period> periods) {
-        var filtered = periods.Where(p => p.IsPositive).ToList();
+    private static List<Period> FilterAndSort(TimeSpan minSpan, List<Period> periods) {
+
+        // slice each period to a minimum slotSpan
+        for (var i = 0; i < periods.Count; i++) {
+            if (!periods[i].IsPositive 
+                || periods[i].Span < 2 * minSpan) 
+                continue;
+            
+            periods.Insert(i+1, new Period(periods[i].Start.Add(minSpan), periods[i].Span - minSpan));
+            periods[i] = new Period(periods[i].Start, minSpan);
+            
+        }
+        
+        var filtered = periods.Where(p => p.IsPositive && p.Span >= minSpan).ToList();
         filtered.Sort((a, b) => a.Start.CompareTo(b.Start));
         return filtered;
     }

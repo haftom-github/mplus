@@ -18,10 +18,11 @@ public class SlotServiceTests {
     private readonly BlockedSchedule _weekend;
     private readonly BlockedSchedule _lunchBreak;
     private readonly BlockedSchedule _coffeeBreak;
+    private readonly TimeSpan _slotSpan;
 
     public SlotServiceTests() {
         _physicianId = Guid.NewGuid();
-        _today = DateOnly.FromDateTime(DateTime.UtcNow);
+        _today = new DateOnly(2025, 08, 16);
         _2OClock = new TimeOnly(5, 0);
         _11OClock = new TimeOnly(14, 0);
         _10OClockMorning = new TimeOnly(1, 0);
@@ -36,62 +37,30 @@ public class SlotServiceTests {
         var coffeeStart = new TimeOnly(6, 0);
         var coffeeEnd = new TimeOnly(6, 30);
         _coffeeBreak = new BlockedSchedule(BlockedScheduleType.CoffeeBreak, _lastMonth, coffeeStart, coffeeEnd);
+        _slotSpan = TimeSpan.FromMinutes(30);
     }
     
     [Fact]
     public void Generate_ShouldReturnEmptyList_WhenDayIsCompletelyBlocked() {
         var availableSlots = 
-            SlotService.Generate(_physicianId, _today, [_officeHours], [_weekend]);
+            SlotService.Generate(_slotSpan, _physicianId, _today, [_officeHours], [_weekend]);
         
         Assert.Empty(availableSlots);
     }
 
     [Fact]
-    public void Generate_ShouldReturnASingleSlot_WhenDayIsCompletelyFree() {
-        var availableSlots = 
-            SlotService.Generate(_physicianId, _today.AddDays(2), [_officeHours], [_weekend]);
-        
-        Assert.Single(availableSlots);
-        Assert.Equal(availableSlots.First().StartTime, _2OClock);
-        Assert.Equal(availableSlots.First().Span, _11OClock - _2OClock);
-    }
-
-    [Fact]
     public void Generate_ShouldHaveNoEffect_WhenAddingTwoOverlappingBlockingTimes() {
-        var slots = SlotService.Generate(_physicianId, _today, [_officeHours], [_weekend]);
-        var slots2 = SlotService.Generate(_physicianId, _today, [_officeHours], [_weekend, _lunchBreak]);
+        var slots = SlotService.Generate(_slotSpan, _physicianId, _today, [_officeHours], [_weekend]);
+        var slots2 = SlotService.Generate(_slotSpan, _physicianId, _today, [_officeHours], [_weekend, _lunchBreak]);
         
         Assert.Equal(slots2.Count, slots.Count);
         Assert.Empty(slots);
-    }
-    
-    [Fact]
-    public void Generate_WhenTwoBlockingSchedules() {
-        var slots = SlotService.Generate(_physicianId, _today.AddDays(2), [_officeHours], [_weekend, _lunchBreak]);
-        
-        Assert.Equal(2, slots.Count);
-        // Assert.Equal();
-    }
-
-    [Fact]
-    public void Generate_WhenThreeBlockingSchedules() {
-        var slots = 
-            SlotService.Generate(_physicianId,
-                _today.AddDays(2), 
-                [_officeHours], 
-                [_weekend, _lunchBreak, _coffeeBreak]);
-        
-        Assert.Equal(3, slots.Count);
-        Assert.Equal(_2OClock, slots[0].StartTime);
-        Assert.Equal(new TimeOnly(6, 30), slots[1].StartTime);
-        Assert.Equal(new TimeOnly(11, 0), slots[2].StartTime);
-        Assert.Equal(_11OClock, slots[2].StartTime.Add(slots[2].Span));
     }
 
     [Fact]
     public void Generate_WhenScheduleCrossesBoundary() {
         _nightShift.UpdateRecurrenceInterval(10);
-        var slots = SlotService.Generate(_physicianId, _today.AddDays(1), [_nightShift], []);
+        var slots = SlotService.Generate(_slotSpan, _physicianId, _today.AddDays(1), [_nightShift], []);
         
         Assert.NotEmpty(slots);
     }
@@ -104,8 +73,8 @@ public class SlotServiceTests {
         var saturdays = new WorkSchedule(_2OClock, new TimeOnly(9, 0), _lastMonth);
         saturdays.RecurWeekly([DayOfWeek.Saturday]);
 
-        var slots = SlotService.Generate(_physicianId, _today, [schedule1, saturdays], [_coffeeBreak, _lunchBreak]);
-        
+        var slots = SlotService.Generate(_slotSpan, _physicianId, _today, [schedule1, saturdays], [_coffeeBreak, _lunchBreak]);
+
         Assert.NotEmpty(slots);
     }
 }

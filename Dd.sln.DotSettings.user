@@ -4,16 +4,12 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AEqualityAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fad8b2779652854276d03ec153d51377686c7193799d1688e119272770d0cf_003FEqualityAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AExceptionAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F47921adef6414a816a08bfc17edfc0ef70baa3a6d7a6c94f9e56682a1d1c_003FExceptionAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ANullAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F3f4719f7ce375226774d6991a6afc2f6932e58b42fd58ff13c7c03771642e_003FNullAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=488e5958_002Dbc45_002D4628_002Dbd34_002Daaf7e354f199/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Generate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=488e5958_002Dbc45_002D4628_002Dbd34_002Daaf7e354f199/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Generate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_ShouldReturnEmptyList_WhenDayIsCompletelyBlocked&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_ShouldReturnASingleSlot_WhenDayIsCompletelyFree&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_ShouldHaveNoEffect_WhenAddingTwoOverlappingBlockingTimes&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenTwoBlockingSchedules&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenThreeBlockingSchedules&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=76fe6227_002D026b_002D4b11_002D9dbd_002Dc74aa67fcaa8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Generate_WhenScheduleCrossesBoundary" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=76fe6227_002D026b_002D4b11_002D9dbd_002Dc74aa67fcaa8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Generate_WhenScheduleCrossesBoundary" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenScheduleCrossesBoundary&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenMoreThanOneSchedule&lt;/TestId&gt;
@@ -22,20 +18,9 @@
 	
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9b4bbb21_002De6b2_002D4b50_002Dab7f_002D15d6cc11f6e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FirstOverlap_ShouldWorkAsExpected_When_Single_item_sequences" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="C:\Users\haf\Desktop\Dd\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d5fdbf01_002D5220_002D4ce4_002Db3ad_002Dcd84894ba695/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Generate_WhenThreeBlockingSchedules" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenThreeBlockingSchedules&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenScheduleCrossesBoundary&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e9d286b1_002Db067_002D4d15_002Dbe76_002Ddfb2e513ae50/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="t" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::0CDD05CF-6554-4ADF-A385-54272B9601FC::net9.0::Dd.Domain.Test.Reservation.Services.SlotServiceTests.Generate_WhenThreeBlockingSchedules&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	
 	
 	

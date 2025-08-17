@@ -1,5 +1,5 @@
 using Dd.Domain.Reservation.Entities;
-using Dd.Domain.Reservation.Utils;
+using Dd.Domain.Reservation.Sequences;
 
 namespace Dd.Domain.Reservation.Overlap;
 
@@ -11,6 +11,6 @@ public class DailyOverlapDetector : BaseOverlapDetector {
         
         var s2Sequence = SequenceFactory.Create(s2.StartDate.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval);
         
-        return ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
+        return SequenceMath.FirstOverlapSequence(s1Sequence, s2Sequence);
     }
 }

@@ -1,6 +1,6 @@
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
-using Dd.Domain.Reservation.Utils;
+using Dd.Domain.Reservation.Sequences;
 
 namespace Dd.Domain.Reservation.Overlap;
 
@@ -24,7 +24,7 @@ public class WeeklyVsDailyOverlapDetector : BaseOverlapDetector {
             var s1Sequence =
                 SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
             
-            var overlap = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
+            var overlap = SequenceMath.FirstOverlapSequence(s1Sequence, s2Sequence);
             if (overlap != null) return overlap;
         }
 

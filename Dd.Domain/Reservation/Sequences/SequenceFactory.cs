@@ -1,4 +1,4 @@
-namespace Dd.Domain.Reservation.Utils;
+namespace Dd.Domain.Reservation.Sequences;
 
 public static class SequenceFactory {
     public static ISequence Create(int start, int? end, int interval) {

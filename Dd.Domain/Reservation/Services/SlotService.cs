@@ -1,7 +1,7 @@
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Enums;
 using Dd.Domain.Reservation.Overlap;
-using Dd.Domain.Reservation.Utils;
+using Dd.Domain.Reservation.Sequences;
 using Dd.Domain.Reservation.ValueObjects;
 
 namespace Dd.Domain.Reservation.Services;

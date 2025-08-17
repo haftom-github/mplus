@@ -1,4 +1,4 @@
-namespace Dd.Domain.Reservation.Utils;
+namespace Dd.Domain.Reservation.Sequences;
 
 public interface ISequence {
     public int Start { get; }

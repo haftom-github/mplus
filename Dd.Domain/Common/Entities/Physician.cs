@@ -8,9 +8,9 @@ public class Physician : Entity {
     public string? LastName { get; set; }
     public string? Email { get; set; }
     
-    private readonly List<Schedule> _schedules = [];
+    private readonly List<WorkSchedule> _schedules = [];
     private readonly List<BlockedSchedule> _blockedTimes = [];
-    public IReadOnlyList<Schedule> Schedules => _schedules.AsReadOnly();
+    public IReadOnlyList<WorkSchedule> Schedules => _schedules.AsReadOnly();
     public IReadOnlyList<BlockedSchedule> BlockedTimes => _blockedTimes.AsReadOnly();
     
     public void AddSchedule(Schedule schedule) {

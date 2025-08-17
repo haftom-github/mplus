@@ -1,6 +1,6 @@
-namespace Dd.Domain.Reservation.Utils;
+namespace Dd.Domain.Reservation.Sequences;
 
-public static class ScheduleMath {
+public static class SequenceMath {
     private static int Gcd(int a, int b) {
         while (a != 0) {
             var temp = a;
@@ -30,7 +30,7 @@ public static class ScheduleMath {
         if (!s1.IsFinite && !s2.IsFinite)
             return OverlapsUnbounded(s1, s2);
 
-        return FirstOverlap(s1, s2) != null;
+        return FirstOverlapSequence(s1, s2) != null;
     }
     
     private static bool OverlapsUnbounded(ISequence s1, ISequence s2) {
@@ -49,7 +49,7 @@ public static class ScheduleMath {
     /// count <c>0</c> implies no overlap
     /// count <c>null</c> implies infinite overlaps with <c>l</c>: being null
     /// </returns>
-    public static ISequence? FirstOverlap(ISequence s1, ISequence s2) {
+    public static ISequence? FirstOverlapSequence(ISequence s1, ISequence s2) {
         if (!s1.IsFinite && !s2.IsFinite)
             return FirstOverlapInfinite(s1, s2);
 

@@ -1,6 +1,5 @@
 using Dd.Domain.Reservation.Entities;
 using Dd.Domain.Reservation.Overlap;
-using Dd.Domain.Reservation.Utils;
 
 namespace Dd.Domain.Test.Reservation.Overlap;
 

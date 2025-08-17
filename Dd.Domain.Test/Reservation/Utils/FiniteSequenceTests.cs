@@ -1,4 +1,4 @@
-using Dd.Domain.Reservation.Utils;
+using Dd.Domain.Reservation.Sequences;
 
 namespace Dd.Domain.Test.Reservation.Utils;
 

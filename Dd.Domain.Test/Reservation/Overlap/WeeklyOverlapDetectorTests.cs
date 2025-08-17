@@ -73,10 +73,10 @@ public class WeeklyOverlapDetectorTests {
 
     [Fact]
     public void Detect_ShouldBehave_WhenBoundaryConditions() {
-        var startDate1 = _today.AddDays(2);
+        var startDate1 = _today.AddDays(4);
         var endDate1 = _today.AddDays(100);
         
-        var startDate2 = _today.AddDays(0);
+        var startDate2 = _today.AddDays(2);
         var endDate2 = _today.AddDays(100);
 
         List<DayOfWeek> days1 = [startDate1.AddDays(1).DayOfWeek];
@@ -89,6 +89,21 @@ public class WeeklyOverlapDetectorTests {
         s2.RecurWeekly(days2, 10);
 
         var result = _overlapDetector.Detect(s1, s2);
+        Assert.NotNull(result);
+    }
+
+    [Fact]
+    public void Detect_SpecialBoundaryConditions() {
+        var startDate1 = _today.AddDays(2);
+        var endDate1 = _today.AddDays(5);
+        var schedule1 = new Schedule(_commonStartTime, _commonEndTime, startDate1, endDate1);
+        schedule1.RecurWeekly([DayOfWeek.Monday, DayOfWeek.Tuesday]);
+        
+        var schedule2 = new Schedule(_commonStartTime, _commonEndTime, startDate1);
+        schedule2.RecurWeekly([DayOfWeek.Monday, DayOfWeek.Tuesday]);
+        
+        var result = _overlapDetector.Detect(schedule1, schedule2);
+        
         Assert.NotNull(result);
     }
 }

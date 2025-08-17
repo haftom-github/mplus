@@ -19,16 +19,23 @@ public class WeeklyOverlapDetector : BaseOverlapDetector {
         
         var s1Start = s1.StartDate.ToFirstDayOfWeek();
         var s2Start = s2.StartDate.ToFirstDayOfWeek();
+
+        foreach (var day in commonDaysOfWeek) {
+            while (s1Start.DayOfWeek != day)
+                (s1Start, s2Start) = (s1Start.AddDays(1), s2Start.AddDays(1));
         
-        while (s1Start.AddDays(1).DayOfWeek != IDateTime.FirstDayOfWeek 
-               && !commonDaysOfWeek.Contains(s1Start.DayOfWeek))
-            (s1Start, s2Start) = (s1Start.AddDays(1), s2Start.AddDays(1));
+            var s1Sequence = SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
+            var s2Sequence = SequenceFactory.Create(s2Start.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval * 7);
+            var overlap = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
+            
+            overlap =  overlap?.Start < s1.StartDate.DayNumber 
+                   || overlap?.Start < s2.StartDate.DayNumber ? overlap.StartFromNext() : overlap;
         
-        var s1Sequence = SequenceFactory.Create(s1Start.DayNumber, s1.EndDate?.DayNumber, s1.RecurrenceInterval * 7);
-        var s2Sequence = SequenceFactory.Create(s2Start.DayNumber, s2.EndDate?.DayNumber, s2.RecurrenceInterval * 7);
-        var overlap = ScheduleMath.FirstOverlap(s1Sequence, s2Sequence);
-        if (overlap == null) return null;
-        return overlap.Start < s1.StartDate.DayNumber 
-               || overlap.Start < s2.StartDate.DayNumber ? overlap.StartFromNext() : overlap;
+            if (overlap != null) return overlap;
+            s1Start = s1.StartDate.ToFirstDayOfWeek();
+            s2Start = s2.StartDate.ToFirstDayOfWeek();
+        }
+        
+        return null;
     }
 }

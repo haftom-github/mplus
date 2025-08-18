@@ -1,5 +1,5 @@
-using Dd.Api.Common.Domain.Entities;
-using Dd.Api.Schedules.Domain.Entities;
+using Dd.Api.Features.Schedules.Domain.Entities;
+using Dd.Api.Shared.Domain.Entities;
 
 namespace Dd.Domain.Test.Schedules.Entities;
 

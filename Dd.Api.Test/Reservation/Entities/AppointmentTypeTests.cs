@@ -1,4 +1,4 @@
-using Dd.Api.Reservations.Domain.Entities;
+using Dd.Api.Features.Reservations.Domain.Entities;
 
 namespace Dd.Domain.Test.Reservation.Entities;
 

@@ -1,7 +1,7 @@
-using Dd.Api.Common.Domain.Entities;
-using Dd.Api.Reservations.Domain.Entities;
-using Dd.Api.Reservations.Domain.Enums;
-using Dd.Api.Schedules.Domain.Entities;
+using Dd.Api.Features.Reservations.Domain.Entities;
+using Dd.Api.Features.Reservations.Domain.Enums;
+using Dd.Api.Features.Schedules.Domain.Entities;
+using Dd.Api.Shared.Domain.Entities;
 
 namespace Dd.Domain.Test.Reservation.Entities;
 

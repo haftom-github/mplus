@@ -1,5 +1,5 @@
-using Dd.Api.Schedules.Domain.Entities;
-using Dd.Api.Schedules.Domain.Overlap;
+using Dd.Api.Features.Schedules.Domain.Entities;
+using Dd.Api.Features.Schedules.Domain.Overlap;
 
 namespace Dd.Domain.Test.Schedules.Overlap;
 

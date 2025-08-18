@@ -1,6 +1,6 @@
-using Dd.Api.Schedules.Domain.Entities;
-using Dd.Api.Schedules.Domain.Enums;
-using Dd.Api.Schedules.Domain.Services;
+using Dd.Api.Features.Schedules.Domain.Entities;
+using Dd.Api.Features.Schedules.Domain.Enums;
+using Dd.Api.Features.Schedules.Domain.Services;
 using TimeOnly = System.TimeOnly;
 
 namespace Dd.Domain.Test.Schedules.Services;

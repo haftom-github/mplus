@@ -1,4 +1,4 @@
-using Dd.Domain.Schedules.Sequences;
+using Dd.Api.Features.Schedules.Domain.Sequences;
 
 namespace Dd.Domain.Test.Schedules.Sequences;
 

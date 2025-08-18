@@ -22,7 +22,7 @@ public class Result<T> {
     public bool IsSuccess { get; }
     public ErrorType? ErrorType { get; }
     public string? Message { get; }
-    T? Value { get; }
+    public T? Value { get; }
     protected Result(bool isSuccess, T? value, ErrorType? errorType = null, string? message = null) {
         IsSuccess = isSuccess;
         ErrorType = errorType;
@@ -33,6 +33,6 @@ public class Result<T> {
     public static Result<T> Success(T value, string? message = null)
         => new(true, value, message: message);
     
-    public new static Result<T> Failure(ErrorType errorType, string? message = null)
+    public static Result<T> Failure(ErrorType errorType, string? message = null)
         => new(false, default, errorType, message);
 }

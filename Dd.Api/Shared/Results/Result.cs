@@ -1,42 +1,28 @@
 namespace Dd.Api.Shared.Results;
 
-public class Result {
-    public bool IsSuccess { get; }
-    public ErrorType? ErrorType { get; }
-    public List<Failure>? Errors { get; }
-    public string? Message { get; }
+public class Result : BaseResult {
     
-    private Result(bool isSuccess, ErrorType? errorType = null, string? message = null) {
-        IsSuccess = isSuccess;
-        ErrorType = errorType;
-        Message = message;
-    }
-    
-    public static Result Success(string? message = null)
-        => new(true, message: message);
-    
-    public static Result Failure(ErrorType errorType, string? message = null)
-        => new(false, errorType, message);
+    private Result(bool isSuccess, ErrorType? errorType = null, List<Failure>? failures = null, string? message = null) 
+        : base(isSuccess, errorType, failures, message){}
 }
 
-public class Result<T> {
-    public bool IsSuccess { get; }
-    public ErrorType? ErrorType { get; }
-    public List<Failure>? Errors { get; }
-    public string? Message { get; }
+public class Result<T> : BaseResult {
     public T? Value { get; }
 
-    private Result(bool isSuccess, T? value, ErrorType? errorType = null, string? message = null) {
-        IsSuccess = isSuccess;
-        ErrorType = errorType;
-        Message = message;
+    private Result(bool isSuccess, T? value, ErrorType? errorType = null, List<Failure>? failures = null, string? message = null) : base(isSuccess, errorType, failures, message) {
         Value = value;
     }
     
     public static Result<T> Success(T value, string? message = null)
         => new(true, value, message: message);
     
-    public static Result<T> Failure(ErrorType errorType, string? message = null)
-        => new(false, default, errorType, message);
+    public new static Result<T> Failure(ErrorType errorType, string? message = null)
+        => new(false, default, errorType, message: message);
+    
+    public new static Result<T> Failure(ErrorType errorType, List<Failure> failures, string? message = null)
+        => new(false, default, errorType, failures, message);
 }
+
+
+
 

@@ -2,9 +2,9 @@ using Dd.Api.Shared.Domain.Entities;
 
 namespace Dd.Api.Shared.Domain.MasterData;
 
-public class Specialization : AuditableEntity, IHasName, IHasDescription {
+public class LabDepartment 
+    : AuditableEntity, IHasName, IHasDescription {
     
-    // name and description
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
 }

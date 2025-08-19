@@ -2,7 +2,7 @@ using Dd.Api.Shared.Domain.Entities;
 
 namespace Dd.Api.Shared.Domain.MasterData;
 
-public class Specialization : AuditableEntity, IHasName, IHasDescription {
+public class Injury : AuditableEntity, IHasName, IHasDescription {
     
     // name and description
     public string Name { get; set; } = string.Empty;

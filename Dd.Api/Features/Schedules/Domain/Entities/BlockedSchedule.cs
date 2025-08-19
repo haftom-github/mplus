@@ -2,19 +2,29 @@ using Dd.Api.Features.Schedules.Domain.Enums;
 
 namespace Dd.Api.Features.Schedules.Domain.Entities;
 
-public class BlockedSchedule(
-    BlockedScheduleType blockedScheduleType,
-    DateOnly startDate,
-    TimeOnly? startTime,
-    TimeOnly? endTime,
-    DateOnly? endDate = null)
-    : Schedule(startTime ?? TimeOnly.MinValue, endTime ?? TimeOnly.MaxValue, startDate, endDate) {
+public class BlockedSchedule : Schedule {
+    protected BlockedSchedule() 
+        : base(TimeOnly.MinValue, TimeOnly.MaxValue, DateOnly.MinValue){
+        // EF Core uses this constructor and then sets properties via setters
+    }
     
-    
-    
+    public BlockedSchedule(
+            BlockedScheduleType blockedScheduleType,
+            DateOnly startDate,
+            TimeOnly? startTime,
+            TimeOnly? endTime,
+            DateOnly? endDate = null)
+        : base(startTime ?? TimeOnly.MinValue, 
+        endTime ?? TimeOnly.MaxValue, 
+        startDate, 
+        endDate)
+    {
+        BlockedScheduleType = blockedScheduleType;
+    }
+        
     public bool BlocksAllPhysicians { get; private set; }
     public string? Reason { get; set; }
-    public BlockedScheduleType BlockedScheduleType { get; } = blockedScheduleType;
+    public BlockedScheduleType BlockedScheduleType { get; }
 
     public void BlocksAll() {
         this.BlocksAllPhysicians = true;

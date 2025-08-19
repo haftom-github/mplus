@@ -1,7 +1,7 @@
-using Dd.Api.Shared.Results;
+using Dd.Api.Shared.Application.Results;
 using MediatR;
 
-namespace Dd.Api.Shared.Cqrs;
+namespace Dd.Api.Shared.Application.Cqrs;
 
 // defines query with no response and its handler
 public interface IQuery : IRequest<Result>;

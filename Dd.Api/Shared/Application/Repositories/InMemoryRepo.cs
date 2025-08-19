@@ -1,6 +1,6 @@
-using Dd.Api.Shared.Results;
+using Dd.Api.Shared.Application.Results;
 
-namespace Dd.Api.Shared.Repositories;
+namespace Dd.Api.Shared.Application.Repositories;
 
 public class InMemoryRepo<T, TId>(Func<T, TId> idSelector) : IRepo<T>
     where T : class where TId : notnull {

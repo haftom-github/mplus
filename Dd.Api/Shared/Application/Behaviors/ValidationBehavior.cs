@@ -1,8 +1,8 @@
-using Dd.Api.Shared.Results;
+using Dd.Api.Shared.Application.Results;
 using FluentValidation;
 using MediatR;
 
-namespace Dd.Api.Shared.Behaviors;
+namespace Dd.Api.Shared.Application.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>

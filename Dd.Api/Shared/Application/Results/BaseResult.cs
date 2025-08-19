@@ -1,4 +1,4 @@
-namespace Dd.Api.Shared.Results;
+namespace Dd.Api.Shared.Application.Results;
 
 public class BaseResult {
     public bool IsSuccess { get; protected set; }

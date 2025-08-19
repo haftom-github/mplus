@@ -1,4 +1,4 @@
-namespace Dd.Api.Shared.Results;
+namespace Dd.Api.Shared.Application.Results;
 
 public class Failure(string key, string message) {
     public string Key { get; } = key;

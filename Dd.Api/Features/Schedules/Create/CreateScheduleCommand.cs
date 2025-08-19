@@ -1,5 +1,5 @@
 using Dd.Api.Features.Schedules.Domain.Enums;
-using Dd.Api.Shared.Cqrs;
+using Dd.Api.Shared.Application.Cqrs;
 using MediatR;
 
 namespace Dd.Api.Features.Schedules.Create;

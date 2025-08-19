@@ -1,4 +1,4 @@
-namespace Dd.Api.Shared.Results;
+namespace Dd.Api.Shared.Application.Results;
 
 public static class ResultExtension {
     public static ApiResponse<T> ToApiResponse<T>(this Result<T> result) {

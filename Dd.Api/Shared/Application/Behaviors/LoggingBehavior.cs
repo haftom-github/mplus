@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Dd.Api.Shared.Behaviors;
+namespace Dd.Api.Shared.Application.Behaviors;
 
 public class LoggingBehavior<TRequest, TResponse> (ILogger<LoggingBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>

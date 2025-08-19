@@ -2,7 +2,7 @@ using Dd.Api.Features.Reservations.Contracts;
 using Dd.Api.Features.Schedules.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dd.Api.Shared.Repositories;
+namespace Dd.Api.Shared.Application.Repositories;
 
 public class UnitOfWork(IAppointmentRepo appointmentRepo, 
     ISlotRepo slotRepo, 

@@ -1,5 +1,5 @@
 using Dd.Api.Features.Schedules.Infrastructure;
-using Dd.Api.Shared.Behaviors;
+using Dd.Api.Shared.Application.Behaviors;
 using FluentValidation;
 using MediatR;
 
@@ -19,6 +19,7 @@ public static class Di {
         services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssemblyContaining<Program>();
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
         services.AddSchedulesServices(config);
         return services;

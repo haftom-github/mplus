@@ -1,7 +1,7 @@
 using Dd.Api.Features.Schedules.Domain.Entities;
 using Dd.Api.Features.Schedules.Domain.Enums;
 using Dd.Api.Features.Schedules.Domain.Sequences;
-using Dd.Api.Shared.Time;
+using Dd.Api.Shared.Domain.Time;
 
 namespace Dd.Api.Features.Schedules.Domain.Overlap;
 

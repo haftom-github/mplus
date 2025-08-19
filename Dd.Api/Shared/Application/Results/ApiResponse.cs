@@ -1,4 +1,4 @@
-namespace Dd.Api.Shared.Results;
+namespace Dd.Api.Shared.Application.Results;
 
 public class ApiResponse<T> {
     public int StatusCode { get; set; }

@@ -1,6 +1,4 @@
-using Dd.Api.Shared.Results;
-
-namespace Dd.Api.Shared.Repositories;
+namespace Dd.Api.Shared.Application.Repositories;
 
 public interface IRepo<T> {
     Task<T?> GetByIdAsync<TId>(TId id) where TId : notnull;

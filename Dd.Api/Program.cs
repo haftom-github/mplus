@@ -1,5 +1,6 @@
 using Dd.Api.Features.Schedules.Create;
 using Dd.Api.Features.Schedules.Get;
+using Dd.Api.Shared.Application.Middleware;
 using Dd.Api.Shared.Infrastructure;
 using MediatR;
 
@@ -8,6 +9,7 @@ builder.Services.AddAllFeaturesServices(builder.Configuration);
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+app.UseCustomExceptionHandler();
 
 if (app.Environment.IsDevelopment()) {
     app.MapOpenApi();

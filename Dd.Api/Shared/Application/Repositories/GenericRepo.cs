@@ -1,7 +1,6 @@
-using Dd.Api.Shared.Results;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dd.Api.Shared.Repositories;
+namespace Dd.Api.Shared.Application.Repositories;
 
 public class GenericRepo<T> : IRepo<T> where T : class {
     private readonly DbSet<T> _dbSet;

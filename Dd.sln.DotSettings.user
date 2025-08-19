@@ -7,8 +7,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8ef9c235_002De5bb_002D452a_002D9606_002Dc3ecc86d98e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;test&amp;gt;\&amp;lt;Dd.Api.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\haf\Desktop\Dd\Dd.Api.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Api.Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b05991c7_002D9bb0_002D4a7b_002Dbf32_002D701567381067/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/home/haftom/Desktop/mplus/Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b05991c7_002D9bb0_002D4a7b_002Dbf32_002D701567381067/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="\home\haftom\Desktop\mplus\Dd.Domain.Test" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Dd.Domain.Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	

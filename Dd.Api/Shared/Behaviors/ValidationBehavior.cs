@@ -1,3 +1,4 @@
+using Dd.Api.Shared.Results;
 using FluentValidation;
 using MediatR;
 
@@ -5,7 +6,8 @@ namespace Dd.Api.Shared.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull {
+    where TRequest : notnull
+    where TResponse : BaseResult {
     
     public async Task<TResponse> Handle(TRequest request, 
         RequestHandlerDelegate<TResponse> next, 
@@ -19,9 +21,15 @@ public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TReq
             .Where(failure => failure != null)
             .ToList();
 
-        if (failures.Count != 0)
-            throw new ValidationException(failures);
+        if (failures.Count == 0) return await next(cancellationToken);
 
-        return await next(cancellationToken);
+        var validationFailures = failures
+            .Select(failure => new Failure(failure.PropertyName, failure.ErrorMessage))
+            .ToList();
+
+        return BaseResult.FailureAs<TResponse>(
+            ErrorType.ValidationFailure,
+            validationFailures,
+            "Validation failed for one or more requests.");
     }
 }

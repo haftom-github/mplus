@@ -1,9 +1,10 @@
 using Dd.Api.Features.Schedules.Domain.Enums;
+using Dd.Api.Shared.Cqrs;
 using MediatR;
 
 namespace Dd.Api.Features.Schedules.Create;
 
-public class CreateScheduleCommand : IRequest<Guid> {
+public class CreateScheduleCommand : ICommand<Guid> {
     public DateOnly StartDate { get; set; }
     public DateOnly? EndDate { get; set; }
     public TimeOnly StartTime { get; set; }

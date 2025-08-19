@@ -1,9 +1,7 @@
-using Dd.Api.Shared.Domain.Time;
-
 namespace Dd.Api.Shared.Domain.Entities;
 
-public abstract class Auditable : IAuditable {
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+public abstract class AuditableEntity : Entity, IAuditable {
+    public DateTime CreatedAt { get; init; }
     public DateTime UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
     public string CreatedBy { get; init; } = string.Empty;

@@ -2,8 +2,17 @@ namespace Dd.Api.Shared.Application.Results;
 
 public class Result : BaseResult {
     
+    public new static Result Success(string? message = null)
+        => new(true, message: message);
+    
     private Result(bool isSuccess, ErrorType? errorType = null, List<Failure>? failures = null, string? message = null) 
         : base(isSuccess, errorType, failures, message){}
+    
+    public new static Result Failure(ErrorType errorType, string? message = null)
+        => new(false, errorType, message: message);
+    
+    public new static Result Failure(ErrorType errorType, List<Failure> failures, string? message = null)
+        => new(false, errorType, failures, message);
 }
 
 public class Result<T> : BaseResult {

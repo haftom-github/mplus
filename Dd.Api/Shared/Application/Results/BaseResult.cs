@@ -16,10 +16,10 @@ public class BaseResult {
     public static BaseResult Success(string? message = null)
         => new(true, message: message);
     
-    public new static BaseResult Failure(ErrorType errorType, string? message = null)
+    public static BaseResult Failure(ErrorType errorType, string? message = null)
         => new(false, errorType, message: message);
     
-    public new static BaseResult Failure(ErrorType errorType, List<Failure> failures, string? message = null)
+    public static BaseResult Failure(ErrorType errorType, List<Failure> failures, string? message = null)
         => new(false, errorType, failures, message);
     
     public static T FailureAs<T>(ErrorType errorType, string? message = null) where T : BaseResult {

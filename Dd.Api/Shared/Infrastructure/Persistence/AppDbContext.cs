@@ -1,3 +1,4 @@
+using Dd.Api.Shared.Domain;
 using Dd.Api.Shared.Domain.Entities;
 using Dd.Api.Shared.Domain.MasterData;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
+        
+        ConfigureEntities(modelBuilder);
+        modelBuilder.Entity<Injury>()
+            .HasQueryFilter(i => i.Status != RecordStatus.Deleted);
 
         modelBuilder.Entity<MedicalPersonnel>()
             .HasMany(mp => mp.Specializations)
@@ -69,5 +74,54 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 j => j.HasKey(bs => new { bs.MedicalPersonnelId, bs.BlockedScheduleId }
                 )
             );
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
+        ChangeTracker.DetectChanges();
+
+        foreach (var entry in ChangeTracker.Entries<AuditableEntity>()) {
+            switch (entry.State) {
+                case EntityState.Added:
+                    entry.Entity.Status = RecordStatus.Active;
+                    break;
+
+                case EntityState.Modified:
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    break;
+
+                case EntityState.Deleted:
+                    entry.State = EntityState.Modified;
+                    entry.Entity.Status = RecordStatus.Deleted;
+                    entry.Entity.StatusChangedAt = DateTime.UtcNow;
+                    break;
+                
+                case EntityState.Detached:
+                case EntityState.Unchanged:
+                default:
+                    break;
+            }
+        }
+        
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+    
+    private void ConfigureEntities(ModelBuilder modelBuilder) {
+        
+        var entities = modelBuilder.Model.GetEntityTypes()
+            .Where(t => t.ClrType.IsClass);
+        
+        foreach (var entityType in entities) {
+            if (typeof(IHasName).IsAssignableFrom(entityType.ClrType)) {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(IHasName.Name))
+                    .HasMaxLength(100);
+            }
+            
+            if (typeof(IHasDescription).IsAssignableFrom(entityType.ClrType)) {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(IHasDescription.Description))
+                    .HasMaxLength(500);
+            }
+        }
     }
 }

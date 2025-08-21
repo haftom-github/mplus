@@ -1,5 +1,8 @@
+using Carter;
+using Dd.Api.Features.Injuries;
 using Dd.Api.Features.Schedules.Infrastructure;
 using Dd.Api.Shared.Application.Behaviors;
+using Dd.Api.Shared.Application.Repositories;
 using Dd.Api.Shared.Infrastructure.Persistence;
 using FluentValidation;
 using MediatR;
@@ -24,7 +27,9 @@ public static class Di {
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddSchedulesServices(config);
+        services.AddInjuryServices(config);
         return services;
     }
 }

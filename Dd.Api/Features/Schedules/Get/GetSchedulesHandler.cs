@@ -10,7 +10,7 @@ public class GetSchedulesHandler(IScheduleRepo repo)
     public async Task<Result<IEnumerable<Schedule>>> 
         Handle(GetSchedulesQuery request, CancellationToken cancellationToken) {
         
-            var schedules = await repo.ListAsync();
+            var schedules = await repo.ListAsync(cancellationToken);
             return Result<IEnumerable<Schedule>>.Success(schedules);
     }
 }

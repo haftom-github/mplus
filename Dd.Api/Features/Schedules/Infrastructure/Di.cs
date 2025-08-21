@@ -4,7 +4,7 @@ namespace Dd.Api.Features.Schedules.Infrastructure;
 
 public static class Di {
     public static IServiceCollection AddSchedulesServices(this IServiceCollection services, IConfiguration config) {
-        services.AddScoped<IScheduleRepo, InMemorySchedulesRepo>();
+        services.AddScoped<IScheduleRepo, ScheduleRepo>();
         return services;
     }
 }

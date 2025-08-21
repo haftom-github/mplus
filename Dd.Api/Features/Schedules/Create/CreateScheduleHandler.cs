@@ -18,7 +18,7 @@ public class CreateScheduleHandler(IScheduleRepo repo) : ICommandHandler<CreateS
                     newSchedule.RecurWeekly(request.DaysOfWeek, request.RecurrenceInterval);
                     break;
             }
-            await repo.AddAsync(newSchedule);
+            await repo.AddAsync(newSchedule, cancellationToken);
             return Result<Guid>.Success(newSchedule.Id);
         }
         catch (Exception e) {

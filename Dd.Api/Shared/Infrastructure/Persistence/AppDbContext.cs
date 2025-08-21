@@ -12,6 +12,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     
     
     // medical personnel entities
+    public DbSet<MedicalPersonnel>? MedicalPersonnel { get; set; }
     public DbSet<EtMedicalPersonnel>? EtMedicalPersonnel { get; set; }
     public DbSet<ContractMedicalPersonnel>? ContractMedicalPersonnel { get; set; }
     public DbSet<Specialization>? Specializations { get; set; }
@@ -36,20 +37,37 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<AffiliateType>? Countries { get; set; }
     public DbSet<Affiliate>? Affiliates { get; set; }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
-        var entries = this.ChangeTracker
-            .Entries<IAuditable>()
-            .Where(e => e.State is EntityState.Modified or EntityState.Added);
-
-        foreach (var entry in entries) {
-            entry.Entity.UpdatedAt = DateTime.UtcNow;
-        }
-
-        return await base.SaveChangesAsync(cancellationToken);
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<MedicalPersonnel>()
+            .HasMany(mp => mp.Specializations)
+            .WithMany()
+            .UsingEntity<MedicalPersonnelSpecializations>(
+                j => j.HasOne(mp => mp.Specialization).WithMany(),
+                j => j.HasOne(mp => mp.MedicalPersonnel).WithMany(),
+                j => j.HasKey(mp => new { mp.MedicalPersonnelId, mp.SpecializationId }
+                )
+            );
         
+        modelBuilder.Entity<MedicalPersonnel>()
+            .HasMany(mp => mp.WorkSchedules)
+            .WithMany()
+            .UsingEntity<PersonnelWorkSchedules>(
+                j => j.HasOne(ws => ws.WorkSchedule).WithMany(),
+                j => j.HasOne(ws => ws.MedicalPersonnel).WithMany(),
+                j => j.HasKey(ws => new { ws.MedicalPersonnelId, ws.WorkScheduleId }
+                )
+            );
+        
+        modelBuilder.Entity<MedicalPersonnel>()
+            .HasMany(mp => mp.BlockedSchedules)
+            .WithMany()
+            .UsingEntity<PersonnelBlockedSchedules>(
+                j => j.HasOne(bs => bs.BlockedSchedule).WithMany(),
+                j => j.HasOne(bs => bs.MedicalPersonnel).WithMany(),
+                j => j.HasKey(bs => new { bs.MedicalPersonnelId, bs.BlockedScheduleId }
+                )
+            );
     }
 }

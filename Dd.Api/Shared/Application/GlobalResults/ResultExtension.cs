@@ -1,4 +1,4 @@
-namespace Dd.Api.Shared.Application.Results;
+namespace Dd.Api.Shared.Application.GlobalResults;
 
 public static class ResultExtension {
     public static ApiResponse<T> ToApiResponse<T>(this Result<T> result) {
@@ -29,6 +29,32 @@ public static class ResultExtension {
             ErrorType.ValidationFailure => "Bad Request",
             ErrorType.Unknown => "Internal Server Error",
             _ => throw new ArgumentOutOfRangeException(nameof(errorType), errorType, null)
+        };
+    }
+    
+    public static IResult ToHttpResult(this Result result) {
+        if (result.IsSuccess) {
+            return Results.Ok(result);
+        }
+
+        return result.ErrorType switch {
+            ErrorType.NotFound => Results.NotFound(result),
+            ErrorType.ValidationFailure => Results.BadRequest(result),
+            ErrorType.Unauthorized => Results.Unauthorized(),
+            _ => Results.InternalServerError(result)
+        };
+    }
+
+    public static IResult ToHttpResult<T>(this Result<T> result) {
+        if (result.IsSuccess) {
+            return Results.Ok(result);
+        }
+
+        return result.ErrorType switch {
+            ErrorType.NotFound => Results.NotFound(result),
+            ErrorType.ValidationFailure => Results.BadRequest(result),
+            ErrorType.Unauthorized => Results.Unauthorized(),
+            _ => Results.InternalServerError(result)
         };
     }
 }

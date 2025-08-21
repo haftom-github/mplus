@@ -1,4 +1,4 @@
-using Dd.Api.Shared.Application.Results;
+using Dd.Api.Shared.Application.GlobalResults;
 using MediatR;
 
 namespace Dd.Api.Shared.Application.Cqrs;

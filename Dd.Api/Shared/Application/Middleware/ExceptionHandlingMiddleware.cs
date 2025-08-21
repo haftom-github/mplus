@@ -1,5 +1,5 @@
 using System.Text.Json;
-using Dd.Api.Shared.Application.Results;
+using Dd.Api.Shared.Application.GlobalResults;
 
 namespace Dd.Api.Shared.Application.Middleware;
 

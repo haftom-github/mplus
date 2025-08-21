@@ -1,4 +1,4 @@
-namespace Dd.Api.Shared.Application.Results;
+namespace Dd.Api.Shared.Application.GlobalResults;
 
 public enum ErrorType {
     BadRequest,

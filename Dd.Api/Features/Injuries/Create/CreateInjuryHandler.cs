@@ -1,7 +1,7 @@
 using Dd.Api.Features.Injuries.Repos;
 using Dd.Api.Shared.Application.Cqrs;
+using Dd.Api.Shared.Application.GlobalResults;
 using Dd.Api.Shared.Application.Repositories;
-using Dd.Api.Shared.Application.Results;
 using Dd.Api.Shared.Domain.MasterData;
 
 namespace Dd.Api.Features.Injuries.Create;

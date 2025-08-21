@@ -2,7 +2,7 @@ using Dd.Api.Features.Schedules.Contracts;
 using Dd.Api.Features.Schedules.Domain.Entities;
 using Dd.Api.Features.Schedules.Domain.Enums;
 using Dd.Api.Shared.Application.Cqrs;
-using Dd.Api.Shared.Application.Results;
+using Dd.Api.Shared.Application.GlobalResults;
 
 namespace Dd.Api.Features.Schedules.Create;
 

@@ -10,22 +10,24 @@ namespace Dd.Api.Features.Injuries;
 
 public class InjuryModule : CarterModule {
     public override void AddRoutes(IEndpointRouteBuilder app) {
-        app.MapPost("/injuries", async (CreateInjuryCommand command, ISender sender) => {
+        var group = app.MapGroup("/injuries");
+        
+        group.MapPost("", async (CreateInjuryCommand command, ISender sender) => {
             var result = await sender.Send(command);
             return result.ToHttpResult();
         });
 
-        app.MapGet("/injuries", async (ISender sender) => {
+        group.MapGet("", async (ISender sender) => {
             var results = await sender.Send(new GetAllInjuriesQuery());
             return results.ToHttpResult();
         });
         
-        app.MapGet("/injuries/{id:guid}", async (Guid id, ISender sender) => {
+        group.MapGet("/{id:guid}", async (Guid id, ISender sender) => {
             var result = await sender.Send(new GetInjuryQuery{Id = id});
             return result.ToHttpResult();
         });
         
-        app.MapPut("/injuries/{id:guid}", 
+        group.MapPut("/{id:guid}", 
             async (Guid id, UpdateInjuryCommand command, ISender sender) => {
             
                 command.Id = id;
@@ -33,7 +35,7 @@ public class InjuryModule : CarterModule {
                 return result.ToHttpResult();
             });
         
-        app.MapDelete("/injuries/{id:guid}", async (Guid id, ISender sender) => {
+        group.MapDelete("/{id:guid}", async (Guid id, ISender sender) => {
             var result = await sender.Send(new DeleteInjuryCommand { Id = id });
             return result.ToHttpResult();
         });
